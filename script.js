@@ -1,42 +1,32 @@
-// 맵 객체를 전역 변수로 선언
+// config.js 모듈 임포트
+import CONFIG from "./config.js";
+
+// 전역 변수 정의
 let map;
 let marker;
 let infoWindow;
-let currentLang = "en"; // 기본 언어는 영어
+let currentLang = "en";
 let polylinePath;
 let stationMarker;
-const homeLocation = { lat: 37.290236, lng: 127.017845 };
-
-// 언어 코드 매핑
-const googleMapLangCodes = {
-  en: "en",
-  ko: "ko",
-  ja: "ja",
-  zh: "zh-CN",
-};
-
-// 각 언어에 맞는 정보 창 내용
-const infoContents = {
-  en: "<strong>채움</strong><br>15-10, Suwoncheon-ro 407beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>Check-in: From 3:00 PM<br>Check-out: Until 11:00 AM",
-  ko: "<strong>채움</strong><br>경기도 수원시 장안구 수원천로407번길 15-10<br>체크인: 오후 3시부터<br>체크아웃: 오전 11시까지",
-  ja: "<strong>채움</strong><br>韓国京畿道水原市長安区水原川路407番街15-10<br>チェックイン: 午後3時から<br>チェックアウト: 午前11時まで",
-  zh: "<strong>채움</strong><br>韩国京畿道水原市长安区水原川路407番街15-10<br>入住时间: 下午3点起<br>退房时间: 上午11点前",
-};
-
-// 역 정보 창 내용
-const stationInfoContents = {
-  en: "<strong>Suwon Station</strong><br>Take bus #11, #13, or #36 to Suwoncheon Bus Stop",
-  ko: "<strong>수원역</strong><br>11번, 13번, 36번 버스 탑승 후 수원천 정류장 하차",
-  ja: "<strong>水原駅</strong><br>11番、13番、36番バスに乗車し、水原川バス停で下車",
-  zh: "<strong>水原站</strong><br>乘坐11路、13路或36路公交车，在水原川站下车",
-};
+let parkingMarkers = [];
 
 // 페이지 로드 시 이벤트 리스너 설정
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   // 초기 콘텐츠 로드
   loadLanguageContent(currentLang);
 
   // 언어 선택 기능
+  setupLanguageSelector();
+
+  // 초기 맵 로드를 위한 스크립트 추가
+  loadGoogleMapsScript(currentLang);
+
+  // 버튼 생성
+  createButtons();
+});
+
+// 언어 선택기 설정 함수
+function setupLanguageSelector() {
   document.querySelectorAll(".language-btn").forEach((button) => {
     button.addEventListener("click", function () {
       // 활성 버튼 상태 변경
@@ -53,77 +43,97 @@ document.addEventListener("DOMContentLoaded", function () {
       changeMapLanguage(lang);
     });
   });
+}
 
-  // 초기 맵 로드를 위한 스크립트 추가
-  loadGoogleMapsScript("en");
-
-  // 대중교통 경로 버튼 추가
+// 버튼 생성 함수
+function createButtons() {
   createTransitButton();
-});
+  createParkingButton();
+}
+
+// 언어별 HTML 콘텐츠 로드 함수
+async function loadLanguageContent(lang) {
+  try {
+    const response = await fetch(`./${lang}.html`);
+    const html = await response.text();
+    document.getElementById("content-container").innerHTML = html;
+
+    // 현재 언어에 맞는 컨텐츠 활성화
+    document.querySelectorAll(".language-content").forEach((content) => {
+      content.classList.remove("active");
+    });
+    document.getElementById(`content-${lang}`).classList.add("active");
+
+    // 현재 언어 업데이트
+    currentLang = lang;
+
+    // 언어에 맞게 버튼 텍스트 업데이트
+    updateButtonTexts();
+  } catch (error) {
+    console.error("언어 파일을 불러오는 중 오류 발생:", error);
+  }
+}
+
+// 버튼 텍스트 업데이트 함수
+function updateButtonTexts() {
+  // 대중교통 버튼 업데이트
+  const transitButton = document.querySelector(".transit-button");
+  if (transitButton) {
+    const stationVisible =
+      stationMarker !== null && stationMarker !== undefined;
+    const transitButtonState = stationVisible ? "hide" : "show";
+    transitButton.textContent =
+      CONFIG.texts.transitButton[transitButtonState][currentLang];
+  }
+
+  // 구글 맵 버튼 업데이트
+  const googleMapsButton = document.querySelector(".google-maps-button");
+  if (googleMapsButton) {
+    googleMapsButton.textContent = CONFIG.texts.googleMapsButton[currentLang];
+  }
+
+  // 주차장 버튼 업데이트
+  const parkingButton = document.querySelector(".parking-button");
+  if (parkingButton) {
+    const parkingVisible = parkingMarkers.length > 0;
+    const parkingButtonState = parkingVisible ? "hide" : "show";
+    parkingButton.textContent =
+      CONFIG.texts.parkingButton[parkingButtonState][currentLang];
+  }
+}
 
 // 대중교통 경로 버튼 생성 함수
 function createTransitButton() {
-  const transitButtonContainer = document.createElement("div");
-  transitButtonContainer.className = "transit-button-container";
+  const container = document.createElement("div");
+  container.className = "transit-button-container";
 
+  // 대중교통 경로 버튼
   const transitButton = document.createElement("button");
   transitButton.className = "transit-button";
-  transitButton.textContent = "수원역에서 대중교통 경로 보기";
+  transitButton.textContent = CONFIG.texts.transitButton.show[currentLang];
   transitButton.addEventListener("click", toggleStationView);
-
-  transitButtonContainer.appendChild(transitButton);
+  container.appendChild(transitButton);
 
   // 구글 맵으로 보기 버튼 추가
   const googleMapsButton = document.createElement("button");
   googleMapsButton.className = "google-maps-button";
-  googleMapsButton.textContent = "구글 맵에서 경로 보기";
+  googleMapsButton.textContent = CONFIG.texts.googleMapsButton[currentLang];
   googleMapsButton.addEventListener("click", openGoogleMapsDirections);
-
-  transitButtonContainer.appendChild(googleMapsButton);
+  container.appendChild(googleMapsButton);
 
   // 맵 컨테이너 아래에 버튼 추가
   const mapContainer = document.querySelector(".map-container");
   if (mapContainer) {
-    mapContainer.parentNode.insertBefore(
-      transitButtonContainer,
-      mapContainer.nextSibling
-    );
+    mapContainer.parentNode.insertBefore(container, mapContainer.nextSibling);
   }
-
-  // 버튼 스타일 추가
-  const style = document.createElement("style");
-  style.textContent = `
-    .transit-button-container {
-      margin-bottom: 20px;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-    .transit-button, .google-maps-button {
-      padding: 10px 15px;
-      background-color: #2ea1ff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .transit-button:hover, .google-maps-button:hover {
-      background-color: #1a91eb;
-    }
-  `;
-  document.head.appendChild(style);
 }
 
 // 수원역 표시/숨김 토글 함수
 function toggleStationView() {
   if (!stationMarker) {
     // 수원역 마커 생성
-    const suwonStation = { lat: 37.265961, lng: 127.00011 };
     stationMarker = new google.maps.Marker({
-      position: suwonStation,
+      position: CONFIG.locations.suwonStation,
       map: map,
       title: "Suwon Station",
       animation: google.maps.Animation.DROP,
@@ -134,7 +144,7 @@ function toggleStationView() {
 
     // 수원역 정보 창 생성
     const stationInfoWindow = new google.maps.InfoWindow({
-      content: stationInfoContents[currentLang],
+      content: CONFIG.texts.stationInfo[currentLang],
     });
 
     // 마커 클릭 시 정보 창 열기
@@ -146,9 +156,8 @@ function toggleStationView() {
     stationInfoWindow.open(map, stationMarker);
 
     // 직선 경로 표시
-    const accommodationLocation = homeLocation;
     polylinePath = new google.maps.Polyline({
-      path: [suwonStation, accommodationLocation],
+      path: [CONFIG.locations.suwonStation, CONFIG.locations.home],
       geodesic: true,
       strokeColor: "#2ea1ff",
       strokeOpacity: 0.7,
@@ -171,10 +180,6 @@ function toggleStationView() {
     bounds.extend(stationMarker.getPosition());
     bounds.extend(marker.getPosition());
     map.fitBounds(bounds);
-
-    // 버튼 텍스트 변경
-    document.querySelector(".transit-button").textContent =
-      getTransitButtonText(currentLang, true);
   } else {
     // 수원역 마커 숨기기
     stationMarker.setMap(null);
@@ -187,112 +192,38 @@ function toggleStationView() {
     }
 
     // 숙소 위치로 지도 중심 이동
-    const accommodationLocation = homeLocation;
-    map.setCenter(accommodationLocation);
+    map.setCenter(CONFIG.locations.home);
     map.setZoom(16);
-
-    // 버튼 텍스트 변경
-    document.querySelector(".transit-button").textContent =
-      getTransitButtonText(currentLang, false);
   }
+
+  // 버튼 텍스트 업데이트
+  updateButtonTexts();
 }
 
 // 구글 맵 경로 열기 함수
 function openGoogleMapsDirections() {
-  const suwonStation = { lat: 37.265961, lng: 127.00011 };
-  const accommodationLocation = homeLocation;
+  const suwonStation = CONFIG.locations.suwonStation;
+  const home = CONFIG.locations.home;
 
-  const url = `https://www.google.com/maps/dir/?api=1&origin=${suwonStation.lat},${suwonStation.lng}&destination=${accommodationLocation.lat},${accommodationLocation.lng}&travelmode=transit&hl=${googleMapLangCodes[currentLang]}`;
-
+  const url = `https://www.google.com/maps/dir/?api=1&origin=${suwonStation.lat},${suwonStation.lng}&destination=${home.lat},${home.lng}&travelmode=transit&hl=${CONFIG.googleMapLangCodes[currentLang]}`;
   window.open(url, "_blank");
 }
 
-// 언어별 버튼 텍스트 가져오기
-function getTransitButtonText(lang, isShowing) {
-  if (isShowing) {
-    // 역이 보이는 상태일 때
-    const hideTexts = {
-      en: "Hide Suwon Station",
-      ko: "수원역 숨기기",
-      ja: "水原駅を隠す",
-      zh: "隐藏水原站",
-    };
-    return hideTexts[lang] || hideTexts.en;
-  } else {
-    // 역이 숨겨진 상태일 때
-    const showTexts = {
-      en: "Show Suwon Station",
-      ko: "수원역 표시하기",
-      ja: "水原駅を表示",
-      zh: "显示水原站",
-    };
-    return showTexts[lang] || showTexts.en;
-  }
-}
-
-// 구글 맵 버튼 텍스트 업데이트
-function updateGoogleMapsButtonText(lang) {
-  const googleMapsButton = document.querySelector(".google-maps-button");
-  if (googleMapsButton) {
-    const buttonTexts = {
-      en: "View Route in Google Maps",
-      ko: "구글 맵에서 경로 보기",
-      ja: "Googleマップでルートを見る",
-      zh: "在Google地图中查看路线",
-    };
-    googleMapsButton.textContent = buttonTexts[lang] || buttonTexts.en;
-  }
-}
-
-// 언어별 HTML 콘텐츠 로드 함수
-async function loadLanguageContent(lang) {
-  try {
-    const response = await fetch(`./${lang}.html`);
-    const html = await response.text();
-    document.getElementById("content-container").innerHTML = html;
-
-    // 현재 언어에 맞는 컨텐츠 활성화
-    document.querySelectorAll(".language-content").forEach((content) => {
-      content.classList.remove("active");
-    });
-    document.getElementById(`content-${lang}`).classList.add("active");
-
-    // 현재 언어 업데이트
-    currentLang = lang;
-
-    // 언어에 맞게 버튼 텍스트 업데이트
-    if (stationMarker) {
-      document.querySelector(".transit-button").textContent =
-        getTransitButtonText(lang, true);
-    } else {
-      document.querySelector(".transit-button").textContent =
-        getTransitButtonText(lang, false);
-    }
-
-    // 구글 맵 버튼 텍스트 업데이트
-    updateGoogleMapsButtonText(lang);
-  } catch (error) {
-    console.error("언어 파일을 불러오는 중 오류 발생:", error);
-  }
-}
-
-// 맵 초기화 함수
-function initMap() {
-  const accommodationLocation = { lat: 37.290236, lng: 127.017845 };
-
+// 맵 초기화 함수 - 전역 객체에 할당하여 Google Maps API가 접근할 수 있게 함
+window.initMap = function () {
   // 지도 생성
   map = new google.maps.Map(document.getElementById("map"), {
-    center: accommodationLocation,
+    center: CONFIG.locations.home,
     zoom: 16,
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: true,
-    language: googleMapLangCodes[currentLang], // 현재 언어 설정
+    language: CONFIG.googleMapLangCodes[currentLang], // 현재 언어 설정
   });
 
   // 숙소 위치에 마커 추가
   marker = new google.maps.Marker({
-    position: accommodationLocation,
+    position: CONFIG.locations.home,
     map: map,
     title: "Accommodation Location",
     animation: google.maps.Animation.DROP,
@@ -300,7 +231,7 @@ function initMap() {
 
   // 정보 창 생성
   infoWindow = new google.maps.InfoWindow({
-    content: infoContents[currentLang],
+    content: CONFIG.texts.infoContents[currentLang],
   });
 
   // 마커 클릭 시 정보 창 열기
@@ -310,7 +241,7 @@ function initMap() {
 
   // 페이지 로드 시 정보 창 자동으로 열기
   infoWindow.open(map, marker);
-}
+};
 
 // 맵 언어 변경 함수
 function changeMapLanguage(lang) {
@@ -319,8 +250,11 @@ function changeMapLanguage(lang) {
 
   // 정보 창 내용 업데이트
   if (infoWindow) {
-    infoWindow.setContent(infoContents[lang]);
+    infoWindow.setContent(CONFIG.texts.infoContents[lang]);
   }
+
+  // 주차장 마커 정보 업데이트
+  updateParkingMarkers();
 
   // 맵 API를 다시 로드하여 언어 변경
   loadGoogleMapsScript(lang);
@@ -343,10 +277,143 @@ function loadGoogleMapsScript(lang) {
   }
 
   // 새로운 언어로 구글 맵 API 스크립트 로드
-  const googleMapLang = googleMapLangCodes[lang] || "en";
+  const googleMapLang = CONFIG.googleMapLangCodes[lang] || "en";
   const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAawtOUOZm0honfXoXNsYoW7lRtAkqv8zk&callback=initMap&language=${googleMapLang}`;
+  script.src = `https://maps.googleapis.com/maps/api/js?key=${CONFIG.googleMapsApiKey}&callback=initMap&language=${googleMapLang}`;
   script.async = true;
   script.defer = true;
   document.body.appendChild(script);
+}
+
+// 주차장 표시 토글 버튼 생성 함수
+function createParkingButton() {
+  const container = document.createElement("div");
+  container.className = "parking-button-container";
+
+  const parkingButton = document.createElement("button");
+  parkingButton.className = "parking-button";
+  parkingButton.textContent = CONFIG.texts.parkingButton.show[currentLang];
+  parkingButton.addEventListener("click", toggleParkingView);
+
+  container.appendChild(parkingButton);
+
+  // 버튼을 맵 컨테이너 아래에 추가
+  const transitButtonContainer = document.querySelector(
+    ".transit-button-container"
+  );
+  if (transitButtonContainer) {
+    transitButtonContainer.parentNode.insertBefore(
+      container,
+      transitButtonContainer.nextSibling
+    );
+  }
+}
+
+// 주차장 표시/숨김 토글 함수
+function toggleParkingView() {
+  if (parkingMarkers.length === 0) {
+    // 주차장 마커 생성
+    CONFIG.parkingLocations.forEach((location) => {
+      // 마커 색상 설정 (무료는 초록색, 유료는 파란색)
+      const iconUrl =
+        location.type === "free"
+          ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+          : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+
+      const marker = new google.maps.Marker({
+        position: { lat: location.lat, lng: location.lng },
+        map: map,
+        title: location.title[currentLang],
+        animation: google.maps.Animation.DROP,
+        icon: { url: iconUrl },
+      });
+
+      // 정보 창 생성
+      const infoWindow = new google.maps.InfoWindow({
+        content: `<strong>${location.title[currentLang]}</strong>`,
+      });
+
+      // 마커 클릭 시 정보 창 열기
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+
+      // 마커 배열에 추가
+      parkingMarkers.push({ marker, infoWindow });
+    });
+
+    // 주차장 범례 추가
+    addParkingLegend();
+  } else {
+    // 주차장 마커 제거
+    parkingMarkers.forEach((item) => {
+      item.marker.setMap(null);
+      if (item.infoWindow) {
+        item.infoWindow.close();
+      }
+    });
+
+    // 주차장 마커 배열 초기화
+    parkingMarkers = [];
+
+    // 범례 제거
+    const legend = document.querySelector(".parking-legend");
+    if (legend) {
+      legend.remove();
+    }
+  }
+
+  // 버튼 텍스트 업데이트
+  updateButtonTexts();
+}
+
+// 범례 추가 함수
+function addParkingLegend() {
+  // 이미 범례가 있는지 확인
+  if (document.querySelector(".parking-legend")) {
+    return;
+  }
+
+  const legend = document.createElement("div");
+  legend.className = "parking-legend";
+
+  const legendContent = `
+    <div style="background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); margin-top: 10px;">
+      <div style="margin-bottom: 8px; font-weight: bold;">${CONFIG.texts.parkingLegend.title[currentLang]}</div>
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" width="20" height="20" style="margin-right: 5px;">
+        <span>${CONFIG.texts.parkingLegend.free[currentLang]}</span>
+      </div>
+      <div style="display: flex; align-items: center;">
+        <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" width="20" height="20" style="margin-right: 5px;">
+        <span>${CONFIG.texts.parkingLegend.paid[currentLang]}</span>
+      </div>
+    </div>
+  `;
+
+  legend.innerHTML = legendContent;
+
+  // 맵에 범례 추가
+  map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+}
+
+// 언어 변경 시 주차장 마커 업데이트 함수
+function updateParkingMarkers() {
+  // 주차장 마커가 있을 경우에만 마커와 범례 업데이트
+  if (parkingMarkers.length > 0) {
+    parkingMarkers.forEach((item, index) => {
+      const location = CONFIG.parkingLocations[index];
+      item.marker.setTitle(location.title[currentLang]);
+      item.infoWindow.setContent(
+        `<strong>${location.title[currentLang]}</strong>`
+      );
+    });
+
+    // 범례 제거 후 다시 추가 (언어 업데이트)
+    const legend = document.querySelector(".parking-legend");
+    if (legend) {
+      legend.remove();
+      addParkingLegend();
+    }
+  }
 }
