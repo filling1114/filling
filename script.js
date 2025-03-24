@@ -5,6 +5,7 @@ let infoWindow;
 let currentLang = "en"; // 기본 언어는 영어
 let polylinePath;
 let stationMarker;
+const homeLocation = { lat: 37.290236, lng: 127.017845 };
 
 // 언어 코드 매핑
 const googleMapLangCodes = {
@@ -16,10 +17,10 @@ const googleMapLangCodes = {
 
 // 각 언어에 맞는 정보 창 내용
 const infoContents = {
-  en: "<strong>채움</strong><br> 15-10, Suwoncheon-ro 407beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>Check-in: 3:00 PM - 10:00 PM",
-  ko: "<strong>채움</strong><br>경기도 수원시 장안구 수원천로407번길 15-10<br>체크인: 오후 3시 ~ 오후 10시",
-  ja: "<strong>채움</strong><br>韩国京畿道水原市长安区水原川路407番街15-10<br>チェックイン: 午後3時 ~ 午後10時",
-  zh: "<strong>채움</strong><br>韓国京畿道水原市長安区水原川路407番ギル15-10<br>入住时间: 下午3点 - 下午10点",
+  en: "<strong>채움</strong><br>15-10, Suwoncheon-ro 407beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>Check-in: From 3:00 PM<br>Check-out: Until 11:00 AM",
+  ko: "<strong>채움</strong><br>경기도 수원시 장안구 수원천로407번길 15-10<br>체크인: 오후 3시부터<br>체크아웃: 오전 11시까지",
+  ja: "<strong>채움</strong><br>韓国京畿道水原市長安区水原川路407番街15-10<br>チェックイン: 午後3時から<br>チェックアウト: 午前11時まで",
+  zh: "<strong>채움</strong><br>韩国京畿道水原市长安区水原川路407番街15-10<br>入住时间: 下午3点起<br>退房时间: 上午11点前",
 };
 
 // 역 정보 창 내용
@@ -145,7 +146,7 @@ function toggleStationView() {
     stationInfoWindow.open(map, stationMarker);
 
     // 직선 경로 표시
-    const accommodationLocation = { lat: 37.290497, lng: 127.017775 };
+    const accommodationLocation = homeLocation;
     polylinePath = new google.maps.Polyline({
       path: [suwonStation, accommodationLocation],
       geodesic: true,
@@ -186,7 +187,7 @@ function toggleStationView() {
     }
 
     // 숙소 위치로 지도 중심 이동
-    const accommodationLocation = { lat: 37.290497, lng: 127.017775 };
+    const accommodationLocation = homeLocation;
     map.setCenter(accommodationLocation);
     map.setZoom(16);
 
@@ -199,7 +200,7 @@ function toggleStationView() {
 // 구글 맵 경로 열기 함수
 function openGoogleMapsDirections() {
   const suwonStation = { lat: 37.265961, lng: 127.00011 };
-  const accommodationLocation = { lat: 37.290497, lng: 127.017775 };
+  const accommodationLocation = homeLocation;
 
   const url = `https://www.google.com/maps/dir/?api=1&origin=${suwonStation.lat},${suwonStation.lng}&destination=${accommodationLocation.lat},${accommodationLocation.lng}&travelmode=transit&hl=${googleMapLangCodes[currentLang]}`;
 
@@ -277,7 +278,7 @@ async function loadLanguageContent(lang) {
 
 // 맵 초기화 함수
 function initMap() {
-  const accommodationLocation = { lat: 37.290497, lng: 127.017775 };
+  const accommodationLocation = { lat: 37.290236, lng: 127.017845 };
 
   // 지도 생성
   map = new google.maps.Map(document.getElementById("map"), {
