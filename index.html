@@ -1,69 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>
-      How to Find Our Accommodation | 숙소 찾아오는 길 | 宿泊施設への行き方 |
-      如何找到我们的住宿
-    </title>
+    <title>채움 | Guest Guide</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="language-selector">
-        <button class="language-btn active" data-lang="en">English</button>
-        <button class="language-btn" data-lang="ko">한국어</button>
-        <button class="language-btn" data-lang="ja">日本語</button>
-        <button class="language-btn" data-lang="zh">中文</button>
-      </div>
-
-      <div class="map-container">
-        <div id="map"></div>
-      </div>
-
-      <!-- 언어별 콘텐츠가 여기에 로드됩니다 -->
-      <div id="content-container">
-        <!-- English Content -->
-        <div class="language-content active" id="content-en">
-          <h1>How to Find Our Accommodation</h1>
-
-          <div class="directions">
-            <h2>By Public Transportation</h2>
-            <ul>
-              <li>
-                Bus: Take bus <strong>#35</strong> from
-                <strong>Suwon Station (Yeokjeon Market)</strong> stop, get off at
-                <strong>Gyoyukcheongsageori</strong>, then walk 3 minutes (approx. 29 min).
-              </li>
-              <li>
-                Taxi: Approximately 10-20 minutes from Suwon Station (about 4km).
-              </li>
-            </ul>
-          </div>
-
-          <div class="directions">
-            <h2>By Car</h2>
-            <ul>
-              <li>
-                Enter the address
-                <strong
-                  >"36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si,
-                  Gyeonggi-do"</strong
-                >
-                into your navigation system.
-              </li>
-              <li>
-                Parking: Jangan-gu Office Parking available (₩7,000 per day).
-              </li>
-            </ul>
+    <div class="page-wrapper">
+      <header class="site-header">
+        <div class="header-inner">
+          <h1 class="site-title">채움</h1>
+          <p class="site-subtitle" id="site-subtitle">Guest Guide</p>
+          <div class="language-selector">
+            <button class="language-btn active" data-lang="en">English</button>
+            <button class="language-btn" data-lang="ko">한국어</button>
+            <button class="language-btn" data-lang="ja">日本語</button>
+            <button class="language-btn" data-lang="zh">中文</button>
           </div>
         </div>
-      </div>
+      </header>
+
+      <main class="container">
+        <section class="section section-map">
+          <div class="section-header">
+            <span class="section-icon">📍</span>
+            <h2 class="section-title" id="section-title-location">Location</h2>
+          </div>
+          <div class="map-container">
+            <div id="map"></div>
+          </div>
+        </section>
+
+        <div id="content-container">
+          <div class="language-content active" id="content-en">
+            <h1>Directions to the Accommodation</h1>
+
+            <div class="directions">
+              <h2>🚌 By Public Transportation</h2>
+              <ul>
+                <li>
+                  Bus: Take bus <strong>#35</strong> from
+                  <strong>Suwon Station (Yeokjeon Market)</strong> stop, get off
+                  at <strong>Gyoyukcheongsageori</strong>, then walk 3 minutes
+                  (approx. 29 min).
+                </li>
+                <li>
+                  Taxi: Approximately 10-20 minutes from Suwon Station (about
+                  4km).
+                </li>
+              </ul>
+            </div>
+
+            <div class="directions">
+              <h2>🚗 By Car</h2>
+              <ul>
+                <li>
+                  Enter the address
+                  <strong
+                    >"36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si,
+                    Gyeonggi-do"</strong
+                  >
+                  into your navigation system.
+                </li>
+                <li>
+                  Parking: Jangan-gu Office Parking available (₩7,000 per day).
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        Made with <span class="heart">♥</span> for our guests at 채움
+      </footer>
     </div>
 
-    <!-- 외부 JavaScript 파일 연결 -->
     <script type="module" src="./config.js"></script>
     <script type="module" src="./script.js"></script>
   </body>

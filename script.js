@@ -67,6 +67,14 @@ async function loadLanguageContent(lang) {
     // 현재 언어 업데이트
     currentLang = lang;
 
+    // 헤더 부제 및 섹션 제목 다국어 업데이트
+    const subtitleTexts = { en: "Guest Guide", ko: "게스트 가이드", ja: "ゲストガイド", zh: "宾客指南" };
+    const locationTexts = { en: "Location", ko: "위치", ja: "場所", zh: "位置" };
+    const subtitleEl = document.getElementById("site-subtitle");
+    if (subtitleEl) subtitleEl.textContent = subtitleTexts[lang];
+    const locationEl = document.getElementById("section-title-location");
+    if (locationEl) locationEl.textContent = locationTexts[lang];
+
     // 언어에 맞게 버튼 텍스트 업데이트
     updateButtonTexts();
   } catch (error) {
