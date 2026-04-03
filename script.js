@@ -138,7 +138,7 @@ function toggleStationView() {
       title: "Suwon Station",
       animation: google.maps.Animation.DROP,
       icon: {
-        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+        url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
       },
     });
 
@@ -312,15 +312,19 @@ function createParkingButton() {
 // 주차장 표시/숨김 토글 함수
 function toggleParkingView() {
   if (parkingMarkers.length === 0) {
+    // 숙소 InfoWindow 닫기 (주차장 마커가 가려지지 않도록)
+    if (infoWindow) {
+      infoWindow.close();
+    }
+
     // 주차장 마커 생성
     CONFIG.parkingLocations.forEach((location) => {
-      // 마커 색상 설정 (무료는 초록색, 유료는 파란색)
       const iconUrl =
         location.type === "free"
-          ? "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-          : "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+          ? "https://maps.google.com/mapfiles/ms/icons/green-dot.png"
+          : "https://maps.google.com/mapfiles/ms/icons/blue-dot.png";
 
-      const marker = new google.maps.Marker({
+      const parkingMarker = new google.maps.Marker({
         position: { lat: location.lat, lng: location.lng },
         map: map,
         title: location.title[currentLang],
@@ -329,18 +333,26 @@ function toggleParkingView() {
       });
 
       // 정보 창 생성
-      const infoWindow = new google.maps.InfoWindow({
+      const parkingInfoWindow = new google.maps.InfoWindow({
         content: `<strong>${location.title[currentLang]}</strong>`,
       });
 
       // 마커 클릭 시 정보 창 열기
-      marker.addListener("click", () => {
-        infoWindow.open(map, marker);
+      parkingMarker.addListener("click", () => {
+        parkingInfoWindow.open(map, parkingMarker);
       });
 
       // 마커 배열에 추가
-      parkingMarkers.push({ marker, infoWindow });
+      parkingMarkers.push({ marker: parkingMarker, infoWindow: parkingInfoWindow });
     });
+
+    // 숙소 + 주차장 모두 보이도록 지도 범위 조정
+    const bounds = new google.maps.LatLngBounds();
+    bounds.extend(marker.getPosition());
+    parkingMarkers.forEach((item) => {
+      bounds.extend(item.marker.getPosition());
+    });
+    map.fitBounds(bounds);
 
     // 주차장 범례 추가
     addParkingLegend();
@@ -361,6 +373,13 @@ function toggleParkingView() {
     if (legend) {
       legend.remove();
     }
+
+    // 숙소 위치로 복귀 및 InfoWindow 다시 열기
+    map.setCenter(CONFIG.locations.home);
+    map.setZoom(16);
+    if (infoWindow) {
+      infoWindow.open(map, marker);
+    }
   }
 
   // 버튼 텍스트 업데이트
@@ -380,12 +399,8 @@ function addParkingLegend() {
   const legendContent = `
     <div style="background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); margin-top: 10px;">
       <div style="margin-bottom: 8px; font-weight: bold;">${CONFIG.texts.parkingLegend.title[currentLang]}</div>
-      <div style="display: flex; align-items: center; margin-bottom: 5px;">
-        <img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" width="20" height="20" style="margin-right: 5px;">
-        <span>${CONFIG.texts.parkingLegend.free[currentLang]}</span>
-      </div>
       <div style="display: flex; align-items: center;">
-        <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" width="20" height="20" style="margin-right: 5px;">
+        <img src="https://maps.google.com/mapfiles/ms/icons/blue-dot.png" width="20" height="20" style="margin-right: 5px;">
         <span>${CONFIG.texts.parkingLegend.paid[currentLang]}</span>
       </div>
     </div>
