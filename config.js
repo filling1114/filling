@@ -17,10 +17,10 @@ const CONFIG = {
   // 각 언어별 텍스트 정의
   texts: {
     infoContents: {
-      en: "<strong>채움</strong><br>36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>(Ilyang Villa B-dong B102)<br>Check-in: From 3:00 PM<br>Check-out: Until 11:00 AM",
-      ko: "<strong>채움</strong><br>경기도 수원시 장안구 송원로86번길 36<br>일양빌라B동 B102호<br>체크인: 오후 3시부터<br>체크아웃: 오전 11시까지",
-      ja: "<strong>채움</strong><br>36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>(Ilyang Villa B-dong B102)<br>チェックイン: 午後3時から<br>チェックアウト: 午前11時まで",
-      zh: "<strong>채움</strong><br>36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>(Ilyang Villa B-dong B102)<br>入住时间: 下午3点起<br>退房时间: 上午11点前",
+      en: "<strong>베이스가든(Base Garden)</strong><br>36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>(Ilyang Villa B-dong B102)<br>Check-in: From 4:00 PM<br>Check-out: Until 11:00 AM",
+      ko: "<strong>베이스가든(Base Garden)</strong><br>경기도 수원시 장안구 송원로86번길 36<br>일양빌라B동 B102호<br>체크인: 오후 4시부터<br>체크아웃: 오전 11시까지",
+      ja: "<strong>베이스가든(Base Garden)</strong><br>36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>(Ilyang Villa B-dong B102)<br>チェックイン: 午後4時から<br>チェックアウト: 午前11時まで",
+      zh: "<strong>베이스가든(Base Garden)</strong><br>36, Songwon-ro 86beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>(Ilyang Villa B-dong B102)<br>入住时间: 下午4点起<br>退房时间: 上午11点前",
     },
     stationInfo: {
       en: "<strong>Suwon Station</strong><br>Take bus #35 to Gyoyukcheongsageori Stop",

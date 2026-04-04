@@ -1,9 +1,9 @@
 /* ===== CSS Custom Properties ===== */
 :root {
-  --color-primary: #FF5A5F;
-  --color-primary-dark: #E04850;
-  --color-primary-light: #FFB4A2;
-  --color-bg: #FFF8F0;
+  --color-primary: #5A9E6F;
+  --color-primary-dark: #4A8A5E;
+  --color-primary-light: #B5D4C0;
+  --color-bg: #F5F9F2;
   --color-card: #FFFFFF;
   --color-text: #3D3D3D;
   --color-text-secondary: #555;
@@ -40,7 +40,7 @@ body {
 
 /* ===== Header ===== */
 .site-header {
-  background: linear-gradient(135deg, #FF5A5F 0%, #FF8A8E 50%, #FFB4A2 100%);
+  background: linear-gradient(135deg, #4A8A5E 0%, #5A9E6F 50%, #7BB88D 100%);
   padding: 48px 24px 40px;
   text-align: center;
   position: relative;
@@ -78,12 +78,20 @@ body {
 
 .site-title {
   font-family: var(--font-heading);
-  font-size: 52px;
+  font-size: 42px;
   font-weight: 900;
   color: #fff;
   letter-spacing: 2px;
   text-shadow: 0 2px 12px rgba(0,0,0,0.1);
   margin: 0;
+  line-height: 1.2;
+}
+
+.site-title-en {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.85;
 }
 
 .site-subtitle {
@@ -206,13 +214,13 @@ body {
   border: none;
   background: var(--color-primary);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(255,90,95,0.3);
+  box-shadow: 0 4px 12px rgba(90,158,111,0.3);
   transition: all 0.2s ease;
 }
 
 .transit-button:hover {
   background: var(--color-primary-dark);
-  box-shadow: 0 6px 16px rgba(255,90,95,0.4);
+  box-shadow: 0 6px 16px rgba(90,158,111,0.4);
 }
 
 .google-maps-button {
@@ -228,13 +236,13 @@ body {
   cursor: pointer;
   background: #fff;
   color: var(--color-primary);
-  border: 2px solid #FFD5D6;
+  border: 2px solid #C2DBC9;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   transition: all 0.2s ease;
 }
 
 .google-maps-button:hover {
-  background: #FFF5F5;
+  background: #EDF5EF;
   border-color: var(--color-primary);
 }
 
@@ -254,14 +262,14 @@ body {
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  background: #FFF0F0;
+  background: #EDF5EF;
   color: var(--color-primary);
-  border: 2px solid #FFD5D6;
+  border: 2px solid #C2DBC9;
   transition: all 0.2s ease;
 }
 
 .parking-button:hover {
-  background: #FFE5E5;
+  background: #DCEEE0;
   border-color: var(--color-primary);
 }
 
@@ -345,7 +353,7 @@ body {
 .divider {
   width: 48px;
   height: 4px;
-  background: linear-gradient(90deg, #FF5A5F, #FFB4A2);
+  background: linear-gradient(90deg, #5A9E6F, #B5D4C0);
   border-radius: 2px;
   margin: 32px auto;
   border: none;
@@ -430,7 +438,7 @@ body {
   width: 36px;
   height: 36px;
   min-width: 36px;
-  background: linear-gradient(135deg, #FF5A5F, #FF8A8E);
+  background: linear-gradient(135deg, #5A9E6F, #7BB88D);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -439,7 +447,7 @@ body {
   font-size: 16px;
   font-weight: 800;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(255,90,95,0.3);
+  box-shadow: 0 2px 8px rgba(90,158,111,0.3);
 }
 
 .checkin-step-title {
