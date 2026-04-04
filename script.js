@@ -54,7 +54,7 @@ function createButtons() {
 // 언어별 HTML 콘텐츠 로드 함수
 async function loadLanguageContent(lang) {
   try {
-    const response = await fetch(`./${lang}.html`);
+    const response = await fetch(`./lang/${lang}.html`);
     const html = await response.text();
     document.getElementById("content-container").innerHTML = html;
 

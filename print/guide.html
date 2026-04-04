@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>숙소 이용 안내</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #5A9E6F;
+      --green-light: #e8f5e9;
+      --green-dark: #3d7a4f;
+      --text: #2c3e2c;
+      --text-light: #5a6e5a;
+      --bg: #f5f9f5;
+      --white: #ffffff;
+      --border: #d4e4d4;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Nunito', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Screen Layout ── */
+    .screen-controls {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--green);
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 4px;
+      background: var(--green-light);
+      border-radius: 8px;
+      padding: 4px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--green-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(90,158,111,0.15);
+    }
+
+    .tab-btn.active {
+      background: var(--green);
+      color: var(--white);
+      box-shadow: 0 2px 4px rgba(90,158,111,0.3);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .print-btn {
+      border: 2px solid var(--green);
+      background: var(--white);
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--green);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .print-btn:hover {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary:hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+    }
+
+    /* ── Page Content ── */
+    .lang-section {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 24px 48px;
+    }
+
+    .lang-section.visible {
+      display: block;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--green);
+    }
+
+    .page-header h1 {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-header .welcome {
+      font-size: 17px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* ── Info Box (체크인/Wi-Fi) ── */
+    .info-box {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .info-box .info-card {
+      flex: 1;
+      background: var(--green-light);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+    }
+
+    .info-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .info-card strong {
+      color: var(--green-dark);
+    }
+
+    /* ── Section ── */
+    .info-section {
+      margin-bottom: 22px;
+    }
+
+    .info-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--green-light);
+    }
+
+    .info-section p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .info-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-section ul li {
+      font-size: 15.5px;
+      line-height: 1.65;
+      padding: 3px 0 3px 20px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .info-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .info-section ul.rules li::before {
+      display: none;
+    }
+
+    .info-section ol {
+      padding-left: 24px;
+    }
+
+    .info-section ol li {
+      font-size: 15.5px;
+      line-height: 1.65;
+      padding: 3px 0;
+      color: var(--text);
+    }
+
+    .footer-line {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px solid var(--green-light);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    /* ── Print Styles ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+
+      body {
+        background: white;
+        font-size: 12pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .screen-controls {
+        display: none !important;
+      }
+
+      .lang-section {
+        display: none !important;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        page-break-inside: avoid;
+      }
+
+      .lang-section.print-target {
+        display: block !important;
+        page-break-after: always;
+      }
+
+      .lang-section.print-target:last-of-type {
+        page-break-after: auto;
+      }
+
+      body.print-single .lang-section.print-target {
+        page-break-after: auto;
+      }
+
+      .page-header h1 { font-size: 22pt; }
+      .page-header .welcome { font-size: 12pt; }
+
+      .info-section { margin-bottom: 12pt; }
+      .info-section h2 { font-size: 13pt; }
+      .info-section p { font-size: 11pt; line-height: 1.5; }
+      .info-section ul li, .info-section ol li { font-size: 10.5pt; line-height: 1.45; }
+      .info-section ul li::before { top: 7pt; width: 5pt; height: 5pt; }
+
+      .info-box { gap: 10pt; margin-bottom: 14pt; }
+      .info-card { padding: 8pt 12pt; }
+      .info-card h3 { font-size: 11pt; margin-bottom: 4pt; }
+      .info-card p { font-size: 10.5pt; line-height: 1.5; }
+
+      .footer-line { font-size: 10pt; margin-top: 10pt; padding-top: 8pt; }
+    }
+
+    /* ── Responsive ── */
+    @media screen and (max-width: 640px) {
+      .screen-controls {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btns {
+        margin-left: 0;
+        justify-content: stretch;
+      }
+      .print-btn { flex: 1; text-align: center; }
+      .tab-btn { padding: 8px 12px; font-size: 13px; }
+      .lang-section { padding: 24px 16px 40px; }
+      .page-header h1 { font-size: 24px; }
+      .info-box { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Screen Controls ── -->
+  <div class="screen-controls">
+    <div class="tab-group">
+      <button class="tab-btn active" data-lang="ko">한국어</button>
+      <button class="tab-btn" data-lang="en">English</button>
+      <button class="tab-btn" data-lang="zh">中文</button>
+      <button class="tab-btn" data-lang="ja">日本語</button>
+    </div>
+    <div class="action-btns">
+      <button class="print-btn" onclick="printSingle()">이 언어만 출력 (Print this language)</button>
+      <button class="print-btn primary" onclick="printAll()">전체 출력 (Print all)</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Korean -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section visible" data-lang="ko">
+    <div class="page-header">
+      <h1>🏡 숙소 이용 안내</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 체크인 &amp; 체크아웃</h3>
+        <p>입실 : 오후 4시 이후<br>퇴실 : 오전 11시까지</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>ID : <strong>skyiptimeECA5</strong><br>PWD : <strong>skylifeca5</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 TV 사용법</h2>
+      <ol>
+        <li>모니터 아래쪽 전원 버튼 누르기</li>
+        <li>셋톱박스가 시간으로 표시되면 다음으로 진행</li>
+        <li>검정색 리모콘으로 셋톱박스 전원 버튼 누르기 → TV 화면 출력</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 인덕션레인지 사용법</h2>
+      <ol>
+        <li>다이얼을 눌러 전원 켜기</li>
+        <li>다이얼을 좌우로 돌려 온도 조절 후 사용</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ 커피머신 사용법</h2>
+      <ul>
+        <li><strong>아이스:</strong> 캡슐 넣기 → 뚜껑 닫기 → 왼쪽 작은 컵 버튼 누르기 → 얼음 &amp; 물 추가</li>
+        <li><strong>핫:</strong> 캡슐 넣기 → 뚜껑 닫기 → 왼쪽 작은 컵 버튼 누르기 → 캡슐 빼기 → 오른쪽 버튼으로 물 추가</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 숙소 규칙 및 주의사항</h2>
+      <ul class="rules">
+        <li>✅ 숙소 내부 및 외부 금연</li>
+        <li>✅ 냄새가 심하거나 기름이 많이 튀는 요리는 자제 부탁드립니다.</li>
+        <li>✅ 객실 내 비치된 물품(가구, 가전, 집기류 등)의 고장·파손·분실 발생 시 즉시 호스트에게 연락 주세요.</li>
+        <li>❌ 호스트에게 알리지 않고 체크아웃할 경우 추가 비용이 발생할 수 있습니다.</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🔑 퇴실 시 유의사항</h2>
+      <ul class="rules">
+        <li>✅ 쓰레기(음식물/일반/재활용)를 지정된 통에 분리배출 해주세요.</li>
+        <li>✅ 사용한 수건은 세탁 바구니에 넣어주세요.</li>
+        <li>✅ 퇴실 전 전체 소등, 보일러 &amp; 에어컨 전원 OFF 확인해주세요.</li>
+        <li>✅ 대문 열쇠 반납 필수! 🔑</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 편안한 여행 되세요! 🚪✨</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- English -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="en">
+    <div class="page-header">
+      <h1>🏡 Accommodation Guide</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 Check-in &amp; Check-out</h3>
+        <p>Check-in : After 4:00 PM<br>Check-out : By 11:00 AM</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>ID : <strong>skyiptimeECA5</strong><br>PWD : <strong>skylifeca5</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 How to Use the TV</h2>
+      <ol>
+        <li>Press the power button on the bottom of the monitor.</li>
+        <li>When the set-top box displays the time, proceed to the next step.</li>
+        <li>Press the power button on the black remote → TV screen turns on.</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 How to Use the Induction Stove</h2>
+      <ol>
+        <li>Press the dial to turn it on.</li>
+        <li>Turn the dial left or right to adjust the heat.</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ How to Use the Coffee Machine</h2>
+      <ul>
+        <li><strong>Iced Coffee:</strong> Insert a capsule → Close the lid → Press the small left cup button → Add ice &amp; water.</li>
+        <li><strong>Hot Coffee:</strong> Insert a capsule → Close the lid → Press the small left cup button → Remove capsule → Press the large right cup button to add water.</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 Rules &amp; Precautions</h2>
+      <ul class="rules">
+        <li>✅ No smoking inside or outside the accommodation.</li>
+        <li>✅ Please avoid cooking strong-smelling or greasy food.</li>
+        <li>✅ If any item (furniture, appliances, utensils, etc.) is damaged, broken, or lost, please inform the host immediately.</li>
+        <li>❌ Failure to report damages before checkout may result in additional charges.</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🔑 Before Checking Out</h2>
+      <ul class="rules">
+        <li>✅ Sort and dispose of garbage (food waste/general/recycling) in designated bins.</li>
+        <li>✅ Place used towels in the laundry basket.</li>
+        <li>✅ Turn off all lights, heater, and air conditioner before leaving.</li>
+        <li>✅ Return the main door key! 🔑</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 Enjoy your stay! 🚪✨</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Chinese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="zh">
+    <div class="page-header">
+      <h1>🏡 住宿指南</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 入住 &amp; 退房</h3>
+        <p>入住 : 下午4点后<br>退房 : 上午11点前</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>ID : <strong>skyiptimeECA5</strong><br>PWD : <strong>skylifeca5</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 电视使用方法</h2>
+      <ol>
+        <li>按下显示器底部的电源按钮。</li>
+        <li>当机顶盒显示时间后，进入下一步。</li>
+        <li>按黑色遥控器上的机顶盒电源按钮 → 电视画面显示。</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 电磁炉使用方法</h2>
+      <ol>
+        <li>按下旋钮打开电源。</li>
+        <li>左右旋转旋钮调节温度。</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ 咖啡机使用方法</h2>
+      <ul>
+        <li><strong>冰咖啡:</strong> 放入胶囊 → 关闭盖子 → 按左侧小杯按钮 → 加冰和水。</li>
+        <li><strong>热咖啡:</strong> 放入胶囊 → 关闭盖子 → 按左侧小杯按钮 → 取出胶囊 → 按右侧大杯按钮加水。</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 住宿规定 &amp; 注意事项</h2>
+      <ul class="rules">
+        <li>✅ 室内外禁止吸烟。</li>
+        <li>✅ 请避免烹饪气味浓重或油烟大的食物。</li>
+        <li>✅ 若房内物品（家具、电器、餐具等）损坏、丢失或故障，请立即通知房东。</li>
+        <li>❌ 若未提前报告损坏情况，可能会产生额外费用。</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🔑 退房前请注意</h2>
+      <ul class="rules">
+        <li>✅ 请分类丢弃垃圾（厨余/一般/可回收）。</li>
+        <li>✅ 用过的毛巾请放入洗衣篮。</li>
+        <li>✅ 离开前请关闭所有灯光、暖气和空调。</li>
+        <li>✅ 务必归还房门钥匙！ 🔑</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 祝您入住愉快！ 🚪✨</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Japanese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="ja">
+    <div class="page-header">
+      <h1>🏡 宿泊ガイド</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 チェックイン &amp; チェックアウト</h3>
+        <p>チェックイン : 午後4時以降<br>チェックアウト : 午前11時まで</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>ID : <strong>skyiptimeECA5</strong><br>PWD : <strong>skylifeca5</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 テレビの使い方</h2>
+      <ol>
+        <li>モニター下部の電源ボタンを押す。</li>
+        <li>セットトップボックスに時間が表示されたら、次のステップへ。</li>
+        <li>黒いリモコンでセットトップボックスの電源を入れる → テレビ画面が表示される。</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 IHコンロの使い方</h2>
+      <ol>
+        <li>ダイヤルを押して電源を入れる。</li>
+        <li>ダイヤルを左右に回して温度を調整。</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ コーヒーマシンの使い方</h2>
+      <ul>
+        <li><strong>アイスコーヒー:</strong> カプセルを入れる → フタを閉める → 左の小さいカップボタンを押す → 氷と水を追加。</li>
+        <li><strong>ホットコーヒー:</strong> カプセルを入れる → フタを閉める → 左の小さいカップボタンを押す → カプセルを取り出す → 右の大きいカップボタンでお湯を追加。</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 宿泊ルール &amp; 注意事項</h2>
+      <ul class="rules">
+        <li>✅ 宿泊施設内外は禁煙です。</li>
+        <li>✅ 匂いが強い料理や油ハネの多い調理はご遠慮ください。</li>
+        <li>✅ 室内の備品（家具、家電、食器など）が破損・紛失・故障した場合は、すぐにホストにご連絡ください。</li>
+        <li>❌ 報告なしでチェックアウトすると追加料金が発生する場合があります。</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🔑 チェックアウト時の注意点</h2>
+      <ul class="rules">
+        <li>✅ ゴミ（生ゴミ・一般ゴミ・リサイクル）を分別して捨ててください。</li>
+        <li>✅ 使用済みのタオルはランドリーバスケットへ。</li>
+        <li>✅ 退室前にすべての照明、暖房、エアコンの電源をオフにしてください。</li>
+        <li>✅ 玄関の鍵を必ず返却！ 🔑</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 快適なご滞在をお楽しみください！ 🚪✨</div>
+  </section>
+
+  <!-- ── Script ── -->
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.lang-section');
+    let activeLang = 'ko';
+
+    // Tab switching
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeLang = btn.dataset.lang;
+
+        tabs.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+
+        sections.forEach(s => {
+          s.classList.toggle('visible', s.dataset.lang === activeLang);
+        });
+      });
+    });
+
+    // Print single language
+    function printSingle() {
+      document.body.classList.add('print-single');
+      sections.forEach(s => {
+        s.classList.toggle('print-target', s.dataset.lang === activeLang);
+      });
+
+      window.print();
+
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      setTimeout(restoreScreen, 2000);
+    }
+
+    // Print all languages
+    function printAll() {
+      document.body.classList.remove('print-single');
+      const langOrder = ['ko', 'en', 'zh', 'ja'];
+      sections.forEach(s => {
+        s.classList.add('print-target');
+        s.style.order = langOrder.indexOf(s.dataset.lang);
+      });
+
+      window.print();
+
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      setTimeout(restoreScreen, 2000);
+    }
+
+    let restored = false;
+    function restoreScreen() {
+      if (restored) return;
+      restored = true;
+
+      document.body.classList.remove('print-single');
+      sections.forEach(s => {
+        s.classList.remove('print-target');
+        s.style.order = '';
+      });
+
+      sections.forEach(s => {
+        s.classList.toggle('visible', s.dataset.lang === activeLang);
+      });
+
+      setTimeout(() => { restored = false; }, 100);
+    }
+  </script>
+
+</body>
+</html>

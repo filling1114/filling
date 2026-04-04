@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>베이스가든 (Base Garden) | 숙소 소개</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #5A9E6F;
+      --green-light: #e8f5e9;
+      --green-dark: #3d7a4f;
+      --text: #2c3e2c;
+      --text-light: #5a6e5a;
+      --bg: #f5f9f5;
+      --white: #ffffff;
+      --border: #d4e4d4;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Nunito', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Screen Layout ── */
+    .screen-controls {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--green);
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 4px;
+      background: var(--green-light);
+      border-radius: 8px;
+      padding: 4px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--green-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(90,158,111,0.15);
+    }
+
+    .tab-btn.active {
+      background: var(--green);
+      color: var(--white);
+      box-shadow: 0 2px 4px rgba(90,158,111,0.3);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .print-btn {
+      border: 2px solid var(--green);
+      background: var(--white);
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--green);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .print-btn:hover {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary:hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+    }
+
+    /* ── Page Content ── */
+    .lang-section {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 24px 48px;
+    }
+
+    .lang-section.visible {
+      display: block;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--green);
+    }
+
+    .page-header h1 {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-header .subtitle {
+      font-size: 20px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .page-header .welcome {
+      font-size: 17px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* ── Section ── */
+    .info-section {
+      margin-bottom: 22px;
+    }
+
+    .info-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--green-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-section h2 .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .info-section p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .info-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-section ul li {
+      font-size: 15.5px;
+      line-height: 1.65;
+      padding: 3px 0 3px 20px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .info-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .amenity-label {
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .note-list li::before {
+      background: #e67e22 !important;
+    }
+
+    .footer-line {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px solid var(--green-light);
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    /* ── Print Styles ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+
+      body {
+        background: white;
+        font-size: 12pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .screen-controls {
+        display: none !important;
+      }
+
+      .lang-section {
+        display: none !important;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        page-break-inside: avoid;
+      }
+
+      .lang-section.print-target {
+        display: block !important;
+        page-break-after: always;
+      }
+
+      .lang-section.print-target:last-of-type,
+      .lang-section.print-target:nth-last-of-type(1) {
+        page-break-after: auto;
+      }
+
+      /* Remove page-break from the very last visible section */
+      body.print-single .lang-section.print-target {
+        page-break-after: auto;
+      }
+
+      .page-header h1 { font-size: 26pt; }
+      .page-header .subtitle { font-size: 16pt; }
+      .page-header .welcome { font-size: 13pt; }
+
+      .info-section { margin-bottom: 16pt; }
+      .info-section h2 { font-size: 15pt; }
+      .info-section p { font-size: 13pt; line-height: 1.6; }
+      .info-section ul li { font-size: 12.5pt; line-height: 1.55; padding: 2pt 0 2pt 16pt; }
+      .info-section ul li::before { top: 8pt; width: 5pt; height: 5pt; }
+
+      .footer-line { font-size: 10pt; margin-top: 12pt; padding-top: 10pt; }
+    }
+
+    /* ── Responsive ── */
+    @media screen and (max-width: 640px) {
+      .screen-controls {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btns {
+        margin-left: 0;
+        justify-content: stretch;
+      }
+      .print-btn { flex: 1; text-align: center; }
+      .tab-btn { padding: 8px 12px; font-size: 13px; }
+      .lang-section { padding: 24px 16px 40px; }
+      .page-header h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Screen Controls ── -->
+  <div class="screen-controls">
+    <div class="tab-group">
+      <button class="tab-btn active" data-lang="ko">한국어</button>
+      <button class="tab-btn" data-lang="en">English</button>
+      <button class="tab-btn" data-lang="zh">中文</button>
+      <button class="tab-btn" data-lang="ja">日本語</button>
+    </div>
+    <div class="action-btns">
+      <button class="print-btn" onclick="printSingle()">이 언어만 출력 (Print this language)</button>
+      <button class="print-btn primary" onclick="printAll()">전체 출력 (Print all)</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Korean -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section visible" data-lang="ko">
+    <div class="page-header">
+      <h1>🏡 숙소 소개</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">편안한 게스트하우스에 오신 것을 환영합니다.</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> 숙소 정보</h2>
+      <p>안녕하세요, 베이스가든(Base Garden)에 오신 것을 환영합니다. 저희는 여행객분들께 편안하고 아늑한 숙박 공간을 제공하기 위해 최선을 다하고 있습니다.</p>
+      <p>세계문화유산 수원화성을 중심으로 다양한 볼거리, 먹거리, 체험거리를 도보로 즐기실 수 있습니다. 거실 벽 선반에 지도와 안내책자가 준비되어 있으니 여행 계획에 도움이 되실 거예요.</p>
+      <p>숙소 이용 안내를 확인하시어 즐거운 시간 보내시기 바라며, 궁금하신 점은 언제든 에어비앤비 앱을 통해 연락 주세요.</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> 이용 가능한 공간</h2>
+      <ul>
+        <li>저희 숙소는 침실과 거실이 분리된 쓰리룸입니다.</li>
+        <li>침실에는 퀸사이즈 침대가, 거실에는 테이블이 구비되어 있습니다.</li>
+        <li>최대 8명까지 숙박 가능하며, 추가 인원 예약 시 2인용 침구를 제공해 드립니다.</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> 이용 가능한 시설</h2>
+      <ul>
+        <li><span class="amenity-label">기본 편의용품:</span> 샴푸, 린스, 바디워시, 수건, 샤워타올, 면봉, 물티슈, 생수</li>
+        <li><span class="amenity-label">조미료:</span> 소금, 올리고당, 고춧가루, 간장, 식용유</li>
+        <li><span class="amenity-label">주방용품:</span> 인덕션레인지, 냄비, 프라이팬, 조리도구, 식기류, 와인잔, 컵</li>
+        <li><span class="amenity-label">전자제품:</span> 에어컨, 냉장고, 전자레인지, 커피포트, 커피머신, 헤어드라이어, 고데기</li>
+        <li>스마트TV로 넷플릭스 및 유튜브 시청 가능</li>
+        <li>무료 Wi-Fi 제공</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> 기타 주의 사항</h2>
+      <ul class="note-list">
+        <li>2층이라 현관문까지 계단 이용이 필요합니다.</li>
+        <li>화장실 층고는 179cm이므로 키가 180cm 이상인 분들은 머리를 조심해 주세요.</li>
+        <li>주차는 공용주차장을 이용해 주세요.</li>
+        <li>반려동물 출입이 제한됩니다.</li>
+        <li>조용한 주택가이므로 밤 9시 이후에는 소음을 줄여 주세요.</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">Airbnb &middot; 경기도 수원시 장안구</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- English -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="en">
+    <div class="page-header">
+      <h1>🏡 Accommodation Introduction</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">Welcome to our cozy guesthouse!</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> Accommodation Information</h2>
+      <p>Hello and welcome to Base Garden! We are dedicated to providing travelers with a comfortable and cozy place to stay.</p>
+      <p>Our guesthouse is located near Suwon Hwaseong Fortress, a UNESCO World Heritage site, where you can enjoy various attractions, food, and experiences within walking distance. Maps and guidebooks are available on the living room shelf to help with your travel planning.</p>
+      <p>Please review the accommodation guidelines to ensure a pleasant stay, and feel free to contact us anytime via the Airbnb app if you have any questions.</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> Available Spaces</h2>
+      <ul>
+        <li>Our guesthouse is a three-room house with separate bedrooms and a living room.</li>
+        <li>The bedroom is equipped with a queen-size bed, and the living room has a table.</li>
+        <li>The house accommodates up to 8 guests, and bedding for 2 additional guests is available upon request.</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> Available Amenities</h2>
+      <ul>
+        <li><span class="amenity-label">Basic amenities:</span> Shampoo, conditioner, body wash, towels, bath towels, cotton swabs, wet tissues, bottled water</li>
+        <li><span class="amenity-label">Seasonings:</span> Salt, oligosaccharide syrup, red pepper powder, soy sauce, cooking oil</li>
+        <li><span class="amenity-label">Kitchenware:</span> Induction stove, pots, frying pan, cooking utensils, tableware, wine glasses, cups</li>
+        <li><span class="amenity-label">Electronics:</span> Air conditioner, refrigerator, microwave, electric kettle, coffee machine, hairdryer, hair straightener</li>
+        <li>Smart TV with Netflix and YouTube access</li>
+        <li>Free Wi-Fi</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> Other Important Notes</h2>
+      <ul class="note-list">
+        <li>The house is on the 2nd floor, so you will need to use the stairs to reach the entrance.</li>
+        <li>The bathroom ceiling height is 179cm, so guests taller than 180cm should be cautious.</li>
+        <li>Please use the public parking lot.</li>
+        <li>Pets are not allowed.</li>
+        <li>As the house is located in a quiet residential area, please keep noise levels down after 9 PM.</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">Airbnb &middot; Jangan-gu, Suwon-si, Gyeonggi-do</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Chinese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="zh">
+    <div class="page-header">
+      <h1>🏡 民宿介绍</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">欢迎来到我们温馨的民宿！</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> 住宿信息</h2>
+      <p>您好，欢迎来到 Base Garden！我们致力于为旅行者提供舒适温馨的住宿体验。</p>
+      <p>我们的民宿靠近世界文化遗产——水原华城，您可以步行前往各种景点、美食店和文化体验活动场所。客厅的书架上备有地图和旅游指南，希望能帮助您规划行程。</p>
+      <p>请查看住宿指南，以确保您度过愉快的时光。如有任何疑问，请随时通过爱彼迎（Airbnb）应用程序与我们联系。</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> 可用空间</h2>
+      <ul>
+        <li>我们的民宿是独立住宅，包含三个房间，卧室和客厅分开。</li>
+        <li>卧室配有大床（Queen Size），客厅设有餐桌。</li>
+        <li>最多可入住8人，如有额外入住需求，可提供2人用的床上用品。</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> 可用设施</h2>
+      <ul>
+        <li><span class="amenity-label">基础用品:</span> 洗发水、护发素、沐浴露、毛巾、浴巾、棉签、湿巾、瓶装水</li>
+        <li><span class="amenity-label">调味品:</span> 食盐、低聚糖、辣椒粉、酱油、食用油</li>
+        <li><span class="amenity-label">厨房用品:</span> 电磁炉、锅具、煎锅、厨具、餐具、酒杯、水杯</li>
+        <li><span class="amenity-label">电器设备:</span> 空调、冰箱、微波炉、电热水壶、咖啡机、吹风机、直发器</li>
+        <li>智能电视（可观看 Netflix 和 YouTube）</li>
+        <li>免费 Wi-Fi</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> 其他注意事项</h2>
+      <ul class="note-list">
+        <li>本民宿位于二楼，需使用楼梯进入。</li>
+        <li>卫生间天花板高度为179cm，身高超过180cm的客人需注意。</li>
+        <li>请使用公共停车场。</li>
+        <li>禁止携带宠物。</li>
+        <li>由于本地为安静的住宅区，请晚上9点后降低音量。</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">Airbnb &middot; 京畿道 水原市 长安区</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Japanese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="ja">
+    <div class="page-header">
+      <h1>🏡 宿泊施設のご案内</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">快適なゲストハウスへようこそ！</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> 宿泊情報</h2>
+      <p>こんにちは、Base Gardenへようこそ！私たちは旅行者の皆様に、快適で居心地の良い宿泊空間を提供できるよう努めております。</p>
+      <p>宿はユネスコ世界遺産・水原華城の近くにあり、観光スポットやグルメ、体験アクティビティを徒歩で楽しめます。リビングの棚には地図や観光ガイドが用意されているので、旅の計画にお役立てください。</p>
+      <p>宿泊ガイドを確認の上、楽しい時間をお過ごしください。ご不明な点がございましたら、Airbnbアプリを通じていつでもご連絡ください。</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> 利用可能なスペース</h2>
+      <ul>
+        <li>宿は3部屋あり、寝室とリビングが分かれた一軒家です。</li>
+        <li>寝室にはクイーンサイズベッド、リビングにはテーブルが備わっています。</li>
+        <li>最大8名まで宿泊可能で、追加人数の予約時には2人分の寝具を提供します。</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> 利用可能な設備</h2>
+      <ul>
+        <li><span class="amenity-label">基本アメニティ:</span> シャンプー、リンス、ボディソープ、タオル、バスタオル、綿棒、ウェットティッシュ、ミネラルウォーター</li>
+        <li><span class="amenity-label">調味料:</span> 塩、オリゴ糖、唐辛子粉、醤油、食用油</li>
+        <li><span class="amenity-label">キッチン用品:</span> IHコンロ、鍋、フライパン、調理器具、食器類、ワイングラス、コップ</li>
+        <li><span class="amenity-label">家電製品:</span> エアコン、冷蔵庫、電子レンジ、電気ケトル、コーヒーメーカー、ヘアドライヤー、ヘアアイロン</li>
+        <li>スマートテレビ（Netflix・YouTube視聴可）</li>
+        <li>無料Wi-Fi</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> その他の注意事項</h2>
+      <ul class="note-list">
+        <li>2階にあるため、玄関まで階段の利用が必要です。</li>
+        <li>バスルームの天井の高さは179cmなので、180cm以上の方は頭をぶつけないようご注意ください。</li>
+        <li>駐車は公共駐車場をご利用ください。</li>
+        <li>ペットの同伴は禁止です。</li>
+        <li>静かな住宅街に位置しているため、夜9時以降はお静かにお願いします。</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">Airbnb &middot; 京畿道 水原市 長安区</div>
+  </section>
+
+  <!-- ── JavaScript ── -->
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.lang-section');
+    let activeLang = 'ko';
+
+    // Tab switching
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeLang = btn.dataset.lang;
+
+        tabs.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+
+        sections.forEach(s => {
+          s.classList.toggle('visible', s.dataset.lang === activeLang);
+        });
+      });
+    });
+
+    // Print single language
+    function printSingle() {
+      document.body.classList.add('print-single');
+      sections.forEach(s => {
+        s.classList.toggle('print-target', s.dataset.lang === activeLang);
+      });
+
+      window.print();
+
+      // Restore after print
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      // Fallback for browsers that don't fire afterprint reliably
+      setTimeout(restoreScreen, 2000);
+    }
+
+    // Print all languages
+    function printAll() {
+      document.body.classList.remove('print-single');
+      const langOrder = ['ko', 'en', 'zh', 'ja'];
+      sections.forEach(s => {
+        s.classList.add('print-target');
+        // Re-order in DOM for consistent print order
+        s.style.order = langOrder.indexOf(s.dataset.lang);
+      });
+
+      window.print();
+
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      setTimeout(restoreScreen, 2000);
+    }
+
+    let restored = false;
+    function restoreScreen() {
+      if (restored) return;
+      restored = true;
+
+      document.body.classList.remove('print-single');
+      sections.forEach(s => {
+        s.classList.remove('print-target');
+        s.style.order = '';
+      });
+
+      // Reset to restore the previously active tab view
+      sections.forEach(s => {
+        s.classList.toggle('visible', s.dataset.lang === activeLang);
+      });
+
+      // Allow next print cycle
+      setTimeout(() => { restored = false; }, 100);
+    }
+  </script>
+
+</body>
+</html>
