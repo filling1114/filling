@@ -120,9 +120,48 @@
       max-width: 800px;
       margin: 0 auto;
       padding: 32px 24px 48px;
+      position: relative;
     }
 
     .lang-section.visible {
+      display: block;
+    }
+
+    .a4-limit-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 280mm;
+      border-top: 2px dashed #e74c3c;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .a4-limit-label {
+      position: absolute;
+      right: 8px;
+      top: -20px;
+      background: #e74c3c;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .overflow-warning {
+      display: none;
+      background: #e74c3c;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      margin-top: 12px;
+    }
+
+    .lang-section.overflow .overflow-warning {
       display: block;
     }
 
@@ -263,7 +302,9 @@
         print-color-adjust: exact;
       }
 
-      .screen-controls {
+      .screen-controls,
+      .a4-limit-line,
+      .overflow-warning {
         display: none !important;
       }
 
@@ -293,16 +334,18 @@
 
       .info-section { margin-bottom: 12pt; }
       .info-section h2 { font-size: 13pt; }
-      .info-section p { font-size: 11pt; line-height: 1.5; }
-      .info-section ul li, .info-section ol li { font-size: 10.5pt; line-height: 1.45; }
+      .info-section p { font-size: 11.5pt; line-height: 1.5; }
+      .info-section ul li, .info-section ol li { font-size: 11.5pt; line-height: 1.45; }
       .info-section ul li::before { top: 7pt; width: 5pt; height: 5pt; }
 
       .info-box { gap: 10pt; margin-bottom: 14pt; }
       .info-card { padding: 8pt 12pt; }
-      .info-card h3 { font-size: 11pt; margin-bottom: 4pt; }
-      .info-card p { font-size: 10.5pt; line-height: 1.5; }
+      .info-card h3 { font-size: 12pt; margin-bottom: 4pt; }
+      .info-card p { font-size: 11.5pt; line-height: 1.5; }
 
-      .footer-line { font-size: 10pt; margin-top: 10pt; padding-top: 8pt; }
+      .footer-line { font-size: 11pt; margin-top: 10pt; padding-top: 8pt; }
+
+      .page-title { font-size: 15pt; margin-bottom: 8pt; }
     }
 
     /* ── Responsive ── */
@@ -376,13 +419,6 @@
       </ol>
     </div>
 
-    <div class="info-section">
-      <h2>☕ 커피머신 사용법</h2>
-      <ul>
-        <li><strong>아이스:</strong> 캡슐 넣기 → 뚜껑 닫기 → 왼쪽 작은 컵 버튼 누르기 → 얼음 &amp; 물 추가</li>
-        <li><strong>핫:</strong> 캡슐 넣기 → 뚜껑 닫기 → 왼쪽 작은 컵 버튼 누르기 → 캡슐 빼기 → 오른쪽 버튼으로 물 추가</li>
-      </ul>
-    </div>
 
     <div class="info-section">
       <h2>🚨 숙소 규칙 및 주의사항</h2>
@@ -398,7 +434,6 @@
       <h2>🔑 퇴실 시 유의사항</h2>
       <ul class="rules">
         <li>✅ 쓰레기(음식물/일반/재활용)를 지정된 통에 분리배출 해주세요.</li>
-        <li>✅ 사용한 수건은 세탁 바구니에 넣어주세요.</li>
         <li>✅ 퇴실 전 전체 소등, 보일러 &amp; 에어컨 전원 OFF 확인해주세요.</li>
         <li>✅ 대문 열쇠 반납 필수! 🔑</li>
       </ul>
@@ -443,13 +478,6 @@
       </ol>
     </div>
 
-    <div class="info-section">
-      <h2>☕ How to Use the Coffee Machine</h2>
-      <ul>
-        <li><strong>Iced Coffee:</strong> Insert a capsule → Close the lid → Press the small left cup button → Add ice &amp; water.</li>
-        <li><strong>Hot Coffee:</strong> Insert a capsule → Close the lid → Press the small left cup button → Remove capsule → Press the large right cup button to add water.</li>
-      </ul>
-    </div>
 
     <div class="info-section">
       <h2>🚨 Rules &amp; Precautions</h2>
@@ -465,7 +493,6 @@
       <h2>🔑 Before Checking Out</h2>
       <ul class="rules">
         <li>✅ Sort and dispose of garbage (food waste/general/recycling) in designated bins.</li>
-        <li>✅ Place used towels in the laundry basket.</li>
         <li>✅ Turn off all lights, heater, and air conditioner before leaving.</li>
         <li>✅ Return the main door key! 🔑</li>
       </ul>
@@ -510,13 +537,6 @@
       </ol>
     </div>
 
-    <div class="info-section">
-      <h2>☕ 咖啡机使用方法</h2>
-      <ul>
-        <li><strong>冰咖啡:</strong> 放入胶囊 → 关闭盖子 → 按左侧小杯按钮 → 加冰和水。</li>
-        <li><strong>热咖啡:</strong> 放入胶囊 → 关闭盖子 → 按左侧小杯按钮 → 取出胶囊 → 按右侧大杯按钮加水。</li>
-      </ul>
-    </div>
 
     <div class="info-section">
       <h2>🚨 住宿规定 &amp; 注意事项</h2>
@@ -532,7 +552,6 @@
       <h2>🔑 退房前请注意</h2>
       <ul class="rules">
         <li>✅ 请分类丢弃垃圾（厨余/一般/可回收）。</li>
-        <li>✅ 用过的毛巾请放入洗衣篮。</li>
         <li>✅ 离开前请关闭所有灯光、暖气和空调。</li>
         <li>✅ 务必归还房门钥匙！ 🔑</li>
       </ul>
@@ -577,13 +596,6 @@
       </ol>
     </div>
 
-    <div class="info-section">
-      <h2>☕ コーヒーマシンの使い方</h2>
-      <ul>
-        <li><strong>アイスコーヒー:</strong> カプセルを入れる → フタを閉める → 左の小さいカップボタンを押す → 氷と水を追加。</li>
-        <li><strong>ホットコーヒー:</strong> カプセルを入れる → フタを閉める → 左の小さいカップボタンを押す → カプセルを取り出す → 右の大きいカップボタンでお湯を追加。</li>
-      </ul>
-    </div>
 
     <div class="info-section">
       <h2>🚨 宿泊ルール &amp; 注意事項</h2>
@@ -599,7 +611,6 @@
       <h2>🔑 チェックアウト時の注意点</h2>
       <ul class="rules">
         <li>✅ ゴミ（生ゴミ・一般ゴミ・リサイクル）を分別して捨ててください。</li>
-        <li>✅ 使用済みのタオルはランドリーバスケットへ。</li>
         <li>✅ 退室前にすべての照明、暖房、エアコンの電源をオフにしてください。</li>
         <li>✅ 玄関の鍵を必ず返却！ 🔑</li>
       </ul>
@@ -673,6 +684,50 @@
 
       setTimeout(() => { restored = false; }, 100);
     }
+
+    // A4 높이 체크 — 모든 언어를 순회하며 초과 여부 감지
+    function checkA4Overflow() {
+      const a4Height = 280 * 3.7795; // 여유 있게 280mm 기준 (실제 인쇄와 오차 보정)
+
+      sections.forEach(s => {
+        const wasVisible = s.classList.contains('visible');
+        s.style.display = 'block';
+        s.style.visibility = wasVisible ? '' : 'hidden';
+        s.style.position = wasVisible ? '' : 'absolute';
+
+        const contentHeight = s.scrollHeight;
+        const lang = s.dataset.lang;
+
+        s.querySelectorAll('.a4-limit-line, .overflow-warning').forEach(el => el.remove());
+        s.classList.remove('overflow');
+
+        const line = document.createElement('div');
+        line.className = 'a4-limit-line';
+        line.innerHTML = '<span class="a4-limit-label">A4 한 장 한계선 ✂</span>';
+        s.appendChild(line);
+
+        if (contentHeight > a4Height) {
+          s.classList.add('overflow');
+          const warn = document.createElement('div');
+          warn.className = 'overflow-warning';
+          warn.textContent = `⚠ [${lang.toUpperCase()}] A4 한 장 초과! (${Math.round(contentHeight)}px / ${Math.round(a4Height)}px) 내용을 줄여주세요.`;
+          s.appendChild(warn);
+        }
+
+        if (!wasVisible) {
+          s.style.display = '';
+          s.style.visibility = '';
+          s.style.position = '';
+        } else {
+          s.style.display = '';
+          s.style.visibility = '';
+          s.style.position = '';
+        }
+      });
+    }
+
+    window.addEventListener('load', checkA4Overflow);
+    window.addEventListener('resize', checkA4Overflow);
   </script>
 
 </body>
