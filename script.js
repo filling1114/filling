@@ -440,3 +440,224 @@ function updateParkingMarkers() {
     }
   }
 }
+
+// ===== Slide Modal =====
+const SLIDE_DATA = {
+  direction: [
+    { src: './assets/img/direction/01_building_exterior.jpg', type: 'image', caption: { ko: '골목에서 보이는 건물 모습입니다', en: 'Building view from the alley', ja: '路地から見える建物の様子です', zh: '从巷子里看到的建筑外观' } },
+    { src: './assets/img/direction/02_building_entrance.jpg', type: 'image', caption: { ko: '36번 주소판이 있는 입구입니다', en: 'Entrance with address number 36', ja: '36番の住所プレートがある入口です', zh: '有36号地址牌的入口' } },
+    { src: './assets/img/direction/03_address_sign.jpg', type: 'image', caption: { ko: '도로명 주소 안내판을 확인하세요', en: 'Check the street address sign', ja: '道路名住所の案内板を確認してください', zh: '请确认路名地址指示牌' } },
+    { src: './assets/img/direction/04_stairs_entrance.jpg', type: 'image', caption: { ko: '계단을 따라 지하로 내려가세요', en: 'Go down the stairs to the basement', ja: '階段に沿って地下へ降りてください', zh: '沿楼梯下到地下' } },
+    { src: './assets/img/direction/05_room_b102_sign.jpg', type: 'image', caption: { ko: '벽에 B102 표시를 확인하세요', en: 'Look for the B102 sign on the wall', ja: '壁のB102表示を確認してください', zh: '请确认墙上的B102标识' } },
+    { src: './assets/img/direction/06_front_door.jpg', type: 'image', caption: { ko: 'WELCOME 매트가 있는 현관문입니다', en: 'Front door with WELCOME mat', ja: 'WELCOMEマットのある玄関ドアです', zh: '有WELCOME地垫的大门' } },
+  ],
+  boiler: [
+    { src: './assets/img/boiler/01_controller_on.jpg', type: 'image', caption: { ko: '우측 위 화살표로 온도를 조절하세요', en: 'Adjust temperature with the upper-right arrows', ja: '右上の矢印で温度を調整してください', zh: '用右上方箭头调节温度' } },
+  ],
+  tv: [
+    { src: './assets/img/tv/01_monitor.jpg', type: 'image', caption: { ko: 'TV 모니터입니다', en: 'TV monitor', ja: 'TVモニターです', zh: '电视显示器' } },
+    { src: './assets/img/tv/02_remote_settopbox.jpg', type: 'image', caption: { ko: '검정색 리모컨의 좌측 맨 위 빨간색 버튼이 TV 전원 버튼입니다', en: 'The red button at the top-left of the black remote is the TV power button', ja: '黒いリモコンの左上の赤いボタンがTV電源ボタンです', zh: '黑色遥控器左上方的红色按钮是电视电源按钮' } },
+    { src: './assets/img/tv/04_settopbox_back_closeup.jpg', type: 'image', caption: { ko: '붉은색 전원 표시등 왼쪽에 TV 전원 버튼이 있습니다. 리모컨으로 켜지지 않을 때 눌러주세요', en: 'TV power button is to the left of the red power indicator. Press it if the remote doesn\'t work', ja: '赤い電源ランプの左側にTV電源ボタンがあります。リモコンで電源が入らない時に押してください', zh: '红色电源指示灯左侧有电视电源按钮。遥控器无法开机时请按此按钮' } },
+    { src: './assets/img/tv/08_remote_side.jpg', type: 'image', caption: { ko: '측면 위쪽 버튼이 외부입력입니다. HDMI 3을 선택하면 TV를 볼 수 있습니다. + TV - 버튼으로 음량을 조절하세요', en: 'Top side button is external input. Select HDMI 3 to watch TV. Use + TV - buttons to adjust volume', ja: '側面上部のボタンが外部入力です。HDMI 3を選択するとTVが見られます。+ TV - ボタンで音量を調整してください', zh: '侧面上方按钮是外部输入。选择HDMI 3即可看电视。用 + TV - 按钮调节音量' } },
+    { src: './assets/img/tv/09_cable_box.jpg', type: 'image', caption: { ko: 'TV 뒤쪽 케이블 정리함', en: 'Cable management box behind TV', ja: 'テレビ裏のケーブル整理ボックス', zh: '电视后面的线缆整理盒' } },
+    { src: './assets/img/tv/10_cable_box_closeup.jpg', type: 'image', caption: { ko: 'Wi-Fi가 안 잡힐 때는 DC in 케이블을 뽑았다가 다시 꽂아주세요', en: 'If Wi-Fi is not working, unplug the DC in cable and plug it back in', ja: 'Wi-Fiが繋がらない時はDC inケーブルを抜いて再度差し込んでください', zh: 'Wi-Fi无法连接时，请拔出DC in线缆后重新插入' } },
+  ],
+  washer: [
+    { src: './assets/img/washer/01_washer_dryer_full.jpg', type: 'image', caption: { ko: '아래쪽이 세탁기, 위쪽이 건조기입니다', en: 'Bottom is the washer, top is the dryer', ja: '下が洗濯機、上が乾燥機です', zh: '下面是洗衣机，上面是烘干机' } },
+    { src: './assets/img/washer/02_washer_closeup.jpg', type: 'image', caption: { ko: 'Midea 세탁기입니다', en: 'Midea washing machine', ja: 'Midea洗濯機です', zh: 'Midea洗衣机' } },
+    { src: './assets/img/washer/03_washer_button.jpg', type: 'image', caption: { ko: '다이얼을 눌러 전원을 켜세요', en: 'Press the dial to turn on', ja: 'ダイヤルを押して電源を入れてください', zh: '按旋钮开机' } },
+    { src: './assets/img/washer/04_detergent_slot.jpg', type: 'image', caption: { ko: '세제는 세탁기 뒤에 있습니다', en: 'Detergent is behind the washer', ja: '洗剤は洗濯機の後ろにあります', zh: '洗涤剂在洗衣机后面' } },
+    { src: './assets/img/washer/07_washer_inside.jpg', type: 'image', caption: { ko: '왼쪽이 세탁세제, 오른쪽이 섬유유연제입니다', en: 'Left is laundry detergent, right is fabric softener', ja: '左が洗剤、右が柔軟剤です', zh: '左边是洗衣液，右边是柔顺剂' } },
+    { src: './assets/img/washer/13_dryer_panel.jpg', type: 'image', caption: { ko: '건조기 조작 패널입니다', en: 'Dryer control panel', ja: '乾燥機の操作パネルです', zh: '烘干机控制面板' } },
+    { src: './assets/img/washer/15_dryer_filter_remove.jpg', type: 'image', caption: { ko: '필터를 위로 당겨 빼세요', en: 'Pull the filter upward to remove', ja: 'フィルターを上に引いて外してください', zh: '向上拉出过滤器' } },
+    { src: './assets/img/washer/17_dryer_filter_front.jpg', type: 'image', caption: { ko: '안쪽 필터가 바깥 필터 홈에 맞아야 들어갑니다', en: 'Inner filter must align with the outer filter groove to fit', ja: '内側フィルターが外側フィルターの溝に合わないと入りません', zh: '内侧过滤器必须对准外侧过滤器的槽口才能装入' } },
+    { src: './assets/img/washer/22_dryer_filter_close.jpg', type: 'image', caption: { ko: '필터를 아래로 밀어 넣으세요', en: 'Push the filter down to close', ja: 'フィルターを下に押し込んでください', zh: '向下推入过滤器' } },
+    { src: './assets/img/washer/23_dryer_filter_push.jpg', type: 'image', caption: { ko: 'FRONT가 앞쪽으로 오게 넣으세요', en: 'Insert with FRONT facing forward', ja: 'FRONTが前を向くように入れてください', zh: 'FRONT朝前放入' } },
+    { src: './assets/img/washer/24_dryer_filter_done.jpg', type: 'image', caption: { ko: '필터 장착 완료!', en: 'Filter installed!', ja: 'フィルター装着完了！', zh: '过滤器安装完成！' } },
+  ]
+};
+
+// 슬라이드 모달 상태
+let slideCurrentIndex = 0;
+let slideCurrentData = [];
+let touchStartX = 0;
+let touchEndX = 0;
+
+// 슬라이드 모달 열기
+function openSlideModal(category, startIndex = 0) {
+  const data = SLIDE_DATA[category];
+  if (!data || data.length === 0) return;
+
+  slideCurrentData = data;
+  slideCurrentIndex = startIndex;
+
+  const modal = document.getElementById('slideModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  renderSlide();
+}
+
+// 슬라이드 모달 닫기
+function closeSlideModal() {
+  const modal = document.getElementById('slideModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+
+  // 비디오 정지
+  const video = modal.querySelector('video');
+  if (video) {
+    video.pause();
+    video.currentTime = 0;
+  }
+
+  slideCurrentData = [];
+  slideCurrentIndex = 0;
+}
+
+// 현재 슬라이드 렌더링
+function renderSlide() {
+  const item = slideCurrentData[slideCurrentIndex];
+  if (!item) return;
+
+  const mediaEl = document.querySelector('.slide-media');
+  const captionEl = document.querySelector('.slide-caption');
+  const counterEl = document.querySelector('.slide-counter');
+
+  // 미디어 렌더링
+  if (item.type === 'video') {
+    mediaEl.innerHTML = `<video src="${item.src}" muted playsinline controls></video>`;
+  } else {
+    mediaEl.innerHTML = `<img src="${item.src}" alt="${item.caption[currentLang] || ''}" draggable="false">`;
+  }
+
+  // 캡션 렌더링
+  captionEl.textContent = item.caption[currentLang] || '';
+
+  // 카운터 렌더링
+  counterEl.textContent = `${slideCurrentIndex + 1} / ${slideCurrentData.length}`;
+
+  // 네비게이션 버튼 표시/숨김
+  document.querySelector('.slide-prev').style.visibility = slideCurrentIndex > 0 ? 'visible' : 'hidden';
+  document.querySelector('.slide-next').style.visibility = slideCurrentIndex < slideCurrentData.length - 1 ? 'visible' : 'hidden';
+}
+
+// 이전 슬라이드
+function slidePrev() {
+  if (slideCurrentIndex > 0) {
+    // 비디오 정지
+    const video = document.querySelector('.slide-media video');
+    if (video) video.pause();
+    slideCurrentIndex--;
+    renderSlide();
+  }
+}
+
+// 다음 슬라이드
+function slideNext() {
+  if (slideCurrentIndex < slideCurrentData.length - 1) {
+    // 비디오 정지
+    const video = document.querySelector('.slide-media video');
+    if (video) video.pause();
+    slideCurrentIndex++;
+    renderSlide();
+  }
+}
+
+// 슬라이드 모달 이벤트 리스너 설정
+function setupSlideModal() {
+  const modal = document.getElementById('slideModal');
+  if (!modal) return;
+
+  // 닫기 버튼
+  modal.querySelector('.slide-close').addEventListener('click', closeSlideModal);
+
+  // 오버레이 클릭
+  modal.querySelector('.slide-modal-overlay').addEventListener('click', closeSlideModal);
+
+  // 이전/다음 버튼
+  modal.querySelector('.slide-prev').addEventListener('click', slidePrev);
+  modal.querySelector('.slide-next').addEventListener('click', slideNext);
+
+  // 키보드 이벤트
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('active')) return;
+
+    switch (e.key) {
+      case 'Escape':
+        closeSlideModal();
+        break;
+      case 'ArrowLeft':
+        slidePrev();
+        break;
+      case 'ArrowRight':
+        slideNext();
+        break;
+    }
+  });
+
+  // 터치 스와이프 지원
+  const content = modal.querySelector('.slide-modal-content');
+
+  content.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  content.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        slideNext();
+      } else {
+        slidePrev();
+      }
+    }
+  }, { passive: true });
+}
+
+// appliance-card 클릭 이벤트 바인딩 (콘텐츠 로드 후 호출)
+function bindSlideCardEvents() {
+  // appliance-card 클릭 이벤트
+  document.querySelectorAll('.appliance-card[data-category]').forEach((card) => {
+    card.addEventListener('click', () => {
+      const category = card.getAttribute('data-category');
+      if (SLIDE_DATA[category]) {
+        openSlideModal(category);
+      }
+    });
+  });
+
+  // direction 사진 보기 버튼 클릭 이벤트
+  document.querySelectorAll('.direction-photo-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      openSlideModal('direction');
+    });
+  });
+
+  // 체크인 섹션 사진 클릭 → 해당 사진으로 슬라이드 열기
+  document.querySelectorAll('.checkin-step-image img').forEach((img) => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      const src = img.getAttribute('src');
+      // direction 데이터에서 해당 사진 인덱스 찾기
+      const idx = SLIDE_DATA.direction.findIndex(item => src.includes(item.src.split('/').pop()));
+      openSlideModal('direction', idx >= 0 ? idx : 0);
+    });
+  });
+}
+
+// DOMContentLoaded 시 슬라이드 모달 설정
+document.addEventListener('DOMContentLoaded', () => {
+  setupSlideModal();
+});
+
+// 기존 loadLanguageContent 이후 카드 이벤트 바인딩을 위한 MutationObserver
+const contentContainer = document.getElementById('content-container');
+if (contentContainer) {
+  const observer = new MutationObserver(() => {
+    bindSlideCardEvents();
+  });
+  observer.observe(contentContainer, { childList: true, subtree: true });
+}

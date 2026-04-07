@@ -34,60 +34,45 @@
     <div class="checkin-steps">
       <div class="checkin-step">
         <div class="checkin-step-image">
-          <span class="camera-icon">📷</span>
-          <span class="photo-label">사진: 건물 입구</span>
+          <img src="./assets/img/direction/01_building_exterior.jpg" alt="건물 외관">
         </div>
         <div class="checkin-step-body">
           <div class="checkin-step-number">1</div>
           <div>
             <h3 class="checkin-step-title">건물 입구 찾기</h3>
             <p class="checkin-step-desc"><strong>일양빌라 B동</strong>을 찾으세요. 건물 오른쪽에 입구가 있습니다.</p>
+            <button class="direction-photo-btn">길안내 사진 전체보기</button>
           </div>
         </div>
       </div>
 
       <div class="checkin-step">
         <div class="checkin-step-image">
-          <span class="camera-icon">📷</span>
-          <span class="photo-label">사진: 도어락</span>
+          <img src="./assets/img/direction/04_stairs_entrance.jpg" alt="계단 입구">
         </div>
         <div class="checkin-step-body">
           <div class="checkin-step-number">2</div>
+          <div>
+            <h3 class="checkin-step-title">B102호로 이동</h3>
+            <p class="checkin-step-desc">계단을 따라 지하로 내려가세요. <strong>B102호</strong>는 복도 끝 오른쪽에 있습니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkin-step">
+        <div class="checkin-step-image">
+          <img src="./assets/img/direction/06_front_door.jpg" alt="현관문 도어락">
+        </div>
+        <div class="checkin-step-body">
+          <div class="checkin-step-number">3</div>
           <div>
             <h3 class="checkin-step-title">비밀번호 입력</h3>
             <p class="checkin-step-desc">디지털 도어락에 비밀번호를 입력하세요. 비밀번호는 체크인 전 에어비앤비 메시지로 발송됩니다.</p>
           </div>
         </div>
       </div>
-
-      <div class="checkin-step">
-        <div class="checkin-step-image">
-          <span class="camera-icon">📷</span>
-          <span class="photo-label">사진: B102호 복도</span>
-        </div>
-        <div class="checkin-step-body">
-          <div class="checkin-step-number">3</div>
-          <div>
-            <h3 class="checkin-step-title">B102호로 이동</h3>
-            <p class="checkin-step-desc">지하로 내려가세요. <strong>B102호</strong>는 복도 끝 오른쪽에 있습니다.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="checkin-step">
-        <div class="checkin-step-image">
-          <span class="camera-icon">📷</span>
-          <span class="photo-label">사진: 숙소 내부</span>
-        </div>
-        <div class="checkin-step-body">
-          <div class="checkin-step-number">4</div>
-          <div>
-            <h3 class="checkin-step-title">환영합니다!</h3>
-            <p class="checkin-step-desc">현관에서 신발을 벗어주세요. 편하게 쉬세요!</p>
-          </div>
-        </div>
-      </div>
     </div>
+    <p class="checkin-welcome">😊 환영합니다! 현관에서 신발을 벗어주세요. 편하게 쉬세요!</p>
   </div>
 
   <hr class="divider">
@@ -98,25 +83,28 @@
       <h2 class="section-title">가전 사용법</h2>
     </div>
     <div class="appliance-grid">
-      <div class="appliance-card">
+      <div class="appliance-card" data-category="washer">
         <span class="appliance-emoji">🧺</span>
-        <h3 class="appliance-card-title">세탁기</h3>
-        <p class="appliance-card-desc">세제는 세탁기 뒤에 있습니다. <strong>"표준"</strong> 모드를 선택하세요.</p>
+        <h3 class="appliance-card-title">세탁기 / 건조기</h3>
+        <p class="appliance-card-desc">아래쪽이 세탁기, 위쪽이 건조기입니다. 세제는 세탁기 뒤에 있습니다.</p>
+        <p class="appliance-card-photos">사진 보기</p>
       </div>
       <div class="appliance-card">
         <span class="appliance-emoji">❄️</span>
         <h3 class="appliance-card-title">에어컨</h3>
         <p class="appliance-card-desc">준비되어 있는 리모컨을 사용하세요. 전원 버튼 → 온도 조절. 권장 온도: <strong>24-26°C</strong>.</p>
       </div>
-      <div class="appliance-card">
+      <div class="appliance-card" data-category="boiler">
         <span class="appliance-emoji">🔥</span>
         <h3 class="appliance-card-title">바닥 난방 (보일러)</h3>
-        <p class="appliance-card-desc">온도조절기는 현관 옆 벽에 있습니다. <strong>"온돌"</strong> 모드로 설정하고 온도를 조절하세요.</p>
+        <p class="appliance-card-desc">온도조절기는 현관 옆 벽에 있습니다. 우측 위 화살표로 온도를 조절하세요.</p>
+        <p class="appliance-card-photos">사진 보기</p>
       </div>
-      <div class="appliance-card">
+      <div class="appliance-card" data-category="tv">
         <span class="appliance-emoji">📺</span>
-        <h3 class="appliance-card-title">TV</h3>
-        <p class="appliance-card-desc">삼성 리모컨으로 켜세요. YouTube와 Netflix를 사용할 수 있습니다. Wi-Fi 정보는 냉장고에 붙어 있습니다.</p>
+        <h3 class="appliance-card-title">TV 및 인터넷</h3>
+        <p class="appliance-card-desc">리모컨으로 켜세요. YouTube와 Netflix를 사용할 수 있습니다.</p>
+        <p class="appliance-card-photos">사진 보기</p>
       </div>
     </div>
   </div>
