@@ -469,11 +469,6 @@ const SLIDE_DATA = {
     { src: './assets/img/washer/04_detergent_slot.jpg', type: 'image', caption: { ko: '세제는 세탁기 뒤에 있습니다', en: 'Detergent is behind the washer', ja: '洗剤は洗濯機の後ろにあります', zh: '洗涤剂在洗衣机后面' } },
     { src: './assets/img/washer/07_washer_inside.jpg', type: 'image', caption: { ko: '왼쪽이 세탁세제, 오른쪽이 섬유유연제입니다', en: 'Left is laundry detergent, right is fabric softener', ja: '左が洗剤、右が柔軟剤です', zh: '左边是洗衣液，右边是柔顺剂' } },
     { src: './assets/img/washer/13_dryer_panel.jpg', type: 'image', caption: { ko: '건조기 조작 패널입니다', en: 'Dryer control panel', ja: '乾燥機の操作パネルです', zh: '烘干机控制面板' } },
-    { src: './assets/img/washer/15_dryer_filter_remove.jpg', type: 'image', caption: { ko: '필터를 위로 당겨 빼세요', en: 'Pull the filter upward to remove', ja: 'フィルターを上に引いて外してください', zh: '向上拉出过滤器' } },
-    { src: './assets/img/washer/17_dryer_filter_front.jpg', type: 'image', caption: { ko: '안쪽 필터가 바깥 필터 홈에 맞아야 들어갑니다', en: 'Inner filter must align with the outer filter groove to fit', ja: '内側フィルターが外側フィルターの溝に合わないと入りません', zh: '内侧过滤器必须对准外侧过滤器的槽口才能装入' } },
-    { src: './assets/img/washer/22_dryer_filter_close.jpg', type: 'image', caption: { ko: '필터를 아래로 밀어 넣으세요', en: 'Push the filter down to close', ja: 'フィルターを下に押し込んでください', zh: '向下推入过滤器' } },
-    { src: './assets/img/washer/23_dryer_filter_push.jpg', type: 'image', caption: { ko: 'FRONT가 앞쪽으로 오게 넣으세요', en: 'Insert with FRONT facing forward', ja: 'FRONTが前を向くように入れてください', zh: 'FRONT朝前放入' } },
-    { src: './assets/img/washer/24_dryer_filter_done.jpg', type: 'image', caption: { ko: '필터 장착 완료!', en: 'Filter installed!', ja: 'フィルター装着完了！', zh: '过滤器安装完成！' } },
   ]
 };
 
