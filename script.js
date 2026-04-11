@@ -444,10 +444,10 @@ function updateParkingMarkers() {
 // ===== Slide Modal =====
 const SLIDE_DATA = {
   direction: [
-    { src: './assets/img/direction/01_building_exterior.jpg', type: 'image', caption: { ko: '골목에서 보이는 건물 모습입니다', en: 'Building view from the alley', ja: '路地から見える建物の様子です', zh: '从巷子里看到的建筑外观' } },
-    { src: './assets/img/direction/02_building_entrance.jpg', type: 'image', caption: { ko: '36번 주소판이 있는 입구입니다', en: 'Entrance with address number 36', ja: '36番の住所プレートがある入口です', zh: '有36号地址牌的入口' } },
-    { src: './assets/img/direction/03_address_sign.jpg', type: 'image', caption: { ko: '도로명 주소 안내판을 확인하세요', en: 'Check the street address sign', ja: '道路名住所の案内板を確認してください', zh: '请确认路名地址指示牌' } },
-    { src: './assets/img/direction/04_stairs_entrance.jpg', type: 'image', caption: { ko: '계단을 따라 지하로 내려가세요', en: 'Go down the stairs to the basement', ja: '階段に沿って地下へ降りてください', zh: '沿楼梯下到地下' } },
+    { src: './assets/img/direction/01_building_exterior.jpg?v=2', type: 'image', caption: { ko: '골목에서 보이는 건물 모습입니다', en: 'Building view from the alley', ja: '路地から見える建物の様子です', zh: '从巷子里看到的建筑外观' } },
+    { src: './assets/img/direction/02_building_entrance.jpg?v=2', type: 'image', caption: { ko: '36번 주소판이 있는 입구입니다', en: 'Entrance with address number 36', ja: '36番の住所プレートがある入口です', zh: '有36号地址牌的入口' } },
+    { src: './assets/img/direction/03_address_sign.jpg?v=2', type: 'image', caption: { ko: '도로명 주소 안내판을 확인하세요', en: 'Check the street address sign', ja: '道路名住所の案内板を確認してください', zh: '请确认路名地址指示牌' } },
+    { src: './assets/img/direction/04_stairs_entrance.jpg?v=2', type: 'image', caption: { ko: '계단을 따라 지하로 내려가세요', en: 'Go down the stairs to the basement', ja: '階段に沿って地下へ降りてください', zh: '沿楼梯下到地下' } },
     { src: './assets/img/direction/05_room_b102_sign.jpg', type: 'image', caption: { ko: '벽에 B102 표시를 확인하세요', en: 'Look for the B102 sign on the wall', ja: '壁のB102表示を確認してください', zh: '请确认墙上的B102标识' } },
     { src: './assets/img/direction/06_front_door.jpg', type: 'image', caption: { ko: 'WELCOME 매트가 있는 현관문입니다', en: 'Front door with WELCOME mat', ja: 'WELCOMEマットのある玄関ドアです', zh: '有WELCOME地垫的大门' } },
   ],
