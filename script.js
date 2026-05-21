@@ -217,6 +217,28 @@ function openGoogleMapsDirections() {
   window.open(url, "_blank");
 }
 
+// 숙소 InfoWindow content 생성 — 기존 안내 + 구글맵 링크
+function buildHomeInfoContent(lang) {
+  const home = CONFIG.locations.home;
+  const gmapUrl = `https://www.google.com/maps/search/?api=1&query=${home.lat},${home.lng}`;
+  const linkLabel = {
+    en: "📍 Open in Google Maps",
+    ko: "📍 Google Maps에서 열기",
+    ja: "📍 Google Mapsで開く",
+    zh: "📍 在 Google 地图中打开",
+  }[lang] || "📍 Open in Google Maps";
+
+  return `
+    ${CONFIG.texts.infoContents[lang]}
+    <div style="margin-top:8px;">
+      <a href="${gmapUrl}" target="_blank" rel="noopener"
+         style="color:#1a73e8;text-decoration:none;font-size:13px;">
+        ${linkLabel}
+      </a>
+    </div>
+  `;
+}
+
 // 맵 초기화 함수 - 전역 객체에 할당하여 Google Maps API가 접근할 수 있게 함
 window.initMap = function () {
   // 지도 생성
@@ -239,7 +261,7 @@ window.initMap = function () {
 
   // 정보 창 생성
   infoWindow = new google.maps.InfoWindow({
-    content: CONFIG.texts.infoContents[currentLang],
+    content: buildHomeInfoContent(currentLang),
   });
 
   // 마커 클릭 시 정보 창 열기
@@ -258,7 +280,7 @@ function changeMapLanguage(lang) {
 
   // 정보 창 내용 업데이트
   if (infoWindow) {
-    infoWindow.setContent(CONFIG.texts.infoContents[lang]);
+    infoWindow.setContent(buildHomeInfoContent(lang));
   }
 
   // 주차장 마커 정보 업데이트
@@ -340,9 +362,22 @@ function toggleParkingView() {
         icon: { url: iconUrl },
       });
 
-      // 정보 창 생성
+      // 정보 창 생성 — 주소 + 구글맵 링크 포함
+      const address = location.address ? location.address[currentLang] : "";
+      const gmapUrl = `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`;
       const parkingInfoWindow = new google.maps.InfoWindow({
-        content: `<strong>${location.title[currentLang]}</strong>`,
+        content: `
+          <div style="min-width:200px;line-height:1.5;">
+            <strong>${location.title[currentLang]}</strong>
+            ${address ? `<div style="margin-top:4px;color:#555;font-size:13px;">${address}</div>` : ""}
+            <div style="margin-top:8px;">
+              <a href="${gmapUrl}" target="_blank" rel="noopener"
+                 style="color:#1a73e8;text-decoration:none;font-size:13px;">
+                📍 Google Maps에서 열기
+              </a>
+            </div>
+          </div>
+        `,
       });
 
       // 마커 클릭 시 정보 창 열기
@@ -467,7 +502,6 @@ const SLIDE_DATA = {
     { src: './assets/img/washer/02_washer_closeup.jpg', type: 'image', caption: { ko: 'Midea 세탁기입니다', en: 'Midea washing machine', ja: 'Midea洗濯機です', zh: 'Midea洗衣机' } },
     { src: './assets/img/washer/03_washer_button.jpg', type: 'image', caption: { ko: '다이얼을 눌러 전원을 켜세요', en: 'Press the dial to turn on', ja: 'ダイヤルを押して電源を入れてください', zh: '按旋钮开机' } },
     { src: './assets/img/washer/04_detergent_slot.jpg', type: 'image', caption: { ko: '세제는 세탁기 뒤에 있습니다', en: 'Detergent is behind the washer', ja: '洗剤は洗濯機の後ろにあります', zh: '洗涤剂在洗衣机后面' } },
-    { src: './assets/img/washer/07_washer_inside.jpg', type: 'image', caption: { ko: '왼쪽이 세탁세제, 오른쪽이 섬유유연제입니다', en: 'Left is laundry detergent, right is fabric softener', ja: '左が洗剤、右が柔軟剤です', zh: '左边是洗衣液，右边是柔顺剂' } },
     { src: './assets/img/washer/13_dryer_panel.jpg', type: 'image', caption: { ko: '건조기 조작 패널입니다', en: 'Dryer control panel', ja: '乾燥機の操作パネルです', zh: '烘干机控制面板' } },
   ]
 };

@@ -90,6 +90,12 @@ const CONFIG = {
         ja: "長安区庁駐車場 (1日7,000ウォン)",
         zh: "长安区厅停车场 (每日7,000韩元)",
       },
+      address: {
+        en: "101, Songwon-ro, Jangan-gu, Suwon-si, Gyeonggi-do",
+        ko: "경기도 수원시 장안구 송원로 101",
+        ja: "101, Songwon-ro, Jangan-gu, Suwon-si, Gyeonggi-do",
+        zh: "101, Songwon-ro, Jangan-gu, Suwon-si, Gyeonggi-do",
+      },
     },
   ],
 
