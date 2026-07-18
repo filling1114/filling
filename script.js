@@ -8,6 +8,8 @@ let infoWindow;
 let currentLang = "en";
 let polylinePath;
 let stationMarker;
+let airportBusMarker;
+let airportBusPolyline;
 let parkingMarkers = [];
 
 // 페이지 로드 시 이벤트 리스너 설정
@@ -223,6 +225,16 @@ function updateButtonTexts() {
       CONFIG.texts.transitButton[transitButtonState][currentLang];
   }
 
+  // 공항버스 정류장 버튼 업데이트
+  const airportBusButton = document.querySelector(".airport-bus-button");
+  if (airportBusButton) {
+    const airportBusVisible =
+      airportBusMarker !== null && airportBusMarker !== undefined;
+    const airportBusButtonState = airportBusVisible ? "hide" : "show";
+    airportBusButton.textContent =
+      CONFIG.texts.airportBusButton[airportBusButtonState][currentLang];
+  }
+
   // 구글 맵 버튼 업데이트
   const googleMapsButton = document.querySelector(".google-maps-button");
   if (googleMapsButton) {
@@ -250,6 +262,13 @@ function createTransitButton() {
   transitButton.textContent = CONFIG.texts.transitButton.show[currentLang];
   transitButton.addEventListener("click", toggleStationView);
   container.appendChild(transitButton);
+
+  // 공항버스 정류장 버튼
+  const airportBusButton = document.createElement("button");
+  airportBusButton.className = "transit-button airport-bus-button";
+  airportBusButton.textContent = CONFIG.texts.airportBusButton.show[currentLang];
+  airportBusButton.addEventListener("click", toggleAirportBusView);
+  container.appendChild(airportBusButton);
 
   // 구글 맵으로 보기 버튼 추가
   const googleMapsButton = document.createElement("button");
@@ -326,6 +345,78 @@ function toggleStationView() {
     if (polylinePath) {
       polylinePath.setMap(null);
       polylinePath = null;
+    }
+
+    // 숙소 위치로 지도 중심 이동
+    map.setCenter(CONFIG.locations.home);
+    map.setZoom(16);
+  }
+
+  // 버튼 텍스트 업데이트
+  updateButtonTexts();
+}
+
+// 공항버스 정류장(한일타운) 표시/숨김 토글 함수
+function toggleAirportBusView() {
+  if (!airportBusMarker) {
+    // 정류장 마커 생성
+    airportBusMarker = new google.maps.Marker({
+      position: CONFIG.locations.hanilTownStop,
+      map: map,
+      title: "Hanil Town Airport Bus Stop",
+      animation: google.maps.Animation.DROP,
+      icon: {
+        url: "https://maps.google.com/mapfiles/ms/icons/green-dot.png",
+      },
+    });
+
+    // 정류장 정보 창 생성
+    const airportBusInfoWindow = new google.maps.InfoWindow({
+      content: CONFIG.texts.airportBusInfo[currentLang],
+    });
+
+    // 마커 클릭 시 정보 창 열기
+    airportBusMarker.addListener("click", () => {
+      airportBusInfoWindow.open(map, airportBusMarker);
+    });
+
+    // 자동으로 정보 창 열기
+    airportBusInfoWindow.open(map, airportBusMarker);
+
+    // 정류장 → 숙소 도보 경로 직선 표시
+    airportBusPolyline = new google.maps.Polyline({
+      path: [CONFIG.locations.hanilTownStop, CONFIG.locations.home],
+      geodesic: true,
+      strokeColor: "#2fa84f",
+      strokeOpacity: 0.7,
+      strokeWeight: 3,
+      icons: [
+        {
+          icon: {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+            scale: 3,
+          },
+          offset: "50%",
+        },
+      ],
+    });
+
+    airportBusPolyline.setMap(map);
+
+    // 지도 범위 조정
+    const bounds = new google.maps.LatLngBounds();
+    bounds.extend(airportBusMarker.getPosition());
+    bounds.extend(marker.getPosition());
+    map.fitBounds(bounds);
+  } else {
+    // 마커 숨기기
+    airportBusMarker.setMap(null);
+    airportBusMarker = null;
+
+    // 경로 제거
+    if (airportBusPolyline) {
+      airportBusPolyline.setMap(null);
+      airportBusPolyline = null;
     }
 
     // 숙소 위치로 지도 중심 이동

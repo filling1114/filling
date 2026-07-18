@@ -12,6 +12,7 @@ const CONFIG = {
   locations: {
     home: { lat: 37.3011821, lng: 127.0114124 },
     suwonStation: { lat: 37.265961, lng: 127.00011 },
+    hanilTownStop: { lat: 37.3050001, lng: 127.0032746 },
   },
 
   // 각 언어별 텍스트 정의
@@ -27,6 +28,26 @@ const CONFIG = {
       ko: "<strong>수원역</strong><br>35번 버스 탑승 → 교육청사거리 하차",
       ja: "<strong>水原駅</strong><br>35番バスに乗車 → 教育庁交差点で下車",
       zh: "<strong>水原站</strong><br>乘坐35路公交车 → 教育厅十字路口下车",
+    },
+    airportBusInfo: {
+      en: "<strong>Hanil Town Stop (Airport Bus)</strong><br>Get off bus #4000 from Incheon Airport<br>10 min walk to the accommodation",
+      ko: "<strong>한일타운 정류장 (공항버스)</strong><br>인천공항 4000번 하차<br>숙소까지 도보 10분",
+      ja: "<strong>ハンイルタウン停留所 (空港バス)</strong><br>仁川空港発4000番で下車<br>宿泊先まで徒歩10分",
+      zh: "<strong>韩一城站 (机场巴士)</strong><br>仁川机场4000路在此下车<br>步行10分钟到住宿",
+    },
+    airportBusButton: {
+      show: {
+        en: "Show Airport Bus Stop",
+        ko: "공항버스 정류장 표시하기",
+        ja: "空港バス停留所を表示",
+        zh: "显示机场巴士站",
+      },
+      hide: {
+        en: "Hide Airport Bus Stop",
+        ko: "공항버스 정류장 숨기기",
+        ja: "空港バス停留所を隠す",
+        zh: "隐藏机场巴士站",
+      },
     },
     transitButton: {
       show: {
