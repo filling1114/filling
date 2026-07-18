@@ -525,6 +525,18 @@ const SLIDE_DATA = {
       ja: '客室内の分別ゴミ箱がいっぱいになったら、外に出すことができます :)\n1) キッチンシンクの下に予備のビニール袋があります\n2) 矢印の方向（チェック印の場所）に置いてください',
       zh: '房间内的分类垃圾桶满了的话，可以拿到住宿外面丢弃 :)\n1) 厨房水槽下方有备用塑料袋\n2) 放在箭头所指（打勾标记）的位置即可' } },
   ],
+  dehumidifier: [
+    { src: './assets/img/dehumidifier/01_panel.jpg', type: 'image', caption: {
+      ko: '빨간 표시는 물탱크 만수를 뜻해요\n계속해서 뽀송뽀송함을 유지하시려면 물을 비워서 사용하시는 걸 추천드려요 👍',
+      en: 'The red light means the water tank is full\nTo keep the air nice and dry, please empty the tank before use 👍',
+      ja: '赤いランプはタンク満水のサインです\n快適な空気を保つために、水を捨ててからご使用ください 👍',
+      zh: '红色指示灯表示水箱已满\n为保持室内干爽，建议倒掉水后继续使用 👍' } },
+    { src: './assets/img/dehumidifier/02_drain.jpg', type: 'image', caption: {
+      ko: '물 비우는 방법\n1) 물탱크 하단 홈에 손을 넣고 부드럽게 당겨 꺼내세요\n2) 화살표가 가리키는 물탱크 배수구를 확인하세요\n3) 물탱크를 기울여 물을 비우세요\n4) 물탱크를 다시 제습기에 올바르게 장착하세요\n⚠️ 물통 안 흰색 플로터(만수 감지 센서)는 버리지 마세요',
+      en: 'How to empty the tank\n1) Put your hand in the groove at the bottom and gently pull the tank out\n2) Check the drain hole where the arrow points\n3) Tilt the tank to pour out the water\n4) Put the tank back in place correctly\n⚠️ Do not remove the white float (full-tank sensor) inside the tank',
+      ja: '水の捨て方\n1) タンク下部の溝に手を入れてゆっくり引き出してください\n2) 矢印が指すタンクの排水口を確認してください\n3) タンクを傾けて水を捨ててください\n4) タンクを元どおりに取り付けてください\n⚠️ タンク内の白いフロート（満水センサー）は捨てないでください',
+      zh: '倒水方法\n1) 手伸入水箱底部凹槽，轻轻拉出水箱\n2) 确认箭头所指的水箱排水口\n3) 倾斜水箱倒掉水\n4) 将水箱正确装回除湿机\n⚠️ 请勿取出水箱内的白色浮子（满水感应器）' } },
+  ],
   washer: [
     { src: './assets/img/washer/01_washer_dryer_full.jpg', type: 'image', caption: { ko: '아래쪽이 세탁기, 위쪽이 건조기입니다', en: 'Bottom is the washer, top is the dryer', ja: '下が洗濯機、上が乾燥機です', zh: '下面是洗衣机，上面是烘干机' } },
     { src: './assets/img/washer/02_washer_closeup.jpg', type: 'image', caption: { ko: 'Midea 세탁기입니다', en: 'Midea washing machine', ja: 'Midea洗濯機です', zh: 'Midea洗衣机' } },
