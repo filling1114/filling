@@ -18,12 +18,101 @@ document.addEventListener("DOMContentLoaded", () => {
   // 언어 선택 기능
   setupLanguageSelector();
 
+  // 바로가기 탭 설정
+  setupQuickNav();
+
   // 초기 맵 로드를 위한 스크립트 추가
   loadGoogleMapsScript(currentLang);
 
   // 버튼 생성
   createButtons();
 });
+
+// ===== 바로가기 탭 (Quick Nav) =====
+const NAV_LABELS = {
+  map:        { en: "Map", ko: "위치", ja: "地図", zh: "地图" },
+  directions: { en: "Directions", ko: "오시는 길", ja: "行き方", zh: "交通" },
+  checkin:    { en: "Check-in", ko: "체크인", ja: "チェックイン", zh: "入住" },
+  appliances: { en: "Appliances", ko: "가전", ja: "家電", zh: "家电" },
+};
+
+const NAV_TARGETS = {
+  map: ".section-map",
+  directions: "#content-container .directions",
+  checkin: "#content-container .checkin-section",
+  appliances: "#content-container .appliances-section",
+};
+
+const LANG_SHORT = { en: "EN", ko: "한", ja: "日", zh: "中" };
+
+function setupQuickNav() {
+  const nav = document.getElementById("quickNav");
+  if (!nav) return;
+
+  // 탭 클릭 → 해당 섹션으로 스크롤
+  nav.querySelectorAll(".quick-nav-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = document.querySelector(NAV_TARGETS[tab.dataset.nav]);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+  // 언어 드롭다운
+  const langBtn = document.getElementById("quickNavLangBtn");
+  const langMenu = document.getElementById("quickNavLangMenu");
+  langBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    langMenu.hidden = !langMenu.hidden;
+  });
+  document.addEventListener("click", () => {
+    langMenu.hidden = true;
+  });
+  langMenu.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      langMenu.hidden = true;
+      // 헤더의 언어 버튼과 동일한 전환 로직 재사용
+      const headerBtn = document.querySelector(`.language-btn[data-lang="${btn.dataset.lang}"]`);
+      if (headerBtn) headerBtn.click();
+    });
+  });
+
+  // 스크롤 시 현재 섹션 탭 강조
+  let navTicking = false;
+  window.addEventListener("scroll", () => {
+    if (navTicking) return;
+    navTicking = true;
+    requestAnimationFrame(() => {
+      updateActiveNavTab();
+      navTicking = false;
+    });
+  });
+  updateActiveNavTab();
+}
+
+function updateActiveNavTab() {
+  const nav = document.getElementById("quickNav");
+  if (!nav) return;
+  const threshold = nav.offsetHeight + 90;
+  let activeKey = "map";
+  Object.keys(NAV_TARGETS).forEach((key) => {
+    const el = document.querySelector(NAV_TARGETS[key]);
+    if (el && el.getBoundingClientRect().top <= threshold) activeKey = key;
+  });
+  nav.querySelectorAll(".quick-nav-tab").forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.nav === activeKey);
+  });
+}
+
+function updateQuickNavLabels(lang) {
+  const nav = document.getElementById("quickNav");
+  if (!nav) return;
+  nav.querySelectorAll(".quick-nav-tab").forEach((tab) => {
+    const label = tab.querySelector(".quick-nav-label");
+    if (label) label.textContent = NAV_LABELS[tab.dataset.nav][lang];
+  });
+  const langBtn = document.getElementById("quickNavLangBtn");
+  if (langBtn) langBtn.textContent = `${LANG_SHORT[lang]} ▾`;
+}
 
 // 언어 선택기 설정 함수
 function setupLanguageSelector() {
@@ -77,6 +166,9 @@ async function loadLanguageContent(lang) {
 
     // 언어에 맞게 버튼 텍스트 업데이트
     updateButtonTexts();
+
+    // 바로가기 탭 라벨 업데이트
+    updateQuickNavLabels(lang);
   } catch (error) {
     console.error("언어 파일을 불러오는 중 오류 발생:", error);
   }
@@ -488,10 +580,10 @@ const SLIDE_DATA = {
   ],
   boiler: [
     { src: './assets/img/boiler/02_heating_mode.jpg', type: 'image', caption: {
-      ko: '난방모드 (온수+난방)\n1) 난방/외출 버튼으로 난방모드(온돌/실내) 선택\n2) ⬇️⬆️ 화살표로 원하는 온도 설정\n3) \'연소\' 아이콘·녹색 가동 램프가 켜지면 자동으로 온도 유지\n⚠️ 가스비 절약을 위해 온돌모드 권장',
-      en: 'Heating mode (hot water + floor heating)\n1) Select a heating mode (Ondol/Indoor) with the house-icon button\n2) Set the temperature with the ⬇️⬆️ arrows\n3) The flame icon and green lamp turn on; the set temperature is kept automatically\n⚠️ Ondol mode recommended to save on gas',
-      ja: '暖房モード（お湯＋床暖房）\n1) 家アイコンのボタンで暖房モード（オンドル/室内）を選択\n2) ⬇️⬆️ 矢印で希望の温度を設定\n3) 「燃焼」アイコンと緑のランプが点灯し、自動で温度を維持\n⚠️ ガス代節約のためオンドルモード推奨',
-      zh: '供暖模式（热水＋地暖）\n1) 用房子图标按钮选择供暖模式（地暖/室内）\n2) 用 ⬇️⬆️ 箭头设定温度\n3) "燃烧"图标和绿色运行灯亮起后，自动保持设定温度\n⚠️ 为节省燃气费，建议使用地暖模式' } },
+      ko: '온도조절기는 현관 옆 벽에 있어요 — 난방모드 (온수+난방)\n1) 난방/외출 버튼으로 난방모드(온돌/실내) 선택\n2) ⬇️⬆️ 화살표로 원하는 온도 설정\n3) \'연소\' 아이콘·녹색 가동 램프가 켜지면 자동으로 온도 유지\n⚠️ 가스비 절약을 위해 온돌모드 권장',
+      en: 'The thermostat is on the wall next to the entrance — Heating mode (hot water + floor heating)\n1) Select a heating mode (Ondol/Indoor) with the house-icon button\n2) Set the temperature with the ⬇️⬆️ arrows\n3) The flame icon and green lamp turn on; the set temperature is kept automatically\n⚠️ Ondol mode recommended to save on gas',
+      ja: '温度調節器は玄関横の壁にあります — 暖房モード（お湯＋床暖房）\n1) 家アイコンのボタンで暖房モード（オンドル/室内）を選択\n2) ⬇️⬆️ 矢印で希望の温度を設定\n3) 「燃焼」アイコンと緑のランプが点灯し、自動で温度を維持\n⚠️ ガス代節約のためオンドルモード推奨',
+      zh: '温控器在门口旁边的墙上 — 供暖模式（热水＋地暖）\n1) 用房子图标按钮选择供暖模式（地暖/室内）\n2) 用 ⬇️⬆️ 箭头设定温度\n3) "燃烧"图标和绿色运行灯亮起后，自动保持设定温度\n⚠️ 为节省燃气费，建议使用地暖模式' } },
     { src: './assets/img/boiler/01_hotwater_mode.jpg', type: 'image', caption: {
       ko: '온수모드 (온수만 사용)\n1) 난방/외출 버튼을 눌러 온수 설정 온도만 표시\n2) ⬇️⬆️ 화살표로 원하는 온도 설정',
       en: 'Hot water mode (hot water only)\n1) Press the house-icon button until only the hot water temperature is shown\n2) Set the temperature with the ⬇️⬆️ arrows',
@@ -499,7 +591,7 @@ const SLIDE_DATA = {
       zh: '热水模式（仅用热水）\n1) 按房子图标按钮，使屏幕只显示热水设定温度\n2) 用 ⬇️⬆️ 箭头设定温度' } },
   ],
   tv: [
-    { src: './assets/img/tv/01_monitor.jpg', type: 'image', caption: { ko: 'TV 모니터입니다', en: 'TV monitor', ja: 'TVモニターです', zh: '电视显示器' } },
+    { src: './assets/img/tv/01_monitor.jpg', type: 'image', caption: { ko: '리모컨으로 켜세요. YouTube와 Netflix를 사용할 수 있어요', en: 'Turn on with the remote. YouTube and Netflix are available', ja: 'リモコンで電源を入れてください。YouTubeとNetflixが利用できます', zh: '用遥控器开机。可使用YouTube和Netflix' } },
     { src: './assets/img/tv/02_remote_settopbox.jpg', type: 'image', caption: { ko: '검정색 리모컨의 좌측 맨 위 빨간색 버튼이 TV 전원 버튼입니다', en: 'The red button at the top-left of the black remote is the TV power button', ja: '黒いリモコンの左上の赤いボタンがTV電源ボタンです', zh: '黑色遥控器左上方的红色按钮是电视电源按钮' } },
     { src: './assets/img/tv/04_settopbox_back_closeup.jpg?v=2', type: 'image', caption: { ko: '붉은색 전원 표시등 왼쪽에 TV 전원 버튼이 있습니다. 리모컨으로 켜지지 않을 때 눌러주세요', en: 'TV power button is to the left of the red power indicator. Press it if the remote doesn\'t work', ja: '赤い電源ランプの左側にTV電源ボタンがあります。リモコンで電源が入らない時に押してください', zh: '红色电源指示灯左侧有电视电源按钮。遥控器无法开机时请按此按钮' } },
     { src: './assets/img/tv/08_remote_side.jpg', type: 'image', caption: { ko: '측면 위쪽 버튼이 외부입력입니다. HDMI 3을 선택하면 TV를 볼 수 있습니다. + TV - 버튼으로 음량을 조절하세요', en: 'Top side button is external input. Select HDMI 3 to watch TV. Use + TV - buttons to adjust volume', ja: '側面上部のボタンが外部入力です。HDMI 3を選択するとTVが見られます。+ TV - ボタンで音量を調整してください', zh: '侧面上方按钮是外部输入。选择HDMI 3即可看电视。用 + TV - 按钮调节音量' } },
@@ -538,7 +630,7 @@ const SLIDE_DATA = {
       zh: '倒水方法\n1) 手伸入水箱底部凹槽，轻轻拉出水箱\n2) 确认箭头所指的水箱排水口\n3) 倾斜水箱倒掉水\n4) 将水箱正确装回除湿机\n⚠️ 请勿取出水箱内的白色浮子（满水感应器）' } },
   ],
   washer: [
-    { src: './assets/img/washer/01_washer_dryer_full.jpg', type: 'image', caption: { ko: '아래쪽이 세탁기, 위쪽이 건조기입니다', en: 'Bottom is the washer, top is the dryer', ja: '下が洗濯機、上が乾燥機です', zh: '下面是洗衣机，上面是烘干机' } },
+    { src: './assets/img/washer/01_washer_dryer_full.jpg', type: 'image', caption: { ko: '아래쪽이 세탁기, 위쪽이 건조기입니다\n🛏️ 건조기 안에 침구가 들어있을 수 있어요! 사용 전 잠시만 깨끗한 곳으로 옮겨주시면 감사하겠습니다 :)', en: 'Bottom is the washer, top is the dryer\n🛏️ Bedding may be inside the dryer! Please move it to a clean spot before use — thank you! :)', ja: '下が洗濯機、上が乾燥機です\n🛏️ 乾燥機の中に寝具が入っていることがあります！ご使用前にきれいな場所へ移してください :)', zh: '下面是洗衣机，上面是烘干机\n🛏️ 烘干机内可能放有寝具！使用前请先移到干净的地方，谢谢 :)' } },
     { src: './assets/img/washer/02_washer_closeup.jpg', type: 'image', caption: { ko: 'Midea 세탁기입니다', en: 'Midea washing machine', ja: 'Midea洗濯機です', zh: 'Midea洗衣机' } },
     { src: './assets/img/washer/03_washer_button.jpg', type: 'image', caption: { ko: '다이얼을 눌러 전원을 켜세요', en: 'Press the dial to turn on', ja: 'ダイヤルを押して電源を入れてください', zh: '按旋钮开机' } },
     { src: './assets/img/washer/04_detergent_slot.jpg', type: 'image', caption: { ko: '세제는 세탁기 뒤에 있습니다', en: 'Detergent is behind the washer', ja: '洗剤は洗濯機の後ろにあります', zh: '洗涤剂在洗衣机后面' } },
