@@ -76,6 +76,16 @@ function setupQuickNav() {
     });
   });
 
+  // 탭 가로 오버플로 표시 (페이드 + 화살표)
+  const tabs = nav.querySelector(".quick-nav-tabs");
+  const moreBtn = document.getElementById("quickNavMore");
+  tabs.addEventListener("scroll", updateQuickNavOverflow);
+  window.addEventListener("resize", updateQuickNavOverflow);
+  moreBtn.addEventListener("click", () => {
+    tabs.scrollBy({ left: 120, behavior: "smooth" });
+  });
+  updateQuickNavOverflow();
+
   // 스크롤 시 현재 섹션 탭 강조
   let navTicking = false;
   window.addEventListener("scroll", () => {
@@ -89,6 +99,29 @@ function setupQuickNav() {
   updateActiveNavTab();
 }
 
+function updateQuickNavOverflow() {
+  const wrap = document.querySelector(".quick-nav-tabs-wrap");
+  if (!wrap) return;
+  const tabs = wrap.querySelector(".quick-nav-tabs");
+  wrap.classList.toggle("has-overflow-left", tabs.scrollLeft > 4);
+  wrap.classList.toggle(
+    "has-overflow-right",
+    tabs.scrollLeft + tabs.clientWidth < tabs.scrollWidth - 4
+  );
+}
+
+// 활성 탭이 스크롤 영역 밖에 있으면 가로 스크롤로 노출
+function ensureTabVisible(tab) {
+  const tabs = tab.parentElement;
+  const left = tab.offsetLeft;
+  const right = left + tab.offsetWidth;
+  if (left < tabs.scrollLeft) {
+    tabs.scrollTo({ left: left - 8, behavior: "smooth" });
+  } else if (right > tabs.scrollLeft + tabs.clientWidth) {
+    tabs.scrollTo({ left: right - tabs.clientWidth + 8, behavior: "smooth" });
+  }
+}
+
 function updateActiveNavTab() {
   const nav = document.getElementById("quickNav");
   if (!nav) return;
@@ -99,7 +132,9 @@ function updateActiveNavTab() {
     if (el && el.getBoundingClientRect().top <= threshold) activeKey = key;
   });
   nav.querySelectorAll(".quick-nav-tab").forEach((tab) => {
-    tab.classList.toggle("active", tab.dataset.nav === activeKey);
+    const isActive = tab.dataset.nav === activeKey;
+    if (isActive && !tab.classList.contains("active")) ensureTabVisible(tab);
+    tab.classList.toggle("active", isActive);
   });
 }
 
@@ -112,6 +147,8 @@ function updateQuickNavLabels(lang) {
   });
   const langBtn = document.getElementById("quickNavLangBtn");
   if (langBtn) langBtn.textContent = `${LANG_SHORT[lang]} ▾`;
+  // 라벨 길이가 바뀌므로 오버플로 표시 갱신
+  updateQuickNavOverflow();
 }
 
 // 언어 선택기 설정 함수

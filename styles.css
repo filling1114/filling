@@ -159,11 +159,15 @@ body {
   padding: 8px 12px;
 }
 
-.quick-nav-tabs {
-  display: flex;
-  gap: 4px;
+.quick-nav-tabs-wrap {
+  position: relative;
   flex: 1;
   min-width: 0;
+}
+
+.quick-nav-tabs {
+  display: flex;
+  gap: 2px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -172,17 +176,73 @@ body {
   display: none;
 }
 
+/* 좌우로 더 있음을 알리는 가장자리 페이드 */
+.quick-nav-tabs-wrap::before,
+.quick-nav-tabs-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 36px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.quick-nav-tabs-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent);
+}
+
+.quick-nav-tabs-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent);
+}
+
+.quick-nav-tabs-wrap.has-overflow-left::before,
+.quick-nav-tabs-wrap.has-overflow-right::after {
+  opacity: 1;
+}
+
+/* 오른쪽에 더 있음 화살표 */
+.quick-nav-more {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+  line-height: 1;
+  padding: 0 0 2px;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quick-nav-tabs-wrap.has-overflow-right .quick-nav-more {
+  display: flex;
+}
+
 .quick-nav-tab {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 7px 10px;
+  padding: 6px 9px;
   border: none;
   border-radius: 50px;
   background: transparent;
   color: var(--color-text-secondary);
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
@@ -200,13 +260,13 @@ body {
 }
 
 .quick-nav-lang-btn {
-  padding: 7px 10px;
+  padding: 6px 9px;
   border: 1px solid var(--color-border);
   border-radius: 50px;
   background: #fff;
   color: var(--color-text-secondary);
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   white-space: nowrap;
   cursor: pointer;
