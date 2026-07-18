@@ -506,6 +506,18 @@ const SLIDE_DATA = {
     { src: './assets/img/tv/09_cable_box.jpg?v=2', type: 'image', caption: { ko: 'TV 뒤쪽 케이블 정리함', en: 'Cable management box behind TV', ja: 'テレビ裏のケーブル整理ボックス', zh: '电视后面的线缆整理盒' } },
     { src: './assets/img/tv/10_cable_box_closeup.jpg?v=2', type: 'image', caption: { ko: 'Wi-Fi가 안 잡힐 때는 DC in 케이블을 뽑았다가 다시 꽂아주세요', en: 'If Wi-Fi is not working, unplug the DC in cable and plug it back in', ja: 'Wi-Fiが繋がらない時はDC inケーブルを抜いて再度差し込んでください', zh: 'Wi-Fi无法连接时，请拔出DC in线缆后重新插入' } },
   ],
+  projector: [
+    { src: './assets/img/projector/01_remote.jpg', type: 'image', caption: {
+      ko: '1) 전원 버튼을 누르세요\n2) 홈 키를 누르고 메뉴 화면이 뜰 때까지 기다리세요\n3) 화살표로 원하는 채널을 선택하세요\n4) 확인 버튼을 누르고 재미있게 시청하세요',
+      en: '1) Press the power button\n2) Press the home key and wait for the menu to appear\n3) Choose a channel with the arrows\n4) Press the OK (확인) button and enjoy',
+      ja: '1) 電源ボタンを押してください\n2) ホームキーを押してメニュー画面が出るまで待ってください\n3) 矢印でチャンネルを選んでください\n4) 確認ボタンを押して楽しくご視聴ください',
+      zh: '1) 按电源按钮\n2) 按主页键，等待菜单画面出现\n3) 用箭头选择频道\n4) 按确认按钮，尽情观看' } },
+    { src: './assets/img/projector/02_focus_ring.jpg', type: 'image', caption: {
+      ko: '화면이 흐릿하면 렌즈 위쪽의 초점 링(Focus Ring)을 좌우로 천천히 돌려 초점을 맞추세요\n💡 리모컨으로 켜지지 않으면 본체 뒷면의 전원 스위치가 ON인지 확인하세요',
+      en: 'If the picture is blurry, slowly turn the focus ring above the lens to sharpen it\n💡 If the remote does not turn it on, check that the power switch on the back is ON',
+      ja: '画面がぼやける場合は、レンズ上部のフォーカスリングをゆっくり回してピントを合わせてください\n💡 リモコンで電源が入らない場合は、本体背面の電源スイッチがONか確認してください',
+      zh: '画面模糊时，请慢慢转动镜头上方的对焦环调整焦距\n💡 遥控器无法开机时，请确认机身背面的电源开关是否为ON' } },
+  ],
   washer: [
     { src: './assets/img/washer/01_washer_dryer_full.jpg', type: 'image', caption: { ko: '아래쪽이 세탁기, 위쪽이 건조기입니다', en: 'Bottom is the washer, top is the dryer', ja: '下が洗濯機、上が乾燥機です', zh: '下面是洗衣机，上面是烘干机' } },
     { src: './assets/img/washer/02_washer_closeup.jpg', type: 'image', caption: { ko: 'Midea 세탁기입니다', en: 'Midea washing machine', ja: 'Midea洗濯機です', zh: 'Midea洗衣机' } },
