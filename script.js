@@ -649,10 +649,10 @@ const SLIDE_DATA = {
   ],
   trash: [
     { src: './assets/img/trash/01_outdoor_spot.jpg', type: 'image', caption: {
-      ko: '객실 내 분리수거함이 꽉 찼을 경우 숙소 외부에 버리실 수 있어요 :)\n1) 싱크대 개수대 아래쪽에 여분의 비닐봉투가 있어요\n2) 화살표 방향(체크 표시 위치)에 놔두시면 돼요',
-      en: 'If the recycling bin in the room is full, you can take it outside :)\n1) Extra plastic bags are under the kitchen sink\n2) Leave the bags where the arrows (check marks) point',
-      ja: '客室内の分別ゴミ箱がいっぱいになったら、外に出すことができます :)\n1) キッチンシンクの下に予備のビニール袋があります\n2) 矢印の方向（チェック印の場所）に置いてください',
-      zh: '房间内的分类垃圾桶满了的话，可以拿到住宿外面丢弃 :)\n1) 厨房水槽下方有备用塑料袋\n2) 放在箭头所指（打勾标记）的位置即可' } },
+      ko: '객실 내 분리수거함이 꽉 찼을 경우 숙소 외부에 버리실 수 있어요 :)\n1) 싱크대 개수대 아래쪽에 여분의 비닐봉투가 있어요\n2) 화살표 방향(체크 표시 위치)에 놔두시면 돼요 ^^',
+      en: 'If the recycling bin in the room is full, you can take it outside :)\n1) Extra plastic bags are under the kitchen sink\n2) Leave the bags where the arrows (check marks) point :)',
+      ja: '客室内の分別ゴミ箱がいっぱいになったら、外に出すことができます :)\n1) キッチンシンクの下に予備のビニール袋があります\n2) 矢印の方向（チェック印の場所）に置いてください ^^',
+      zh: '房间内的分类垃圾桶满了的话，可以拿到住宿外面丢弃 :)\n1) 厨房水槽下方有备用塑料袋\n2) 放在箭头所指（打勾标记）的位置即可 ^^' } },
   ],
   dehumidifier: [
     { src: './assets/img/dehumidifier/01_panel.jpg', type: 'image', caption: {
