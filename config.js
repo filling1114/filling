@@ -13,8 +13,8 @@ const CONFIG = {
     home: { lat: 37.3011821, lng: 127.0114124 },
     suwonStation: { lat: 37.265961, lng: 127.00011 },
     hanilTownStop: { lat: 37.3050001, lng: 127.0032746 },
-    airportT1Stop: { lat: 37.449, lng: 126.4524 },
-    airportT2Stop: { lat: 37.4666, lng: 126.438 },
+    airportT1Stop: { lat: 37.4482, lng: 126.452 },
+    airportT2Stop: { lat: 37.467, lng: 126.4361 },
   },
 
   // 각 언어별 텍스트 정의
@@ -39,16 +39,16 @@ const CONFIG = {
     },
     airportStopInfo: {
       t1: {
-        en: "<strong>T1 Bus Stop 8A</strong><br>Outside 1F arrivals, near Exit 8<br>Board airport bus #4000",
-        ko: "<strong>1터미널 승차장 8A</strong><br>1층 도착층 밖 8번 출구 인근<br>공항버스 4000번 탑승",
-        ja: "<strong>第1ターミナル乗り場 8A</strong><br>1階到着ロビー外、8番出口付近<br>空港バス4000番に乗車",
-        zh: "<strong>T1乘车处 8A</strong><br>一层到达层外，8号出口附近<br>乘坐机场巴士4000路",
+        en: "<strong>T1 Bus Stop 8A</strong><br>Outside 1F arrivals, near Exit 8<br>Follow the '8A' signs and board bus #4000",
+        ko: "<strong>1터미널 승차장 8A</strong><br>1층 도착층 밖 8번 출구 인근<br>'8A' 표지판을 따라가 4000번을 타세요",
+        ja: "<strong>第1ターミナル乗り場 8A</strong><br>1階到着ロビー外、8番出口付近<br>「8A」の標識に沿って4000番に乗車",
+        zh: "<strong>T1乘车处 8A</strong><br>一层到达层外，8号出口附近<br>跟随'8A'指示牌，乘坐4000路",
       },
       t2: {
-        en: "<strong>T2 Bus Stop 36</strong><br>B1 Transportation Center bus terminal<br>Board airport bus #4000",
-        ko: "<strong>2터미널 승차장 36번</strong><br>지하 1층 교통센터 버스터미널<br>공항버스 4000번 탑승",
-        ja: "<strong>第2ターミナル乗り場 36番</strong><br>地下1階交通センターのバスターミナル<br>空港バス4000番に乗車",
-        zh: "<strong>T2乘车处 36号</strong><br>地下一层交通中心巴士客运站<br>乘坐机场巴士4000路",
+        en: "<strong>T2 Bus Stop 36</strong><br>B1 Transportation Center bus terminal<br>Follow the 'Bus Terminal' signs and board bus #4000",
+        ko: "<strong>2터미널 승차장 36번</strong><br>지하 1층 교통센터 버스터미널<br>'버스터미널' 표지판을 따라가 36번 홈에서 4000번을 타세요",
+        ja: "<strong>第2ターミナル乗り場 36番</strong><br>地下1階交通センターのバスターミナル<br>「バスターミナル」の標識に沿って36番ホームで4000番に乗車",
+        zh: "<strong>T2乘车处 36号</strong><br>地下一层交通中心巴士客运站<br>跟随'巴士客运站'指示牌，在36号站台乘坐4000路",
       },
     },
     airportBusButton: {
