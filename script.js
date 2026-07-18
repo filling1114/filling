@@ -637,10 +637,10 @@ const SLIDE_DATA = {
   ],
   projector: [
     { src: './assets/img/projector/01_remote.jpg', type: 'image', caption: {
-      ko: '1) 전원 버튼을 누르세요\n2) 홈 키를 누르고 메뉴 화면이 뜰 때까지 기다리세요\n3) 화살표로 원하는 채널을 선택하세요\n4) 확인 버튼을 누르고 재미있게 시청하세요',
-      en: '1) Press the power button\n2) Press the home key and wait for the menu to appear\n3) Choose a channel with the arrows\n4) Press the OK (확인) button and enjoy',
-      ja: '1) 電源ボタンを押してください\n2) ホームキーを押してメニュー画面が出るまで待ってください\n3) 矢印でチャンネルを選んでください\n4) 確認ボタンを押して楽しくご視聴ください',
-      zh: '1) 按电源按钮\n2) 按主页键，等待菜单画面出现\n3) 用箭头选择频道\n4) 按确认按钮，尽情观看' } },
+      ko: '1) 전원 버튼을 누르세요\n2) 홈 키를 누르고 메뉴 화면이 뜰 때까지 기다리세요\n3) 화살표로 원하는 채널을 선택하세요\n4) 확인 버튼을 누르고 재미있게 시청하세요\n💡 빔 프로젝터를 향해 버튼을 누르면 리모컨 작동이 훨씬 잘됩니다',
+      en: '1) Press the power button\n2) Press the home key and wait for the menu to appear\n3) Choose a channel with the arrows\n4) Press the OK (확인) button and enjoy\n💡 The remote works much better when pointed at the projector',
+      ja: '1) 電源ボタンを押してください\n2) ホームキーを押してメニュー画面が出るまで待ってください\n3) 矢印でチャンネルを選んでください\n4) 確認ボタンを押して楽しくご視聴ください\n💡 プロジェクターに向けてボタンを押すと、リモコンがよく効きます',
+      zh: '1) 按电源按钮\n2) 按主页键，等待菜单画面出现\n3) 用箭头选择频道\n4) 按确认按钮，尽情观看\n💡 将遥控器对准投影仪按键，操作会更灵敏' } },
     { src: './assets/img/projector/02_focus_ring.jpg', type: 'image', caption: {
       ko: '화면이 흐릿하면 렌즈 위쪽의 초점 링(Focus Ring)을 좌우로 천천히 돌려 초점을 맞추세요\n💡 리모컨으로 켜지지 않으면 본체 뒷면의 전원 스위치가 ON인지 확인하세요',
       en: 'If the picture is blurry, slowly turn the focus ring above the lens to sharpen it\n💡 If the remote does not turn it on, check that the power switch on the back is ON',
