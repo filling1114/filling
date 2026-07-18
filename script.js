@@ -518,6 +518,13 @@ const SLIDE_DATA = {
       ja: '画面がぼやける場合は、レンズ上部のフォーカスリングをゆっくり回してピントを合わせてください\n💡 リモコンで電源が入らない場合は、本体背面の電源スイッチがONか確認してください',
       zh: '画面模糊时，请慢慢转动镜头上方的对焦环调整焦距\n💡 遥控器无法开机时，请确认机身背面的电源开关是否为ON' } },
   ],
+  trash: [
+    { src: './assets/img/trash/01_outdoor_spot.jpg', type: 'image', caption: {
+      ko: '객실 내 분리수거함이 꽉 찼을 경우 숙소 외부에 버리실 수 있어요 :)\n1) 싱크대 개수대 아래쪽에 여분의 비닐봉투가 있어요\n2) 화살표 방향(체크 표시 위치)에 놔두시면 돼요',
+      en: 'If the recycling bin in the room is full, you can take it outside :)\n1) Extra plastic bags are under the kitchen sink\n2) Leave the bags where the arrows (check marks) point',
+      ja: '客室内の分別ゴミ箱がいっぱいになったら、外に出すことができます :)\n1) キッチンシンクの下に予備のビニール袋があります\n2) 矢印の方向（チェック印の場所）に置いてください',
+      zh: '房间内的分类垃圾桶满了的话，可以拿到住宿外面丢弃 :)\n1) 厨房水槽下方有备用塑料袋\n2) 放在箭头所指（打勾标记）的位置即可' } },
+  ],
   washer: [
     { src: './assets/img/washer/01_washer_dryer_full.jpg', type: 'image', caption: { ko: '아래쪽이 세탁기, 위쪽이 건조기입니다', en: 'Bottom is the washer, top is the dryer', ja: '下が洗濯機、上が乾燥機です', zh: '下面是洗衣机，上面是烘干机' } },
     { src: './assets/img/washer/02_washer_closeup.jpg', type: 'image', caption: { ko: 'Midea 세탁기입니다', en: 'Midea washing machine', ja: 'Midea洗濯機です', zh: 'Midea洗衣机' } },
