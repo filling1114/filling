@@ -286,6 +286,7 @@ function createTransitButton() {
 
 // 수원역 표시/숨김 토글 함수
 function toggleStationView() {
+  if (typeof google === "undefined" || !map) return;
   if (!stationMarker) {
     // 수원역 마커 생성
     stationMarker = new google.maps.Marker({
@@ -358,6 +359,7 @@ function toggleStationView() {
 
 // 공항버스 정류장(한일타운) 표시/숨김 토글 함수
 function toggleAirportBusView() {
+  if (typeof google === "undefined" || !map) return;
   if (!airportBusMarker) {
     // 정류장 마커 생성
     airportBusMarker = new google.maps.Marker({
@@ -520,11 +522,22 @@ function loadGoogleMapsScript(lang) {
     oldScript.remove();
   }
 
-  // 맵 객체 초기화
+  // 맵 객체 초기화 — 재로드 완료 전까지 옛 지도에 마커가 찍히지 않도록 상태 리셋
+  map = null;
+  stationMarker = null;
+  polylinePath = null;
+  airportBusMarker = null;
+  airportBusPolyline = null;
+  airportStopMarker = null;
+  airportStopInfoWindow = null;
+  parkingMarkers = [];
   const mapDiv = document.getElementById("map");
   if (mapDiv) {
     mapDiv.innerHTML = "";
   }
+
+  // 토글 버튼 문구를 초기 상태(표시하기)로 되돌림
+  updateButtonTexts();
 
   // 새로운 언어로 구글 맵 API 스크립트 로드
   const googleMapLang = CONFIG.googleMapLangCodes[lang] || "en";
@@ -561,6 +574,7 @@ function createParkingButton() {
 
 // 주차장 표시/숨김 토글 함수
 function toggleParkingView() {
+  if (typeof google === "undefined" || !map) return;
   if (parkingMarkers.length === 0) {
     // 숙소 InfoWindow 닫기 (주차장 마커가 가려지지 않도록)
     if (infoWindow) {
@@ -956,7 +970,13 @@ function showAirportStop(stopKey) {
   const mapSection = document.querySelector('.section-map');
   if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  if (typeof google === 'undefined' || !map) return;
+  // 언어 전환으로 지도가 재로드 중이면 잠시 후 한 번 재시도
+  if (typeof google === 'undefined' || !map) {
+    setTimeout(() => {
+      if (typeof google !== 'undefined' && map) showAirportStop(stopKey);
+    }, 1500);
+    return;
+  }
 
   const position =
     stopKey === 't2' ? CONFIG.locations.airportT2Stop : CONFIG.locations.airportT1Stop;
