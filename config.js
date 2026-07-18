@@ -13,6 +13,8 @@ const CONFIG = {
     home: { lat: 37.3011821, lng: 127.0114124 },
     suwonStation: { lat: 37.265961, lng: 127.00011 },
     hanilTownStop: { lat: 37.3050001, lng: 127.0032746 },
+    airportT1Stop: { lat: 37.449, lng: 126.4524 },
+    airportT2Stop: { lat: 37.4666, lng: 126.438 },
   },
 
   // 각 언어별 텍스트 정의
@@ -34,6 +36,20 @@ const CONFIG = {
       ko: "<strong>한일타운 정류장 (공항버스)</strong><br>인천공항 4000번 하차<br>숙소까지 도보 10분",
       ja: "<strong>ハンイルタウン停留所 (空港バス)</strong><br>仁川空港発4000番で下車<br>宿泊先まで徒歩10分",
       zh: "<strong>韩一城站 (机场巴士)</strong><br>仁川机场4000路在此下车<br>步行10分钟到住宿",
+    },
+    airportStopInfo: {
+      t1: {
+        en: "<strong>T1 Bus Stop 8A</strong><br>Outside 1F arrivals, near Exit 8<br>Board airport bus #4000",
+        ko: "<strong>1터미널 승차장 8A</strong><br>1층 도착층 밖 8번 출구 인근<br>공항버스 4000번 탑승",
+        ja: "<strong>第1ターミナル乗り場 8A</strong><br>1階到着ロビー外、8番出口付近<br>空港バス4000番に乗車",
+        zh: "<strong>T1乘车处 8A</strong><br>一层到达层外，8号出口附近<br>乘坐机场巴士4000路",
+      },
+      t2: {
+        en: "<strong>T2 Bus Stop 36</strong><br>B1 Transportation Center bus terminal<br>Board airport bus #4000",
+        ko: "<strong>2터미널 승차장 36번</strong><br>지하 1층 교통센터 버스터미널<br>공항버스 4000번 탑승",
+        ja: "<strong>第2ターミナル乗り場 36番</strong><br>地下1階交通センターのバスターミナル<br>空港バス4000番に乗車",
+        zh: "<strong>T2乘车处 36号</strong><br>地下一层交通中心巴士客运站<br>乘坐机场巴士4000路",
+      },
     },
     airportBusButton: {
       show: {

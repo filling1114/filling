@@ -937,6 +937,52 @@ function bindSlideCardEvents() {
       openSlideModal('direction', idx >= 0 ? idx : 0);
     });
   });
+
+  // 공항버스 승차장 링크 클릭 → 지도로 이동 + 위치 표시
+  document.querySelectorAll('.airport-stop-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      showAirportStop(link.dataset.stop);
+    });
+  });
+}
+
+// 인천공항 승차장(T1/T2) 지도 표시
+let airportStopMarker;
+let airportStopInfoWindow;
+
+function showAirportStop(stopKey) {
+  // 지도 섹션으로 스크롤
+  const mapSection = document.querySelector('.section-map');
+  if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  if (typeof google === 'undefined' || !map) return;
+
+  const position =
+    stopKey === 't2' ? CONFIG.locations.airportT2Stop : CONFIG.locations.airportT1Stop;
+  const info = CONFIG.texts.airportStopInfo[stopKey === 't2' ? 't2' : 't1'][currentLang];
+
+  // 기존 마커 재사용
+  if (airportStopMarker) {
+    airportStopMarker.setPosition(position);
+  } else {
+    airportStopMarker = new google.maps.Marker({
+      map: map,
+      position: position,
+      animation: google.maps.Animation.DROP,
+      icon: {
+        url: 'https://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+      },
+    });
+  }
+
+  if (airportStopInfoWindow) airportStopInfoWindow.close();
+  airportStopInfoWindow = new google.maps.InfoWindow({ content: info });
+  airportStopInfoWindow.open(map, airportStopMarker);
+
+  // 승차장 위치로 지도 이동
+  map.setCenter(position);
+  map.setZoom(16);
 }
 
 // DOMContentLoaded 시 슬라이드 모달 설정

@@ -769,6 +769,17 @@ body {
   border-bottom: none;
 }
 
+/* ===== 공항버스 승차장 링크 ===== */
+.airport-stop-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.airport-stop-link:hover {
+  text-decoration: underline;
+}
+
 /* ===== Checkin Welcome Text ===== */
 .checkin-welcome {
   text-align: center;
