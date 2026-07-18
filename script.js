@@ -617,10 +617,10 @@ const SLIDE_DATA = {
   ],
   boiler: [
     { src: './assets/img/boiler/02_heating_mode.jpg', type: 'image', caption: {
-      ko: '온도조절기는 현관 옆 벽에 있어요 — 난방모드 (온수+난방)\n1) 난방/외출 버튼으로 난방모드(온돌/실내) 선택\n2) ⬇️⬆️ 화살표로 원하는 온도 설정\n3) \'연소\' 아이콘·녹색 가동 램프가 켜지면 자동으로 온도 유지\n⚠️ 가스비 절약을 위해 온돌모드 권장',
-      en: 'The thermostat is on the wall next to the entrance — Heating mode (hot water + floor heating)\n1) Select a heating mode (Ondol/Indoor) with the house-icon button\n2) Set the temperature with the ⬇️⬆️ arrows\n3) The flame icon and green lamp turn on; the set temperature is kept automatically\n⚠️ Ondol mode recommended to save on gas',
-      ja: '温度調節器は玄関横の壁にあります — 暖房モード（お湯＋床暖房）\n1) 家アイコンのボタンで暖房モード（オンドル/室内）を選択\n2) ⬇️⬆️ 矢印で希望の温度を設定\n3) 「燃焼」アイコンと緑のランプが点灯し、自動で温度を維持\n⚠️ ガス代節約のためオンドルモード推奨',
-      zh: '温控器在门口旁边的墙上 — 供暖模式（热水＋地暖）\n1) 用房子图标按钮选择供暖模式（地暖/室内）\n2) 用 ⬇️⬆️ 箭头设定温度\n3) "燃烧"图标和绿色运行灯亮起后，自动保持设定温度\n⚠️ 为节省燃气费，建议使用地暖模式' } },
+      ko: '온도조절기는 현관 옆 벽에 있어요 — 난방모드 (온수+난방)\n1) 난방/외출 버튼으로 난방모드(온돌/실내) 선택\n2) ⬇️⬆️ 화살표로 원하는 온도 설정\n3) \'연소\' 아이콘·녹색 가동 램프가 켜지면 자동으로 온도 유지\n💡 가스비 절약을 위해 온돌모드 권장',
+      en: 'The thermostat is on the wall next to the entrance — Heating mode (hot water + floor heating)\n1) Select a heating mode (Ondol/Indoor) with the house-icon button\n2) Set the temperature with the ⬇️⬆️ arrows\n3) The flame icon and green lamp turn on; the set temperature is kept automatically\n💡 Ondol mode recommended to save on gas',
+      ja: '温度調節器は玄関横の壁にあります — 暖房モード（お湯＋床暖房）\n1) 家アイコンのボタンで暖房モード（オンドル/室内）を選択\n2) ⬇️⬆️ 矢印で希望の温度を設定\n3) 「燃焼」アイコンと緑のランプが点灯し、自動で温度を維持\n💡 ガス代節約のためオンドルモード推奨',
+      zh: '温控器在门口旁边的墙上 — 供暖模式（热水＋地暖）\n1) 用房子图标按钮选择供暖模式（地暖/室内）\n2) 用 ⬇️⬆️ 箭头设定温度\n3) "燃烧"图标和绿色运行灯亮起后，自动保持设定温度\n💡 为节省燃气费，建议使用地暖模式' } },
     { src: './assets/img/boiler/01_hotwater_mode.jpg', type: 'image', caption: {
       ko: '온수모드 (온수만 사용)\n1) 난방/외출 버튼을 눌러 온수 설정 온도만 표시\n2) ⬇️⬆️ 화살표로 원하는 온도 설정',
       en: 'Hot water mode (hot water only)\n1) Press the house-icon button until only the hot water temperature is shown\n2) Set the temperature with the ⬇️⬆️ arrows',
