@@ -487,7 +487,16 @@ const SLIDE_DATA = {
     { src: './assets/img/direction/06_front_door.jpg', type: 'image', caption: { ko: 'WELCOME 매트가 있는 현관문입니다', en: 'Front door with WELCOME mat', ja: 'WELCOMEマットのある玄関ドアです', zh: '有WELCOME地垫的大门' } },
   ],
   boiler: [
-    { src: './assets/img/boiler/01_controller_on.jpg?v=2', type: 'image', caption: { ko: '우측 위 화살표로 온도를 조절하세요', en: 'Adjust temperature with the upper-right arrows', ja: '右上の矢印で温度を調整してください', zh: '用右上方箭头调节温度' } },
+    { src: './assets/img/boiler/02_heating_mode.jpg', type: 'image', caption: {
+      ko: '난방모드 (온수+난방)\n1) 난방/외출 버튼으로 난방모드(온돌/실내) 선택\n2) ⬇️⬆️ 화살표로 원하는 온도 설정\n3) \'연소\' 아이콘·녹색 가동 램프가 켜지면 자동으로 온도 유지\n⚠️ 가스비 절약을 위해 온돌모드 권장',
+      en: 'Heating mode (hot water + floor heating)\n1) Select a heating mode (Ondol/Indoor) with the house-icon button\n2) Set the temperature with the ⬇️⬆️ arrows\n3) The flame icon and green lamp turn on; the set temperature is kept automatically\n⚠️ Ondol mode recommended to save on gas',
+      ja: '暖房モード（お湯＋床暖房）\n1) 家アイコンのボタンで暖房モード（オンドル/室内）を選択\n2) ⬇️⬆️ 矢印で希望の温度を設定\n3) 「燃焼」アイコンと緑のランプが点灯し、自動で温度を維持\n⚠️ ガス代節約のためオンドルモード推奨',
+      zh: '供暖模式（热水＋地暖）\n1) 用房子图标按钮选择供暖模式（地暖/室内）\n2) 用 ⬇️⬆️ 箭头设定温度\n3) "燃烧"图标和绿色运行灯亮起后，自动保持设定温度\n⚠️ 为节省燃气费，建议使用地暖模式' } },
+    { src: './assets/img/boiler/01_hotwater_mode.jpg', type: 'image', caption: {
+      ko: '온수모드 (온수만 사용)\n1) 난방/외출 버튼을 눌러 온수 설정 온도만 표시\n2) ⬇️⬆️ 화살표로 원하는 온도 설정',
+      en: 'Hot water mode (hot water only)\n1) Press the house-icon button until only the hot water temperature is shown\n2) Set the temperature with the ⬇️⬆️ arrows',
+      ja: 'お湯モード（お湯のみ）\n1) 家アイコンのボタンを押してお湯の設定温度のみ表示\n2) ⬇️⬆️ 矢印で希望の温度を設定',
+      zh: '热水模式（仅用热水）\n1) 按房子图标按钮，使屏幕只显示热水设定温度\n2) 用 ⬇️⬆️ 箭头设定温度' } },
   ],
   tv: [
     { src: './assets/img/tv/01_monitor.jpg', type: 'image', caption: { ko: 'TV 모니터입니다', en: 'TV monitor', ja: 'TVモニターです', zh: '电视显示器' } },
@@ -561,7 +570,9 @@ function renderSlide() {
   }
 
   // 캡션 렌더링
-  captionEl.textContent = item.caption[currentLang] || '';
+  const captionText = item.caption[currentLang] || '';
+  captionEl.textContent = captionText;
+  captionEl.classList.toggle('multiline', captionText.includes('\n'));
 
   // 카운터 렌더링
   counterEl.textContent = `${slideCurrentIndex + 1} / ${slideCurrentData.length}`;

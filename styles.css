@@ -697,6 +697,12 @@ body {
   font-family: var(--font-body);
 }
 
+.slide-caption.multiline {
+  text-align: left;
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
 .slide-prev,
 .slide-next {
   position: absolute;
