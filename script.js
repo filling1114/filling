@@ -746,6 +746,11 @@ const SLIDE_DATA = {
       en: '1) Press the power button\n2) Press the home key and wait for the menu to appear\n3) Choose a channel with the arrows\n4) Press the OK (확인) button and enjoy\n💡 The remote works much better when pointed at the projector',
       ja: '1) 電源ボタンを押してください\n2) ホームキーを押してメニュー画面が出るまで待ってください\n3) 矢印でチャンネルを選んでください\n4) 確認ボタンを押して楽しくご視聴ください\n💡 プロジェクターに向けてボタンを押すと、リモコンがよく効きます',
       zh: '1) 按电源按钮\n2) 按主页键，等待菜单画面出现\n3) 用箭头选择频道\n4) 按确认按钮，尽情观看\n💡 将遥控器对准投影仪按键，操作会更灵敏' } },
+    { src: './assets/img/projector/03_white_table.jpg', type: 'image', caption: {
+      ko: '빔 화면 "상하좌우" 조정시 화이트 테이블을 미세하게 움직이는게 가장 확실하고 빠른 방법으로 추천드립니다😅😅😅',
+      en: 'To adjust the screen position ("up/down/left/right"), gently nudging the white table is the surest and fastest way 😅😅😅',
+      ja: '画面の「上下左右」を調整するには、白いテーブルを少しずつ動かすのが一番確実で早い方法です😅😅😅',
+      zh: '调整画面"上下左右"位置时，最可靠、最快的方法就是轻轻微调白色桌子的位置😅😅😅' } },
     { src: './assets/img/projector/02_focus_ring.jpg', type: 'image', caption: {
       ko: '화면이 흐릿하면 렌즈 위쪽의 초점 링(Focus Ring)을 좌우로 천천히 돌려 초점을 맞추세요\n💡 리모컨으로 켜지지 않으면 본체 뒷면의 전원 스위치가 ON인지 확인하세요',
       en: 'If the picture is blurry, slowly turn the focus ring above the lens to sharpen it\n💡 If the remote does not turn it on, check that the power switch on the back is ON',
