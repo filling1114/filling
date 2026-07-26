@@ -765,16 +765,16 @@ const SLIDE_DATA = {
       zh: '房间内的分类垃圾桶满了的话，可以拿到住宿外面丢弃 :)\n1) 厨房水槽下方有备用塑料袋\n2) 放在箭头所指（打勾标记）的位置即可 ^^' } },
   ],
   dehumidifier: [
-    { src: './assets/img/dehumidifier/01_panel.jpg', type: 'image', caption: {
-      ko: '빨간 표시는 물탱크 만수를 뜻해요\n계속해서 뽀송뽀송함을 유지하시려면 물을 비워서 사용하시는 걸 추천드려요 👍',
-      en: 'The red light means the water tank is full\nTo keep the air nice and dry, please empty the tank before use 👍',
-      ja: '赤いランプはタンク満水のサインです\n快適な空気を保つために、水を捨ててからご使用ください 👍',
-      zh: '红色指示灯表示水箱已满\n为保持室内干爽，建议倒掉水后继续使用 👍' } },
-    { src: './assets/img/dehumidifier/02_drain.jpg', type: 'image', caption: {
-      ko: '물 비우는 방법\n1) 물탱크 하단 홈에 손을 넣고 부드럽게 당겨 꺼내세요\n2) 화살표가 가리키는 물탱크 배수구를 확인하세요\n3) 물탱크를 기울여 물을 비우세요\n4) 물탱크를 다시 제습기에 올바르게 장착하세요\n⚠️ 물통 안 흰색 플로터(만수 감지 센서)는 버리지 마세요',
-      en: 'How to empty the tank\n1) Put your hand in the groove at the bottom and gently pull the tank out\n2) Check the drain hole where the arrow points\n3) Tilt the tank to pour out the water\n4) Put the tank back in place correctly\n⚠️ Do not remove the white float (full-tank sensor) inside the tank',
-      ja: '水の捨て方\n1) タンク下部の溝に手を入れてゆっくり引き出してください\n2) 矢印が指すタンクの排水口を確認してください\n3) タンクを傾けて水を捨ててください\n4) タンクを元どおりに取り付けてください\n⚠️ タンク内の白いフロート（満水センサー）は捨てないでください',
-      zh: '倒水方法\n1) 手伸入水箱底部凹槽，轻轻拉出水箱\n2) 确认箭头所指的水箱排水口\n3) 倾斜水箱倒掉水\n4) 将水箱正确装回除湿机\n⚠️ 请勿取出水箱内的白色浮子（满水感应器）' } },
+    { src: './assets/img/dehumidifier/01_dehumidifier.jpg', type: 'image', caption: {
+      ko: '쾌적한 휴식을 위해 아래 사항을 안내해 드립니다.\n• 제습기 24시간 가동: 쾌적한 실내를 위해 연속 배수로 항시 작동 중입니다.',
+      en: 'For a comfortable stay, please note the following.\n• Dehumidifier running 24/7: It runs continuously with direct drainage to keep the room pleasant.',
+      ja: '快適にお過ごしいただくため、以下をご案内いたします。\n• 除湿機24時間稼働：連続排水で常時運転し、室内を快適に保っています。',
+      zh: '为了让您舒适休息，谨此说明以下事项。\n• 除湿机24小时运行：采用连续排水方式全天候运转，保持室内干爽舒适。' } },
+    { src: './assets/img/dehumidifier/02_earplugs.jpg', type: 'image', caption: {
+      ko: '• 야구장 함성 소리: KT위즈파크(도보 3분) 경기 시 열정적인 함성이 들릴 수 있습니다.\n이 소리가 누군가에겐 백색소음과 열정이지만, 누군가에겐 소음일 수 있기에 편안한 수면을 돕는 귀마개를 준비해 두었습니다.\n게스트님의 편안하고 단단한 숙면을 언제나 응원합니다! 🌙',
+      en: '• Cheers from the ballpark: KT Wiz Park is a 3-minute walk away, so you may hear enthusiastic cheering during games.\nFor some it is white noise and excitement, for others simply noise — so we have prepared earplugs to help you sleep comfortably.\nWishing you a restful and sound sleep! 🌙',
+      ja: '• 野球場の歓声：KTウィズパーク（徒歩3分）の試合中は、熱のこもった歓声が聞こえることがあります。\nこの音は、ある方には心地よいホワイトノイズや熱気でも、ある方には騒音になり得るため、安眠をサポートする耳栓をご用意しました。\nゲスト様がぐっすりとお休みになれますよう、心より応援しております！🌙',
+      zh: '• 棒球场的呐喊声：KT Wiz Park（步行3分钟）比赛时，可能会听到热情的加油呐喊声。\n这声音对有些人是白噪音与激情，对有些人却可能是噪音，因此我们准备了助您安睡的耳塞。\n祝您睡得安稳香甜！🌙' } },
   ],
   washer: [
     { src: './assets/img/washer/01_washer_dryer_full.jpg', type: 'image', caption: { ko: '아래쪽이 세탁기, 위쪽이 건조기입니다\n🛏️ 건조기 안에 침구가 들어있을 수 있어요! 사용 전 잠시만 깨끗한 곳으로 옮겨주시면 감사하겠습니다 :)', en: 'Bottom is the washer, top is the dryer\n🛏️ Bedding may be inside the dryer! Please move it to a clean spot before use — thank you! :)', ja: '下が洗濯機、上が乾燥機です\n🛏️ 乾燥機の中に寝具が入っていることがあります！ご使用前にきれいな場所へ移してください :)', zh: '下面是洗衣机，上面是烘干机\n🛏️ 烘干机内可能放有寝具！使用前请先移到干净的地方，谢谢 :)' } },
