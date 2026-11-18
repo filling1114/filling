@@ -193,7 +193,8 @@ function createButtons() {
 // 언어별 HTML 콘텐츠 로드 함수
 async function loadLanguageContent(lang) {
   try {
-    const response = await fetch(`./lang/${lang}.html`);
+    // no-cache: 매번 서버에 변경 여부 확인 (Pages 10분 캐시로 수정 내용이 늦게 보이는 문제 방지)
+    const response = await fetch(`./lang/${lang}.html`, { cache: "no-cache" });
     const html = await response.text();
     document.getElementById("content-container").innerHTML = html;
 
