@@ -3,6 +3,11 @@
   --color-primary: #5A9E6F;
   --color-primary-dark: #4A8A5E;
   --color-primary-light: #B5D4C0;
+  --color-primary-rgb: 90, 158, 111; /* rgba() 그림자용 — --color-primary 와 같은 색 */
+  --color-accent: #7BB88D;
+  --color-primary-tint: var(--color-primary-tint);
+  --color-primary-tint-hover: var(--color-primary-tint-hover);
+  --color-primary-border: var(--color-primary-border);
   --color-bg: #F5F9F2;
   --color-card: #FFFFFF;
   --color-text: #3D3D3D;
@@ -40,7 +45,7 @@ body {
 
 /* ===== Header ===== */
 .site-header {
-  background: linear-gradient(135deg, #4A8A5E 0%, #5A9E6F 50%, #7BB88D 100%);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-accent) 100%);
   padding: 48px 24px 40px;
   text-align: center;
   position: relative;
@@ -391,13 +396,13 @@ body {
   border: none;
   background: var(--color-primary);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(90,158,111,0.3);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
   transition: all 0.2s ease;
 }
 
 .transit-button:hover {
   background: var(--color-primary-dark);
-  box-shadow: 0 6px 16px rgba(90,158,111,0.4);
+  box-shadow: 0 6px 16px rgba(var(--color-primary-rgb), 0.4);
 }
 
 .google-maps-button {
@@ -413,13 +418,13 @@ body {
   cursor: pointer;
   background: #fff;
   color: var(--color-primary);
-  border: 2px solid #C2DBC9;
+  border: 2px solid var(--color-primary-border);
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   transition: all 0.2s ease;
 }
 
 .google-maps-button:hover {
-  background: #EDF5EF;
+  background: var(--color-primary-tint);
   border-color: var(--color-primary);
 }
 
@@ -439,14 +444,14 @@ body {
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  background: #EDF5EF;
+  background: var(--color-primary-tint);
   color: var(--color-primary);
-  border: 2px solid #C2DBC9;
+  border: 2px solid var(--color-primary-border);
   transition: all 0.2s ease;
 }
 
 .parking-button:hover {
-  background: #DCEEE0;
+  background: var(--color-primary-tint-hover);
   border-color: var(--color-primary);
 }
 
@@ -530,7 +535,7 @@ body {
 .divider {
   width: 48px;
   height: 4px;
-  background: linear-gradient(90deg, #5A9E6F, #B5D4C0);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
   border-radius: 2px;
   margin: 32px auto;
   border: none;
@@ -615,7 +620,7 @@ body {
   width: 36px;
   height: 36px;
   min-width: 36px;
-  background: linear-gradient(135deg, #5A9E6F, #7BB88D);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -624,7 +629,7 @@ body {
   font-size: 16px;
   font-weight: 800;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(90,158,111,0.3);
+  box-shadow: 0 2px 8px rgba(var(--color-primary-rgb), 0.3);
 }
 
 .checkin-step-title {
