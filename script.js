@@ -1,5 +1,5 @@
 // 숙소별 설정 — 이 스크립트가 아니라 *페이지* 위치 기준의 config.js 를 읽는다
-// (/filling/ → 베이스가든, /filling/somsatang/ → 솜사탕)
+// (/filling/basegarden/ → 베이스가든, /filling/somsatang/ → 솜사탕)
 const CONFIG = (await import(new URL("./config.js", document.baseURI).href)).default;
 
 // 모듈 top-level await 때문에 DOMContentLoaded 가 이미 지났을 수 있음.
