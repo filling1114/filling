@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>솜사탕 (Somsatang) | Guest Guide</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google" content="notranslate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="site-header">
+        <div class="header-inner">
+          <h1 class="site-title">솜사탕<br><span class="site-title-en">(Somsatang)</span></h1>
+          <p class="site-subtitle" id="site-subtitle">Guest Guide</p>
+          <div class="language-selector">
+            <button class="language-btn active" data-lang="en">English</button>
+            <button class="language-btn" data-lang="ko">한국어</button>
+            <button class="language-btn" data-lang="ja">日本語</button>
+            <button class="language-btn" data-lang="zh">中文</button>
+          </div>
+        </div>
+      </header>
+
+      <nav class="quick-nav" id="quickNav">
+        <div class="quick-nav-inner">
+          <div class="quick-nav-tabs-wrap">
+            <div class="quick-nav-tabs">
+              <button class="quick-nav-tab active" data-nav="map"><span class="quick-nav-emoji">📍</span><span class="quick-nav-label">Map</span></button>
+              <button class="quick-nav-tab" data-nav="directions"><span class="quick-nav-emoji">🚌</span><span class="quick-nav-label">Directions</span></button>
+              <button class="quick-nav-tab" data-nav="checkin"><span class="quick-nav-emoji">🔑</span><span class="quick-nav-label">Check-in</span></button>
+              <button class="quick-nav-tab" data-nav="appliances"><span class="quick-nav-emoji">🏠</span><span class="quick-nav-label">Appliances</span></button>
+            </div>
+            <button class="quick-nav-more" id="quickNavMore" aria-label="more tabs">›</button>
+          </div>
+          <div class="quick-nav-lang">
+            <button class="quick-nav-lang-btn" id="quickNavLangBtn">EN ▾</button>
+            <div class="quick-nav-lang-menu" id="quickNavLangMenu" hidden>
+              <button data-lang="en">English</button>
+              <button data-lang="ko">한국어</button>
+              <button data-lang="ja">日本語</button>
+              <button data-lang="zh">中文</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <main class="container">
+        <section class="section section-map">
+          <div class="section-header">
+            <span class="section-icon">📍</span>
+            <h2 class="section-title" id="section-title-location">Location</h2>
+          </div>
+          <div class="map-container">
+            <div id="map"></div>
+          </div>
+        </section>
+
+        <div id="content-container"><!-- lang/*.html 이 채움 -->
+        </div>
+      </main>
+
+      <!-- Slide Modal -->
+      <div class="slide-modal" id="slideModal">
+        <div class="slide-modal-overlay"></div>
+        <div class="slide-modal-content">
+          <button class="slide-close">&times;</button>
+          <div class="slide-media"></div>
+          <div class="slide-caption"></div>
+          <button class="slide-prev">&#10094;</button>
+          <button class="slide-next">&#10095;</button>
+          <div class="slide-counter"></div>
+        </div>
+      </div>
+
+      <footer class="site-footer">
+        Made with <span class="heart">♥</span> for our guests at 솜사탕(Somsatang)
+      </footer>
+    </div>
+
+    <script type="module" src="../script.js"></script>
+  </body>
+</html>
