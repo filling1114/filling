@@ -20,10 +20,10 @@ const CONFIG = {
       zh: "<strong>솜사탕(Candy Cotton)</strong><br>15-6, Suwoncheon-ro 406beon-gil, Jangan-gu, Suwon-si, Gyeonggi-do<br>(Yeonmu-dong, 1F Unit 101)<br>入住时间: 下午4点起<br>退房时间: 上午11点前",
     },
     stationInfo: {
-      en: "<strong>Suwon Station</strong><br>Take bus #35 or #13 from Maesan Market stop to Janganmun",
-      ko: "<strong>수원역</strong><br>매산시장 정류장에서 35·13번 버스 탑승 → 장안문 하차",
-      ja: "<strong>水原駅</strong><br>梅山市場停留所で35・13番バスに乗車 → 長安門で下車",
-      zh: "<strong>水原站</strong><br>在梅山市场站乘坐35路·13路公交车 → 长安门下车",
+      en: "<strong>Suwon Station</strong><br>Take bus #35 or #7-1 from Yeokjeon Market stop to Janganmun",
+      ko: "<strong>수원역</strong><br>역전시장 정류장에서 35·7-1번 버스 탑승 → 장안문 하차",
+      ja: "<strong>水原駅</strong><br>駅前市場停留所で35・7-1番バスに乗車 → 長安門で下車",
+      zh: "<strong>水原站</strong><br>在站前市场站乘坐35路·7-1路公交车 → 长安门下车",
     },
     transitButton: {
       show: { en: "Show Suwon Station", ko: "수원역 표시하기", ja: "水原駅を表示", zh: "显示水原站" },
