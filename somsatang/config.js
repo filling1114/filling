@@ -141,10 +141,10 @@ const CONFIG = {
     direction: [],
     aircon: [
       { src: './assets/img/aircon/01_remote_holder.jpg', type: 'image', caption: {
-        ko: "에어컨·TV 리모컨은 문 옆 벽의 리모컨 꽂이에 있어요\n(흰색: 에어컨 / 검정색: TV)",
-        en: "The AC and TV remotes are in the holder on the wall next to the door\n(White: AC / Black: TV)",
-        ja: "エアコン・TVのリモコンはドア横の壁のリモコン入れにあります\n（白: エアコン / 黒: TV）",
-        zh: "空调和电视遥控器在门旁墙上的遥控器收纳盒里\n（白色: 空调 / 黑色: 电视）" } },
+        ko: "에어컨·TV 리모컨은 큰방 문 옆 벽의 리모컨 꽂이에 있어요\n(흰색: 에어컨 / 검정색: TV)",
+        en: "The AC and TV remotes are in the holder on the wall next to the main bedroom door\n(White: AC / Black: TV)",
+        ja: "エアコン・TVのリモコンは大きい部屋のドア横の壁のリモコン入れにあります\n（白: エアコン / 黒: TV）",
+        zh: "空调和电视遥控器在大房间门旁墙上的遥控器收纳盒里\n（白色: 空调 / 黑色: 电视）" } },
       { src: './assets/img/aircon/02_ac_remote.jpg', type: 'image', caption: {
         ko: "1) 왼쪽 위 전원 버튼으로 켜기\n2) 모드 버튼으로 냉방 선택\n3) 온도 버튼을 위·아래로 눌러 온도 조절\n💡 권장 온도 24-26°C",
         en: "1) Turn on with the power button (top left)\n2) Select Cool with the Mode (모드) button\n3) Press the Temp (온도) button up/down to adjust\n💡 Recommended: 24-26°C",
