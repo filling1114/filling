@@ -153,10 +153,10 @@ const CONFIG = {
     ],
     washer: [
       { src: './assets/img/washer/01_washer_dryer.jpg', type: 'image', caption: {
-        ko: "아래쪽이 세탁기, 위쪽이 건조기입니다. 자유롭게 사용하세요 :)",
-        en: "Bottom is the washer, top is the dryer. Feel free to use them :)",
-        ja: "下が洗濯機、上が乾燥機です。ご自由にお使いください :)",
-        zh: "下面是洗衣机，上面是烘干机。可随意使用 :)" } },
+        ko: "아래쪽이 세탁기, 위쪽이 건조기입니다. 자유롭게 사용하세요 :)\n🛏️ 건조기 안에 침구가 들어있을 수 있어요! 사용 전 잠시만 깨끗한 곳으로 옮겨주시면 감사하겠습니다 :)",
+        en: "Bottom is the washer, top is the dryer. Feel free to use them :)\n🛏️ Bedding may be inside the dryer! Please move it to a clean spot before use — thank you! :)",
+        ja: "下が洗濯機、上が乾燥機です。ご自由にお使いください :)\n🛏️ 乾燥機の中に寝具が入っていることがあります！ご使用前にきれいな場所へ移してください :)",
+        zh: "下面是洗衣机，上面是烘干机。可随意使用 :)\n🛏️ 烘干机内可能放有寝具！使用前请先移到干净的地方，谢谢 :)" } },
       { src: './assets/img/washer/02_control_dial.jpg', type: 'image', caption: {
         ko: "1) 왼쪽 전원 버튼 누르기\n2) 가운데 다이얼을 돌려 코스 선택\n3) 오른쪽 ▷|| 버튼으로 시작\n(세탁기·건조기 사용법이 같아요)",
         en: "1) Press the power button on the left\n2) Turn the center dial to choose a course\n3) Press ▷|| on the right to start\n(The washer and dryer work the same way)",
