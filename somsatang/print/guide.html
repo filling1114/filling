@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>솜사탕 (Candy Cotton) | 숙소 이용 안내</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #E07A9E;
+      --green-light: #FDEEF3;
+      --green-dark: #CC6188;
+      --text: #3e2c33;
+      --text-light: #6e5a62;
+      --bg: #FFF7FA;
+      --white: #ffffff;
+      --border: #F5CFDC;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Nunito', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Screen Layout ── */
+    .screen-controls {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--green);
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 4px;
+      background: var(--green-light);
+      border-radius: 8px;
+      padding: 4px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--green-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(224,122,158,0.15);
+    }
+
+    .tab-btn.active {
+      background: var(--green);
+      color: var(--white);
+      box-shadow: 0 2px 4px rgba(224,122,158,0.3);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .print-btn {
+      border: 2px solid var(--green);
+      background: var(--white);
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--green);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .print-btn:hover {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary:hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+    }
+
+    /* ── Page Content ── */
+    .lang-section {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 24px 48px;
+      position: relative;
+    }
+
+    .lang-section.visible {
+      display: block;
+    }
+
+    .a4-limit-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 280mm;
+      border-top: 2px dashed #e74c3c;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .a4-limit-label {
+      position: absolute;
+      right: 8px;
+      top: -20px;
+      background: #e74c3c;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .overflow-warning {
+      display: none;
+      background: #e74c3c;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      margin-top: 12px;
+    }
+
+    .lang-section.overflow .overflow-warning {
+      display: block;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--green);
+    }
+
+    .page-header h1 {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-header .welcome {
+      font-size: 17px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* ── Info Box (체크인/Wi-Fi) ── */
+    .info-box {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .info-box .info-card {
+      flex: 1;
+      background: var(--green-light);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+    }
+
+    .info-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+
+    .info-card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .info-card strong {
+      color: var(--green-dark);
+    }
+
+    /* ── Section ── */
+    .info-section {
+      margin-bottom: 22px;
+    }
+
+    .info-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--green-light);
+    }
+
+    .info-section p {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .info-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-section ul li {
+      font-size: 15.5px;
+      line-height: 1.65;
+      padding: 3px 0 3px 20px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .info-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .info-section ul.rules li::before {
+      display: none;
+    }
+
+    .info-section ol {
+      padding-left: 24px;
+    }
+
+    .info-section ol li {
+      font-size: 15.5px;
+      line-height: 1.65;
+      padding: 3px 0;
+      color: var(--text);
+    }
+
+    .footer-line {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px solid var(--green-light);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    /* ── Print Styles ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+
+      body {
+        background: white;
+        font-size: 12pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .screen-controls,
+      .a4-limit-line,
+      .overflow-warning {
+        display: none !important;
+      }
+
+      .lang-section {
+        display: none !important;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        page-break-inside: avoid;
+      }
+
+      .lang-section.print-target {
+        display: block !important;
+        page-break-after: always;
+      }
+
+      .lang-section.print-target:last-of-type {
+        page-break-after: auto;
+      }
+
+      body.print-single .lang-section.print-target {
+        page-break-after: auto;
+      }
+
+      .page-header h1 { font-size: 22pt; }
+      .page-header .welcome { font-size: 12pt; }
+
+      .info-section { margin-bottom: 12pt; }
+      .info-section h2 { font-size: 13pt; }
+      .info-section p { font-size: 11.5pt; line-height: 1.5; }
+      .info-section ul li, .info-section ol li { font-size: 11.5pt; line-height: 1.45; }
+      .info-section ul li::before { top: 7pt; width: 5pt; height: 5pt; }
+
+      .info-box { gap: 10pt; margin-bottom: 14pt; }
+      .info-card { padding: 8pt 12pt; }
+      .info-card h3 { font-size: 12pt; margin-bottom: 4pt; }
+      .info-card p { font-size: 11.5pt; line-height: 1.5; }
+
+      .footer-line { font-size: 11pt; margin-top: 10pt; padding-top: 8pt; }
+
+      .page-title { font-size: 15pt; margin-bottom: 8pt; }
+    }
+
+    /* ── Responsive ── */
+    @media screen and (max-width: 640px) {
+      .screen-controls {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btns {
+        margin-left: 0;
+        justify-content: stretch;
+      }
+      .print-btn { flex: 1; text-align: center; }
+      .tab-btn { padding: 8px 12px; font-size: 13px; }
+      .lang-section { padding: 24px 16px 40px; }
+      .page-header h1 { font-size: 24px; }
+      .info-box { flex-direction: column; }
+    }
+      .todo { background: #fff3b0; color: #b35c00; font-weight: 700; padding: 0 3px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Screen Controls ── -->
+  <div class="screen-controls">
+    <div class="tab-group">
+      <button class="tab-btn active" data-lang="ko">한국어</button>
+      <button class="tab-btn" data-lang="en">English</button>
+      <button class="tab-btn" data-lang="zh">中文</button>
+      <button class="tab-btn" data-lang="ja">日本語</button>
+    </div>
+    <div class="action-btns">
+      <button class="print-btn" onclick="printSingle()">이 언어만 출력 (Print this language)</button>
+      <button class="print-btn primary" onclick="printAll()">전체 출력 (Print all)</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Korean -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section visible" data-lang="ko">
+    <div class="page-header">
+      <h1>🏡 숙소 이용 안내</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 체크인 &amp; 체크아웃</h3>
+        <p>입실 : 오후 4시 이후<br>퇴실 : 오전 11시까지</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>5G : <strong>U+Net4DB2_5G</strong><br>2.4G : <strong>U+Net4DB2</strong><br>PWD : <strong>7B624224M#</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 TV 사용법</h2>
+      <ol>
+        <li>검정색 리모컨 왼쪽 위 전원 버튼 → YouTube·Netflix 버튼으로 바로 시청</li>
+        <li>TV·Wi-Fi가 안 될 때: 빨간색 LGU+ 태그가 붙은 전원선을 뽑았다가 다시 꽂기</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 보일러 (난방·온수)</h2>
+      <ol>
+        <li>오른쪽 전원 버튼 → 기능선택 다이얼: 실내(방 온도) / 온돌(바닥 온도) / 온수전용</li>
+        <li>난방조절 다이얼을 + 쪽으로 돌리면 더 따뜻해져요 · 외출 시 '외출'로</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ 커피머신 · 🧺 세탁기</h2>
+      <ul>
+        <li><strong>커피:</strong> 캡슐 넣기 → 뚜껑 닫기 → 왼쪽 작은 컵 버튼 → 캡슐 빼기 → 오른쪽 버튼으로 물 추가</li>
+        <li><strong>세탁기(아래)·건조기(위):</strong> 전원 → 다이얼로 코스 선택 → ▷|| 시작 · 세제는 옆 선반</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 숙소 규칙 및 퇴실 안내</h2>
+      <ul class="rules">
+        <li>✅ 숙소 내부 및 외부 금연 · 냄새가 심하거나 기름이 많이 튀는 요리는 자제 부탁드립니다.</li>
+        <li>✅ 비치된 물품의 고장·파손·분실 시 즉시 호스트에게 연락 주세요. 알리지 않고 퇴실하면 추가 비용이 발생할 수 있습니다.</li>
+        <li>✅ 퇴실 시 쓰레기는 분리해서 집 앞 전봇대 옆에 버려주세요.</li>
+        <li>✅ 퇴실 전 전체 소등, 보일러 &amp; 에어컨 전원 OFF 확인해주세요.</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 편안한 여행 되세요! 🚪✨</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- English -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="en">
+    <div class="page-header">
+      <h1>🏡 House Guide</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 Check-in &amp; Check-out</h3>
+        <p>Check-in : After 4:00 PM<br>Check-out : By 11:00 AM</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>5G : <strong>U+Net4DB2_5G</strong><br>2.4G : <strong>U+Net4DB2</strong><br>PWD : <strong>7B624224M#</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 How to Use the TV</h2>
+      <ol>
+        <li>Power button at the top left of the black remote → YouTube / Netflix buttons</li>
+        <li>TV/Wi-Fi not working? Unplug and replug the cable with the red LGU+ tag</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 Boiler (Heating &amp; Hot Water)</h2>
+      <ol>
+        <li>Right power button → Function dial: Indoor (실내) / Ondol (온돌) / Hot water (온수전용)</li>
+        <li>Turn the heating dial toward + for more heat · Set to Away (외출) when going out</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ Coffee Machine · 🧺 Washer</h2>
+      <ul>
+        <li><strong>Coffee:</strong> Capsule in → Close lid → Small left button → Capsule out → Right button for water</li>
+        <li><strong>Washer (bottom) · Dryer (top):</strong> Power → Choose a course with the dial → ▷|| to start · Detergent on the shelf</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 Rules &amp; Check-out</h2>
+      <ul class="rules">
+        <li>✅ No smoking inside or outside · Please avoid strong-smelling or greasy cooking.</li>
+        <li>✅ Report any damage or loss to the host right away; unreported damage may incur charges.</li>
+        <li>✅ At check-out, sort your trash and leave it next to the utility pole in front of the house.</li>
+        <li>✅ Turn off all lights, the boiler, and the air conditioner before leaving.</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 Have a pleasant trip! 🚪✨</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Chinese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="zh">
+    <div class="page-header">
+      <h1>🏡 住宿使用指南</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 入住 &amp; 退房</h3>
+        <p>入住 : 下午4点以后<br>退房 : 上午11点前</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>5G : <strong>U+Net4DB2_5G</strong><br>2.4G : <strong>U+Net4DB2</strong><br>PWD : <strong>7B624224M#</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 电视使用方法</h2>
+      <ol>
+        <li>黑色遥控器左上方电源按钮 → 按YouTube·Netflix按钮直接观看</li>
+        <li>电视或Wi-Fi无法使用时：拔下贴有红色LGU+标签的电源线，再重新插上</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 锅炉（供暖·热水）</h2>
+      <ol>
+        <li>右侧电源按钮 → 功能选择旋钮：室内(실내) / 地暖(온돌) / 仅热水(온수전용)</li>
+        <li>将供暖调节旋钮转向＋会更暖和 · 外出时转到“外出(외출)”</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ 咖啡机 · 🧺 洗衣机</h2>
+      <ul>
+        <li><strong>咖啡:</strong> 放入胶囊 → 关盖 → 按左侧小杯按钮 → 取出胶囊 → 按右侧按钮加水</li>
+        <li><strong>洗衣机(下)·烘干机(上):</strong> 电源 → 旋钮选择程序 → ▷|| 开始 · 洗衣液在旁边架子上</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 住宿规则及退房</h2>
+      <ul class="rules">
+        <li>✅ 住宿内外禁止吸烟 · 请避免烹饪气味浓烈或油烟大的食物。</li>
+        <li>✅ 物品如有故障、损坏或遗失，请立即联系房东。未告知而退房可能产生额外费用。</li>
+        <li>✅ 退房时请将垃圾分类后放在房子门前的电线杆旁边。</li>
+        <li>✅ 退房前请确认关闭所有灯光、锅炉和空调。</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 祝您旅途愉快！🚪✨</div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Japanese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="ja">
+    <div class="page-header">
+      <h1>🏡 ご利用案内</h1>
+    </div>
+
+    <div class="info-box">
+      <div class="info-card">
+        <h3>🕒 チェックイン &amp; チェックアウト</h3>
+        <p>チェックイン : 午後4時以降<br>チェックアウト : 午前11時まで</p>
+      </div>
+      <div class="info-card">
+        <h3>📶 Wi-Fi</h3>
+        <p>5G : <strong>U+Net4DB2_5G</strong><br>2.4G : <strong>U+Net4DB2</strong><br>PWD : <strong>7B624224M#</strong></p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>📺 TVの使い方</h2>
+      <ol>
+        <li>黒いリモコン左上の電源ボタン → YouTube・Netflixボタンですぐに視聴</li>
+        <li>TV・Wi-Fiが使えない時：赤いLGU+タグの付いた電源ケーブルを抜いて差し直す</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>🔥 ボイラー（暖房・お湯）</h2>
+      <ol>
+        <li>右の電源ボタン → 機能選択ダイヤル：室内(실내) / オンドル(온돌) / お湯のみ(온수전용)</li>
+        <li>暖房調節ダイヤルを＋側に回すと暖かくなります · 外出時は「外出(외출)」に</li>
+      </ol>
+    </div>
+
+    <div class="info-section">
+      <h2>☕ コーヒーマシン · 🧺 洗濯機</h2>
+      <ul>
+        <li><strong>コーヒー:</strong> カプセルを入れる → フタを閉める → 左の小さいカップボタン → カプセルを取り出す → 右のボタンでお湯を追加</li>
+        <li><strong>洗濯機(下)・乾燥機(上):</strong> 電源 → ダイヤルでコース選択 → ▷|| でスタート · 洗剤は横の棚に</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2>🚨 ルール・チェックアウト</h2>
+      <ul class="rules">
+        <li>✅ 室内外ともに禁煙 · 匂いの強い料理や油はねの多い料理はご遠慮ください。</li>
+        <li>✅ 備品の故障・破損・紛失はすぐにホストへご連絡ください。連絡なく退室された場合、追加料金が発生することがあります。</li>
+        <li>✅ 退室時、ゴミは分別して家の前の電柱のそばに出してください。</li>
+        <li>✅ 退室前にすべての照明、ボイラー、エアコンの電源OFFをご確認ください。</li>
+      </ul>
+    </div>
+
+    <div class="footer-line">😊 よい旅を！🚪✨</div>
+  </section>
+
+  <!-- ── Script ── -->
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.lang-section');
+    let activeLang = 'ko';
+
+    // Tab switching
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeLang = btn.dataset.lang;
+
+        tabs.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+
+        sections.forEach(s => {
+          s.classList.toggle('visible', s.dataset.lang === activeLang);
+        });
+      });
+    });
+
+    // Print single language
+    function printSingle() {
+      document.body.classList.add('print-single');
+      sections.forEach(s => {
+        s.classList.toggle('print-target', s.dataset.lang === activeLang);
+      });
+
+      window.print();
+
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      setTimeout(restoreScreen, 2000);
+    }
+
+    // Print all languages
+    function printAll() {
+      document.body.classList.remove('print-single');
+      const langOrder = ['ko', 'en', 'zh', 'ja'];
+      sections.forEach(s => {
+        s.classList.add('print-target');
+        s.style.order = langOrder.indexOf(s.dataset.lang);
+      });
+
+      window.print();
+
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      setTimeout(restoreScreen, 2000);
+    }
+
+    let restored = false;
+    function restoreScreen() {
+      if (restored) return;
+      restored = true;
+
+      document.body.classList.remove('print-single');
+      sections.forEach(s => {
+        s.classList.remove('print-target');
+        s.style.order = '';
+      });
+
+      sections.forEach(s => {
+        s.classList.toggle('visible', s.dataset.lang === activeLang);
+      });
+
+      setTimeout(() => { restored = false; }, 100);
+    }
+
+    // A4 높이 체크 — 모든 언어를 순회하며 초과 여부 감지
+    function checkA4Overflow() {
+      const a4Height = 280 * 3.7795; // 여유 있게 280mm 기준 (실제 인쇄와 오차 보정)
+
+      sections.forEach(s => {
+        const wasVisible = s.classList.contains('visible');
+        s.style.display = 'block';
+        s.style.visibility = wasVisible ? '' : 'hidden';
+        s.style.position = wasVisible ? '' : 'absolute';
+
+        const contentHeight = s.scrollHeight;
+        const lang = s.dataset.lang;
+
+        s.querySelectorAll('.a4-limit-line, .overflow-warning').forEach(el => el.remove());
+        s.classList.remove('overflow');
+
+        const line = document.createElement('div');
+        line.className = 'a4-limit-line';
+        line.innerHTML = '<span class="a4-limit-label">A4 한 장 한계선 ✂</span>';
+        s.appendChild(line);
+
+        if (contentHeight > a4Height) {
+          s.classList.add('overflow');
+          const warn = document.createElement('div');
+          warn.className = 'overflow-warning';
+          warn.textContent = `⚠ [${lang.toUpperCase()}] A4 한 장 초과! (${Math.round(contentHeight)}px / ${Math.round(a4Height)}px) 내용을 줄여주세요.`;
+          s.appendChild(warn);
+        }
+
+        if (!wasVisible) {
+          s.style.display = '';
+          s.style.visibility = '';
+          s.style.position = '';
+        } else {
+          s.style.display = '';
+          s.style.visibility = '';
+          s.style.position = '';
+        }
+      });
+    }
+
+    window.addEventListener('load', checkA4Overflow);
+    window.addEventListener('resize', checkA4Overflow);
+  </script>
+
+</body>
+</html>

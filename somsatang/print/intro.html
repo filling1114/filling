@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>솜사탕 (Candy Cotton) | 숙소 소개</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #E07A9E;
+      --green-light: #FDEEF3;
+      --green-dark: #CC6188;
+      --text: #3e2c33;
+      --text-light: #6e5a62;
+      --bg: #FFF7FA;
+      --white: #ffffff;
+      --border: #F5CFDC;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'Nunito', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Screen Layout ── */
+    .screen-controls {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 2px solid var(--green);
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 4px;
+      background: var(--green-light);
+      border-radius: 8px;
+      padding: 4px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      color: var(--green-dark);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: rgba(224,122,158,0.15);
+    }
+
+    .tab-btn.active {
+      background: var(--green);
+      color: var(--white);
+      box-shadow: 0 2px 4px rgba(224,122,158,0.3);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .print-btn {
+      border: 2px solid var(--green);
+      background: var(--white);
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      color: var(--green);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .print-btn:hover {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .print-btn.primary:hover {
+      background: var(--green-dark);
+      border-color: var(--green-dark);
+    }
+
+    /* ── Page Content ── */
+    .lang-section {
+      display: none;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 24px 48px;
+      position: relative;
+    }
+
+    .a4-limit-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      /* A4 = 297mm - 상하 margin 30mm = 267mm */
+      top: 280mm;
+      border-top: 2px dashed #e74c3c;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .a4-limit-label {
+      position: absolute;
+      right: 8px;
+      top: -20px;
+      background: #e74c3c;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .overflow-warning {
+      display: none;
+      background: #e74c3c;
+      color: white;
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      margin-top: 12px;
+    }
+
+    .lang-section.overflow .overflow-warning {
+      display: block;
+    }
+
+    .lang-section.visible {
+      display: block;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid var(--green);
+    }
+
+    .page-header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .page-header .subtitle {
+      font-size: 20px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .page-header .welcome {
+      font-size: 15px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* ── Section ── */
+    .info-section {
+      margin-bottom: 22px;
+    }
+
+    .info-section h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--green-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-section h2 .num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .info-section p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .info-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .info-section ul li {
+      font-size: 14px;
+      line-height: 1.65;
+      padding: 3px 0 3px 20px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .info-section ul li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 11px;
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .amenity-label {
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .note-list li::before {
+      background: #e67e22 !important;
+    }
+
+    .footer-line {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 2px solid var(--green-light);
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    /* ── Print Styles ── */
+    @media print {
+      @page {
+        size: A4;
+        margin: 15mm;
+      }
+
+      body {
+        background: white;
+        font-size: 12pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .screen-controls,
+      .a4-limit-line,
+      .overflow-warning {
+        display: none !important;
+      }
+
+      .lang-section {
+        display: none !important;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+        page-break-inside: avoid;
+      }
+
+      .lang-section.print-target {
+        display: block !important;
+        page-break-after: always;
+      }
+
+      .lang-section.print-target:last-of-type,
+      .lang-section.print-target:nth-last-of-type(1) {
+        page-break-after: auto;
+      }
+
+      /* Remove page-break from the very last visible section */
+      body.print-single .lang-section.print-target {
+        page-break-after: auto;
+      }
+
+      .page-header h1 { font-size: 24pt; }
+      .page-header .subtitle { font-size: 15pt; }
+      .page-header .welcome { font-size: 12pt; }
+
+      .info-section { margin-bottom: 14pt; }
+      .info-section h2 { font-size: 14pt; }
+      .info-section p { font-size: 12pt; line-height: 1.55; }
+      .info-section ul li { font-size: 11.5pt; line-height: 1.5; padding: 2pt 0 2pt 16pt; }
+      .info-section ul li::before { top: 8pt; width: 5pt; height: 5pt; }
+
+      .footer-line { font-size: 10pt; margin-top: 12pt; padding-top: 10pt; }
+    }
+
+    /* ── Responsive ── */
+    @media screen and (max-width: 640px) {
+      .screen-controls {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-btns {
+        margin-left: 0;
+        justify-content: stretch;
+      }
+      .print-btn { flex: 1; text-align: center; }
+      .tab-btn { padding: 8px 12px; font-size: 13px; }
+      .lang-section { padding: 24px 16px 40px; }
+      .page-header h1 { font-size: 24px; }
+    }
+      .todo { background: #fff3b0; color: #b35c00; font-weight: 700; padding: 0 3px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Screen Controls ── -->
+  <div class="screen-controls">
+    <div class="tab-group">
+      <button class="tab-btn active" data-lang="ko">한국어</button>
+      <button class="tab-btn" data-lang="en">English</button>
+      <button class="tab-btn" data-lang="zh">中文</button>
+      <button class="tab-btn" data-lang="ja">日本語</button>
+    </div>
+    <div class="action-btns">
+      <button class="print-btn" onclick="printSingle()">이 언어만 출력 (Print this language)</button>
+      <button class="print-btn primary" onclick="printAll()">전체 출력 (Print all)</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Korean -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section visible" data-lang="ko">
+    <div class="page-header">
+      <h1>🏡 숙소 소개</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">달콤하고 포근한 솜사탕(Candy Cotton)에 오신 것을 환영합니다.</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> 숙소 정보</h2>
+      <p>안녕하세요, 솜사탕(Candy Cotton)에 오신 것을 환영합니다. 편안하고 아늑한 휴식을 위해 정성껏 준비했습니다.</p>
+      <p>세계문화유산 수원화성의 장안문·화홍문이 가까워 산책과 함께 다양한 볼거리, 먹거리를 즐기실 수 있습니다.</p>
+      <p>숙소 이용 안내를 확인하시어 즐거운 시간 보내시기 바라며, 궁금하신 점은 언제든 에어비앤비 앱을 통해 연락 주세요.</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> 이용 가능한 공간</h2>
+      <ul>
+        <li>방 구성: <span class="todo">[확인 필요]</span></li>
+        <li>침대: <span class="todo">[확인 필요]</span></li>
+        <li>최대 인원: <span class="todo">[확인 필요]</span></li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> 이용 가능한 시설</h2>
+      <ul>
+        <li><span class="amenity-label">기본 편의용품:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">주방용품:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">전자제품:</span> 에어컨, 세탁기, 건조기, 커피머신, <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">세탁용품:</span> 세탁세제, 건조기 시트, 미니 빨래건조대</li>
+        <li>TV로 넷플릭스 및 유튜브 시청 가능</li>
+        <li>무료 Wi-Fi 제공</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> 기타 주의 사항</h2>
+      <ul class="note-list">
+        <li>101호는 계단을 10개 정도 올라가는 1.5층 높이에 있습니다. 짐이 무거우신 분들은 참고해 주세요.</li>
+        <li>주차는 연무동·화홍문 공영주차장을 이용해 주세요. (24시간 운영, 1일 최대 7,000원)</li>
+        <li>반려동물 출입이 제한됩니다.</li>
+        <li>조용한 주택가이므로 밤 9시 이후에는 소음을 줄여 주세요.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- English -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="en">
+    <div class="page-header">
+      <h1>🏡 Accommodation Introduction</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">Welcome to Candy Cotton (솜사탕), a sweet and cozy stay!</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> Accommodation Information</h2>
+      <p>Welcome to Candy Cotton! We have prepared everything with care for a cozy and comfortable stay.</p>
+      <p>Janganmun Gate and Hwahongmun Gate of the UNESCO-listed Suwon Hwaseong Fortress are nearby — perfect for a walk, with plenty to see and eat.</p>
+      <p>Please check the house guide, and feel free to reach us anytime via the Airbnb app.</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> Available Spaces</h2>
+      <ul>
+        <li>Rooms: <span class="todo">[확인 필요]</span></li>
+        <li>Beds: <span class="todo">[확인 필요]</span></li>
+        <li>Max guests: <span class="todo">[확인 필요]</span></li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> Available Amenities</h2>
+      <ul>
+        <li><span class="amenity-label">Basic amenities:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">Kitchenware:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">Appliances:</span> Air conditioner, washer, dryer, coffee machine, <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">Laundry:</span> Detergent, dryer sheets, mini drying rack</li>
+        <li>Netflix and YouTube available on the TV</li>
+        <li>Free Wi-Fi</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> Other Important Notes</h2>
+      <ul class="note-list">
+        <li>Unit 101 is up about 10 steps (1.5th floor). Please keep this in mind if you have heavy luggage.</li>
+        <li>For parking, please use Yeonmu-dong or Hwahongmun Public Parking (open 24 hours, max ₩7,000 per day).</li>
+        <li>Pets are not allowed.</li>
+        <li>This is a quiet residential area — please keep noise down after 9 PM.</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Chinese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="zh">
+    <div class="page-header">
+      <h1>🏡 住宿介绍</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">欢迎来到甜蜜温馨的棉花糖（Candy Cotton）！</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> 住宿信息</h2>
+      <p>您好，欢迎来到棉花糖（Candy Cotton）！我们用心准备，希望您在这里舒适放松。</p>
+      <p>世界文化遗产水原华城的长安门、华虹门就在附近，散步之余还能享受各种景点和美食。</p>
+      <p>请查看住宿使用指南，如有任何问题，欢迎随时通过Airbnb应用联系我们。</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> 可使用空间</h2>
+      <ul>
+        <li>房间构成: <span class="todo">[확인 필요]</span></li>
+        <li>床: <span class="todo">[확인 필요]</span></li>
+        <li>最多人数: <span class="todo">[확인 필요]</span></li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> 可使用设施</h2>
+      <ul>
+        <li><span class="amenity-label">基本用品:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">厨房用品:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">电器:</span> 空调、洗衣机、烘干机、咖啡机、<span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">洗衣用品:</span> 洗衣液、烘干机柔顺片、迷你晾衣架</li>
+        <li>电视可观看Netflix和YouTube</li>
+        <li>免费Wi-Fi</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> 其他注意事项</h2>
+      <ul class="note-list">
+        <li>101号位于需上约10级台阶的1.5层高度，行李较重的客人请留意。</li>
+        <li>停车请使用练武洞、华虹门公营停车场（24小时营业，每日最高7,000韩元）。</li>
+        <li>禁止携带宠物。</li>
+        <li>这里是安静的住宅区，晚上9点后请降低音量。</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- Japanese -->
+  <!-- ══════════════════════════════════════════════ -->
+  <section class="lang-section" data-lang="ja">
+    <div class="page-header">
+      <h1>🏡 宿泊施設のご紹介</h1>
+      <div class="subtitle"></div>
+      <div class="welcome">甘くてふんわり、ソムサタン（Candy Cotton）へようこそ！</div>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">1</span> 宿泊施設のご案内</h2>
+      <p>こんにちは、ソムサタン（Candy Cotton）へようこそ。快適でくつろげる滞在のために心を込めて準備しました。</p>
+      <p>世界文化遺産・水原華城の長安門、華虹門がすぐ近くにあり、散策とともにさまざまな観光やグルメをお楽しみいただけます。</p>
+      <p>ご利用案内をご確認のうえ楽しい時間をお過ごしください。ご不明な点はいつでもAirbnbアプリからご連絡ください。</p>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">2</span> ご利用いただける空間</h2>
+      <ul>
+        <li>お部屋の構成: <span class="todo">[확인 필요]</span></li>
+        <li>ベッド: <span class="todo">[확인 필요]</span></li>
+        <li>最大人数: <span class="todo">[확인 필요]</span></li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">3</span> ご利用いただける設備</h2>
+      <ul>
+        <li><span class="amenity-label">基本アメニティ:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">キッチン用品:</span> <span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">家電:</span> エアコン、洗濯機、乾燥機、コーヒーマシン、<span class="todo">[확인 필요]</span></li>
+        <li><span class="amenity-label">洗濯用品:</span> 洗剤、乾燥機シート、ミニ物干しラック</li>
+        <li>TVでNetflix・YouTubeをご覧いただけます</li>
+        <li>無料Wi-Fi</li>
+      </ul>
+    </div>
+
+    <div class="info-section">
+      <h2><span class="num">4</span> その他のご注意</h2>
+      <ul class="note-list">
+        <li>101号室は階段を10段ほど上がった1.5階の高さにあります。お荷物が重い方はご注意ください。</li>
+        <li>駐車は練武洞・華虹門公営駐車場をご利用ください（24時間営業、1日最大7,000ウォン）。</li>
+        <li>ペットの同伴はご遠慮ください。</li>
+        <li>静かな住宅街のため、夜9時以降は音量にご配慮ください。</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- ── JavaScript ── -->
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.lang-section');
+    let activeLang = 'ko';
+
+    // Tab switching
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeLang = btn.dataset.lang;
+
+        tabs.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+
+        sections.forEach(s => {
+          s.classList.toggle('visible', s.dataset.lang === activeLang);
+        });
+      });
+    });
+
+    // Print single language
+    function printSingle() {
+      document.body.classList.add('print-single');
+      sections.forEach(s => {
+        s.classList.toggle('print-target', s.dataset.lang === activeLang);
+      });
+
+      window.print();
+
+      // Restore after print
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      // Fallback for browsers that don't fire afterprint reliably
+      setTimeout(restoreScreen, 2000);
+    }
+
+    // Print all languages
+    function printAll() {
+      document.body.classList.remove('print-single');
+      const langOrder = ['ko', 'en', 'zh', 'ja'];
+      sections.forEach(s => {
+        s.classList.add('print-target');
+        // Re-order in DOM for consistent print order
+        s.style.order = langOrder.indexOf(s.dataset.lang);
+      });
+
+      window.print();
+
+      window.addEventListener('afterprint', restoreScreen, { once: true });
+      setTimeout(restoreScreen, 2000);
+    }
+
+    let restored = false;
+    function restoreScreen() {
+      if (restored) return;
+      restored = true;
+
+      document.body.classList.remove('print-single');
+      sections.forEach(s => {
+        s.classList.remove('print-target');
+        s.style.order = '';
+      });
+
+      // Reset to restore the previously active tab view
+      sections.forEach(s => {
+        s.classList.toggle('visible', s.dataset.lang === activeLang);
+      });
+
+      // Allow next print cycle
+      setTimeout(() => { restored = false; }, 100);
+    }
+
+    // A4 높이 체크 — 모든 언어를 순회하며 초과 여부 감지
+    function checkA4Overflow() {
+      // A4 = 297mm, margin 상하 15mm씩 = 267mm
+      const a4Height = 280 * 3.7795; // 여유 있게 280mm 기준 (실제 인쇄와 오차 보정)
+
+      sections.forEach(s => {
+        // 잠시 보이게 해서 높이 측정
+        const wasVisible = s.classList.contains('visible');
+        s.style.display = 'block';
+        s.style.visibility = wasVisible ? '' : 'hidden';
+        s.style.position = wasVisible ? '' : 'absolute';
+
+        const contentHeight = s.scrollHeight;
+        const lang = s.dataset.lang;
+
+        // 기존 경고/경계선 제거
+        s.querySelectorAll('.a4-limit-line, .overflow-warning').forEach(el => el.remove());
+        s.classList.remove('overflow');
+
+        // A4 경계선 추가
+        const line = document.createElement('div');
+        line.className = 'a4-limit-line';
+        line.innerHTML = '<span class="a4-limit-label">A4 한 장 한계선 ✂</span>';
+        s.appendChild(line);
+
+        // 초과 시 경고
+        if (contentHeight > a4Height) {
+          s.classList.add('overflow');
+          const warn = document.createElement('div');
+          warn.className = 'overflow-warning';
+          warn.textContent = `⚠ [${lang.toUpperCase()}] A4 한 장 초과! (${Math.round(contentHeight)}px / ${Math.round(a4Height)}px) 내용을 줄여주세요.`;
+          s.appendChild(warn);
+        }
+
+        // 원래 상태로 복원
+        if (!wasVisible) {
+          s.style.display = '';
+          s.style.visibility = '';
+          s.style.position = '';
+        } else {
+          s.style.display = '';
+          s.style.visibility = '';
+          s.style.position = '';
+        }
+      });
+    }
+
+    // 페이지 로드 시 + 탭 전환 시 체크
+    window.addEventListener('load', checkA4Overflow);
+    window.addEventListener('resize', checkA4Overflow);
+  </script>
+
+</body>
+</html>
