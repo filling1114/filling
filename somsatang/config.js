@@ -182,10 +182,10 @@ const CONFIG = {
     ],
     tv: [
       { src: './assets/img/tv/01_remote.jpg', type: 'image', caption: {
-        ko: "왼쪽 위 전원 버튼으로 TV를 켜세요\nYouTube·Netflix·쿠팡플레이 버튼으로 바로 볼 수 있어요",
-        en: "Turn on the TV with the power button (top left)\nUse the YouTube, Netflix and Coupang Play buttons to watch right away",
-        ja: "左上の電源ボタンでTVをオンにしてください\nYouTube・Netflix・Coupang Playボタンですぐに視聴できます",
-        zh: "按左上方电源按钮打开电视\n可直接按YouTube、Netflix、Coupang Play按钮观看" } },
+        ko: "왼쪽 위 전원 버튼으로 TV를 켜세요\nYouTube·Netflix 버튼으로 바로 볼 수 있어요",
+        en: "Turn on the TV with the power button (top left)\nUse the YouTube and Netflix buttons to watch right away",
+        ja: "左上の電源ボタンでTVをオンにしてください\nYouTube・Netflixボタンですぐに視聴できます",
+        zh: "按左上方电源按钮打开电视\n可直接按YouTube、Netflix按钮观看" } },
       { src: './assets/img/tv/02_router_box.jpg', type: 'image', caption: {
         ko: "책 모양 정리함 안에 Wi-Fi 공유기와 TV 셋톱박스가 있어요",
         en: "The Wi-Fi router and TV set-top box are inside the book-shaped box",
