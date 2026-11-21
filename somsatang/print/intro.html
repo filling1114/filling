@@ -275,7 +275,10 @@
     }
 
     /* ── Print Styles ── */
+    .pbr { display: none; }
+
     @media print {
+      .pbr { display: inline; }
       @page {
         size: A4;
         margin: 15mm;
@@ -323,7 +326,8 @@
 
       .info-section { margin-bottom: 14pt; }
       .info-section h2 { font-size: 14pt; }
-      .info-section p { font-size: 12pt; line-height: 1.55; }
+      .info-section p { font-size: 12pt; line-height: 1.55; word-break: keep-all; }
+      .info-section ul li { word-break: keep-all; }
       .info-section ul li { font-size: 11.5pt; line-height: 1.5; padding: 2pt 0 2pt 16pt; }
       .info-section ul li::before { top: 8pt; width: 5pt; height: 5pt; }
 
@@ -377,9 +381,9 @@
 
     <div class="info-section">
       <h2><span class="num">1</span> 숙소 정보</h2>
-      <p>안녕하세요, 솜사탕(Candy Cotton)에 오신 것을 환영합니다. 편안하고 아늑한 휴식을 위해 정성껏 준비했습니다.</p>
-      <p>세계문화유산 수원화성의 장안문·화홍문이 가까워 산책과 함께 다양한 볼거리, 먹거리를 즐기실 수 있습니다.</p>
-      <p>숙소 이용 안내를 확인하시어 즐거운 시간 보내시기 바라며, 궁금하신 점은 언제든 에어비앤비 앱을 통해 연락 주세요.</p>
+      <p>안녕하세요, 솜사탕(Candy Cotton)에 오신 것을 환영합니다.<br class="pbr">편안하고 아늑한 휴식을 위해 정성껏 준비했습니다.</p>
+      <p>세계문화유산 수원화성의 장안문·화홍문이 가까워<br class="pbr">산책과 함께 다양한 볼거리, 먹거리를 즐기실 수 있습니다.</p>
+      <p>숙소 이용 안내를 확인하시어 즐거운 시간 보내시기 바라며,<br class="pbr">궁금하신 점은 언제든 에어비앤비 앱을 통해 연락 주세요.</p>
     </div>
 
     <div class="info-section">
